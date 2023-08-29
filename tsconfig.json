@@ -11,17 +11,18 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
       "@pages/*": ["src/pages/*"],
-      "@lib/*": ["src/lib/*"],
+      "@lib/*": ["src/lib/*"]
     }
   },
-  "include": ["src", "scripts"],
+  "include": ["src", "scripts"]
 }

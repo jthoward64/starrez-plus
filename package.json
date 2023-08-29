@@ -15,8 +15,9 @@
   "type": "module",
   "dependencies": {
     "@types/webextension-polyfill": "^0.10.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "domutils": "^3.1.0",
+    "htmlparser2": "^9.0.0",
+    "preact": "^10.17.1",
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
@@ -24,8 +25,6 @@
     "@types/chrome": "^0.0.209",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.11.18",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "autoprefixer": "^10.4.13",
@@ -36,8 +35,6 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "fs-extra": "^11.1.0",
     "get-installed-browsers": "^0.1.7",
     "node-watch": "^0.7.3",

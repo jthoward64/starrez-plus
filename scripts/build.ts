@@ -548,7 +548,7 @@ function getCommand(command: string, args: Record<string, string | null>) {
 function LaunchCommand(browser: BrowserPath, profileDir: string) {
   const command = "web-ext run";
   const args: Record<string, string | null> = {
-    "start-url": "example.com",
+    "start-url": "https://starport.uky.edu/StarRezWeb",
     "profile-create-if-missing": null,
     "browser-console": null,
     "keep-profile-changes": null
