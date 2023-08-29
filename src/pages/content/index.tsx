@@ -23,10 +23,7 @@ function Content(): JSX.Element {
 }
 
 function init() {
-  const rootContainer = document.body;
-  if (!rootContainer) throw new Error("Can't find Content root element");
-  const root = createRoot(rootContainer);
-  root.render(<Content />);
+  alert("Run");
 }
 
 document.addEventListener("DOMContentLoaded", init);
