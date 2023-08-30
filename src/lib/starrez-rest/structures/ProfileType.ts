@@ -1,7 +1,8 @@
 // Generated from XML description of ProfileType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ProfileType {
   profileTypeID?: number;
@@ -53,6 +54,7 @@ export class ProfileType {
     } else {
       return new ProfileType(await response.text());
     }
+  }
 }
 
-}
+ProfileType satisfies StarRezStructureStatic<ProfileType>

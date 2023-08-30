@@ -1,7 +1,8 @@
 // Generated from XML description of PortalPage
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalPage {
   portalPageID?: number;
@@ -55,6 +56,7 @@ export class PortalPage {
     } else {
       return new PortalPage(await response.text());
     }
+  }
 }
 
-}
+PortalPage satisfies StarRezStructureStatic<PortalPage>

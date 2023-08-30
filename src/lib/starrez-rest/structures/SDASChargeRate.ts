@@ -1,7 +1,8 @@
 // Generated from XML description of SDASChargeRate
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class SDASChargeRate {
   sDASChargeRateID?: number;
@@ -61,6 +62,7 @@ export class SDASChargeRate {
     } else {
       return new SDASChargeRate(await response.text());
     }
+  }
 }
 
-}
+SDASChargeRate satisfies StarRezStructureStatic<SDASChargeRate>

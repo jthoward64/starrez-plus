@@ -1,7 +1,8 @@
 // Generated from XML description of ReportSubReportLink
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ReportSubReportLink {
   reportSubReportLinkID?: number;
@@ -49,6 +50,7 @@ export class ReportSubReportLink {
     } else {
       return new ReportSubReportLink(await response.text());
     }
+  }
 }
 
-}
+ReportSubReportLink satisfies StarRezStructureStatic<ReportSubReportLink>

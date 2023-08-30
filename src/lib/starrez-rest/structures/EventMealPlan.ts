@@ -1,7 +1,8 @@
 // Generated from XML description of EventMealPlan
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventMealPlan {
   eventMealPlanID?: number;
@@ -61,6 +62,7 @@ export class EventMealPlan {
     } else {
       return new EventMealPlan(await response.text());
     }
+  }
 }
 
-}
+EventMealPlan satisfies StarRezStructureStatic<EventMealPlan>

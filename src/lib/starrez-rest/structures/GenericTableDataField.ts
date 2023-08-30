@@ -1,7 +1,8 @@
 // Generated from XML description of GenericTableDataField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GenericTableDataField {
   genericTableDataFieldID?: number;
@@ -53,6 +54,7 @@ export class GenericTableDataField {
     } else {
       return new GenericTableDataField(await response.text());
     }
+  }
 }
 
-}
+GenericTableDataField satisfies StarRezStructureStatic<GenericTableDataField>

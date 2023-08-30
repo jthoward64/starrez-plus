@@ -1,7 +1,8 @@
 // Generated from XML description of Staff
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Staff {
   staffID?: number;
@@ -43,6 +44,7 @@ export class Staff {
     } else {
       return new Staff(await response.text());
     }
+  }
 }
 
-}
+Staff satisfies StarRezStructureStatic<Staff>

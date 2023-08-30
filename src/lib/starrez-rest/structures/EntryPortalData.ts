@@ -1,7 +1,8 @@
 // Generated from XML description of EntryPortalData
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryPortalData {
   entryPortalDataID?: number;
@@ -51,6 +52,7 @@ export class EntryPortalData {
     } else {
       return new EntryPortalData(await response.text());
     }
+  }
 }
 
-}
+EntryPortalData satisfies StarRezStructureStatic<EntryPortalData>

@@ -1,7 +1,8 @@
 // Generated from XML description of WorkflowHistory
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WorkflowHistory {
   workflowHistoryID?: number;
@@ -59,6 +60,7 @@ export class WorkflowHistory {
     } else {
       return new WorkflowHistory(await response.text());
     }
+  }
 }
 
-}
+WorkflowHistory satisfies StarRezStructureStatic<WorkflowHistory>

@@ -1,7 +1,8 @@
 // Generated from XML description of CategoryLevel
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class CategoryLevel {
   categoryID?: number;
@@ -53,6 +54,7 @@ export class CategoryLevel {
     } else {
       return new CategoryLevel(await response.text());
     }
+  }
 }
 
-}
+CategoryLevel satisfies StarRezStructureStatic<CategoryLevel>

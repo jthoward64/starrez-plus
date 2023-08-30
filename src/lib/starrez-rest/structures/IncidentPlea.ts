@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentPlea
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentPlea {
   incidentPleaID?: number;
@@ -43,6 +44,7 @@ export class IncidentPlea {
     } else {
       return new IncidentPlea(await response.text());
     }
+  }
 }
 
-}
+IncidentPlea satisfies StarRezStructureStatic<IncidentPlea>

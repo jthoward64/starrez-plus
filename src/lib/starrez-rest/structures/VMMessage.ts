@@ -1,7 +1,8 @@
 // Generated from XML description of VMMessage
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMMessage {
   vMMessageID?: number;
@@ -57,6 +58,7 @@ export class VMMessage {
     } else {
       return new VMMessage(await response.text());
     }
+  }
 }
 
-}
+VMMessage satisfies StarRezStructureStatic<VMMessage>

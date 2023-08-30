@@ -1,7 +1,8 @@
 // Generated from XML description of ChargeItem
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ChargeItem {
   chargeItemID?: number;
@@ -89,6 +90,7 @@ export class ChargeItem {
     } else {
       return new ChargeItem(await response.text());
     }
+  }
 }
 
-}
+ChargeItem satisfies StarRezStructureStatic<ChargeItem>

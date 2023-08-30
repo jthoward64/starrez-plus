@@ -1,7 +1,8 @@
 // Generated from XML description of PortalUserToken
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalUserToken {
   portalUserTokenID?: number;
@@ -53,6 +54,7 @@ export class PortalUserToken {
     } else {
       return new PortalUserToken(await response.text());
     }
+  }
 }
 
-}
+PortalUserToken satisfies StarRezStructureStatic<PortalUserToken>

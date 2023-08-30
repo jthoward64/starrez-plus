@@ -1,7 +1,8 @@
 // Generated from XML description of ResponseStatus
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ResponseStatus {
   responseStatusID?: number;
@@ -39,6 +40,7 @@ export class ResponseStatus {
     } else {
       return new ResponseStatus(await response.text());
     }
+  }
 }
 
-}
+ResponseStatus satisfies StarRezStructureStatic<ResponseStatus>

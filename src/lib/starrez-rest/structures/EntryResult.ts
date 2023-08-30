@@ -1,7 +1,8 @@
 // Generated from XML description of EntryResult
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryResult {
   entryResultID?: number;
@@ -63,6 +64,7 @@ export class EntryResult {
     } else {
       return new EntryResult(await response.text());
     }
+  }
 }
 
-}
+EntryResult satisfies StarRezStructureStatic<EntryResult>

@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentEntryViolation
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentEntryViolation {
   incidentEntryViolationID?: number;
@@ -55,6 +56,7 @@ export class IncidentEntryViolation {
     } else {
       return new IncidentEntryViolation(await response.text());
     }
+  }
 }
 
-}
+IncidentEntryViolation satisfies StarRezStructureStatic<IncidentEntryViolation>

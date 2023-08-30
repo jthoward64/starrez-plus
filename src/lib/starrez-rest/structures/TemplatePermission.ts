@@ -1,7 +1,8 @@
 // Generated from XML description of TemplatePermission
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TemplatePermission {
   templatePermissionID?: number;
@@ -43,6 +44,7 @@ export class TemplatePermission {
     } else {
       return new TemplatePermission(await response.text());
     }
+  }
 }
 
-}
+TemplatePermission satisfies StarRezStructureStatic<TemplatePermission>

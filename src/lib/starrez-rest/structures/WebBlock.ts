@@ -1,7 +1,8 @@
 // Generated from XML description of WebBlock
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebBlock {
   webBlockID?: number;
@@ -79,6 +80,7 @@ export class WebBlock {
     } else {
       return new WebBlock(await response.text());
     }
+  }
 }
 
-}
+WebBlock satisfies StarRezStructureStatic<WebBlock>

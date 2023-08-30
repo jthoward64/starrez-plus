@@ -1,7 +1,8 @@
 // Generated from XML description of VMGroupMessage
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMGroupMessage {
   vMGroupMessageID?: number;
@@ -55,6 +56,7 @@ export class VMGroupMessage {
     } else {
       return new VMGroupMessage(await response.text());
     }
+  }
 }
 
-}
+VMGroupMessage satisfies StarRezStructureStatic<VMGroupMessage>

@@ -1,7 +1,8 @@
 // Generated from XML description of Housekeeping
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Housekeeping {
   housekeepingID?: number;
@@ -69,6 +70,7 @@ export class Housekeeping {
     } else {
       return new Housekeeping(await response.text());
     }
+  }
 }
 
-}
+Housekeeping satisfies StarRezStructureStatic<Housekeeping>

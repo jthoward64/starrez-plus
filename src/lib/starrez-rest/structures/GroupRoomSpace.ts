@@ -1,7 +1,8 @@
 // Generated from XML description of GroupRoomSpace
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GroupRoomSpace {
   groupRoomSpaceID?: number;
@@ -47,6 +48,7 @@ export class GroupRoomSpace {
     } else {
       return new GroupRoomSpace(await response.text());
     }
+  }
 }
 
-}
+GroupRoomSpace satisfies StarRezStructureStatic<GroupRoomSpace>

@@ -1,7 +1,8 @@
 // Generated from XML description of ContributionNote
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ContributionNote {
   contributionNoteID?: number;
@@ -53,6 +54,7 @@ export class ContributionNote {
     } else {
       return new ContributionNote(await response.text());
     }
+  }
 }
 
-}
+ContributionNote satisfies StarRezStructureStatic<ContributionNote>

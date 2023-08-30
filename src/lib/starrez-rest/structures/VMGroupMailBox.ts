@@ -1,7 +1,8 @@
 // Generated from XML description of VMGroupMailBox
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMGroupMailBox {
   vMGroupMailBoxID?: number;
@@ -41,6 +42,7 @@ export class VMGroupMailBox {
     } else {
       return new VMGroupMailBox(await response.text());
     }
+  }
 }
 
-}
+VMGroupMailBox satisfies StarRezStructureStatic<VMGroupMailBox>

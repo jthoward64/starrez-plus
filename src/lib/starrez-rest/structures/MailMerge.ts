@@ -1,7 +1,8 @@
 // Generated from XML description of MailMerge
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class MailMerge {
   mailMergeID?: number;
@@ -61,6 +62,7 @@ export class MailMerge {
     } else {
       return new MailMerge(await response.text());
     }
+  }
 }
 
-}
+MailMerge satisfies StarRezStructureStatic<MailMerge>

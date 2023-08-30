@@ -1,7 +1,8 @@
 // Generated from XML description of FunctionRoomClosed
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class FunctionRoomClosed {
   functionRoomClosedID?: number;
@@ -69,6 +70,7 @@ export class FunctionRoomClosed {
     } else {
       return new FunctionRoomClosed(await response.text());
     }
+  }
 }
 
-}
+FunctionRoomClosed satisfies StarRezStructureStatic<FunctionRoomClosed>

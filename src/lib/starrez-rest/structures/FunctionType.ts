@@ -1,7 +1,8 @@
 // Generated from XML description of FunctionType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class FunctionType {
   functionTypeID?: number;
@@ -43,6 +44,7 @@ export class FunctionType {
     } else {
       return new FunctionType(await response.text());
     }
+  }
 }
 
-}
+FunctionType satisfies StarRezStructureStatic<FunctionType>

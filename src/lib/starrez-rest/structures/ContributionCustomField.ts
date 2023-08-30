@@ -1,7 +1,8 @@
 // Generated from XML description of ContributionCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ContributionCustomField {
   contributionCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class ContributionCustomField {
     } else {
       return new ContributionCustomField(await response.text());
     }
+  }
 }
 
-}
+ContributionCustomField satisfies StarRezStructureStatic<ContributionCustomField>

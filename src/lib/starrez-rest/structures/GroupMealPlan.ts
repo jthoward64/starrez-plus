@@ -1,7 +1,8 @@
 // Generated from XML description of GroupMealPlan
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GroupMealPlan {
   groupMealPlanID?: number;
@@ -61,6 +62,7 @@ export class GroupMealPlan {
     } else {
       return new GroupMealPlan(await response.text());
     }
+  }
 }
 
-}
+GroupMealPlan satisfies StarRezStructureStatic<GroupMealPlan>

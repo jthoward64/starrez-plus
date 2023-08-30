@@ -1,7 +1,8 @@
 // Generated from XML description of RefundRequestBreakUp
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RefundRequestBreakUp {
   refundRequestBreakUpID?: number;
@@ -49,6 +50,7 @@ export class RefundRequestBreakUp {
     } else {
       return new RefundRequestBreakUp(await response.text());
     }
+  }
 }
 
-}
+RefundRequestBreakUp satisfies StarRezStructureStatic<RefundRequestBreakUp>

@@ -1,7 +1,8 @@
 // Generated from XML description of EntryApplicationCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryApplicationCustomField {
   entryApplicationCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class EntryApplicationCustomField {
     } else {
       return new EntryApplicationCustomField(await response.text());
     }
+  }
 }
 
-}
+EntryApplicationCustomField satisfies StarRezStructureStatic<EntryApplicationCustomField>

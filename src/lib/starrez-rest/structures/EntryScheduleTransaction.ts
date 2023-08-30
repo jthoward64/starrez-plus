@@ -1,7 +1,8 @@
 // Generated from XML description of EntryScheduleTransaction
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryScheduleTransaction {
   entryScheduleTransactionID?: number;
@@ -71,6 +72,7 @@ export class EntryScheduleTransaction {
     } else {
       return new EntryScheduleTransaction(await response.text());
     }
+  }
 }
 
-}
+EntryScheduleTransaction satisfies StarRezStructureStatic<EntryScheduleTransaction>

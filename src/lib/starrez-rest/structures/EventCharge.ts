@@ -1,7 +1,8 @@
 // Generated from XML description of EventCharge
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventCharge {
   eventChargeID?: number;
@@ -63,6 +64,7 @@ export class EventCharge {
     } else {
       return new EventCharge(await response.text());
     }
+  }
 }
 
-}
+EventCharge satisfies StarRezStructureStatic<EventCharge>

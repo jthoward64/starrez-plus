@@ -1,7 +1,8 @@
 // Generated from XML description of EntryParcel
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryParcel {
   entryParcelID?: number;
@@ -87,6 +88,7 @@ export class EntryParcel {
     } else {
       return new EntryParcel(await response.text());
     }
+  }
 }
 
-}
+EntryParcel satisfies StarRezStructureStatic<EntryParcel>

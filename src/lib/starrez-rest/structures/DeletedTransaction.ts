@@ -1,7 +1,8 @@
 // Generated from XML description of DeletedTransaction
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class DeletedTransaction {
   deletedTransactionID?: number;
@@ -101,6 +102,7 @@ export class DeletedTransaction {
     } else {
       return new DeletedTransaction(await response.text());
     }
+  }
 }
 
-}
+DeletedTransaction satisfies StarRezStructureStatic<DeletedTransaction>

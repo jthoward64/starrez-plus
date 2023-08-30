@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentAppealType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentAppealType {
   incidentAppealTypeID?: number;
@@ -43,6 +44,7 @@ export class IncidentAppealType {
     } else {
       return new IncidentAppealType(await response.text());
     }
+  }
 }
 
-}
+IncidentAppealType satisfies StarRezStructureStatic<IncidentAppealType>

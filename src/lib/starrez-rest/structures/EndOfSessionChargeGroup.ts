@@ -1,7 +1,8 @@
 // Generated from XML description of EndOfSessionChargeGroup
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EndOfSessionChargeGroup {
   endOfSessionChargeGroupID?: number;
@@ -41,6 +42,7 @@ export class EndOfSessionChargeGroup {
     } else {
       return new EndOfSessionChargeGroup(await response.text());
     }
+  }
 }
 
-}
+EndOfSessionChargeGroup satisfies StarRezStructureStatic<EndOfSessionChargeGroup>

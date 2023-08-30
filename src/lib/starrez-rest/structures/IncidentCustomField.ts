@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentCustomField {
   incidentCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class IncidentCustomField {
     } else {
       return new IncidentCustomField(await response.text());
     }
+  }
 }
 
-}
+IncidentCustomField satisfies StarRezStructureStatic<IncidentCustomField>

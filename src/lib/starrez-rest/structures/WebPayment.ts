@@ -1,7 +1,8 @@
 // Generated from XML description of WebPayment
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebPayment {
   webPaymentID?: number;
@@ -73,6 +74,7 @@ export class WebPayment {
     } else {
       return new WebPayment(await response.text());
     }
+  }
 }
 
-}
+WebPayment satisfies StarRezStructureStatic<WebPayment>

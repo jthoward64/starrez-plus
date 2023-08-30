@@ -1,7 +1,8 @@
 // Generated from XML description of EventRegistrationFee
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventRegistrationFee {
   eventRegistrationFeeID?: number;
@@ -65,6 +66,7 @@ export class EventRegistrationFee {
     } else {
       return new EventRegistrationFee(await response.text());
     }
+  }
 }
 
-}
+EventRegistrationFee satisfies StarRezStructureStatic<EventRegistrationFee>

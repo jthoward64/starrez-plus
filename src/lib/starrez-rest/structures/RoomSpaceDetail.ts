@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceDetail
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceDetail {
   roomSpaceDetailID?: number;
@@ -79,6 +80,7 @@ export class RoomSpaceDetail {
     } else {
       return new RoomSpaceDetail(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceDetail satisfies StarRezStructureStatic<RoomSpaceDetail>

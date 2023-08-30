@@ -1,7 +1,8 @@
 // Generated from XML description of Preference
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Preference {
   preferenceID?: number;
@@ -65,6 +66,7 @@ export class Preference {
     } else {
       return new Preference(await response.text());
     }
+  }
 }
 
-}
+Preference satisfies StarRezStructureStatic<Preference>

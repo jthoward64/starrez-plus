@@ -1,7 +1,8 @@
 // Generated from XML description of RoommateGroup
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoommateGroup {
   roommateGroupID?: number;
@@ -77,6 +78,7 @@ export class RoommateGroup {
     } else {
       return new RoommateGroup(await response.text());
     }
+  }
 }
 
-}
+RoommateGroup satisfies StarRezStructureStatic<RoommateGroup>

@@ -1,7 +1,8 @@
 // Generated from XML description of Payment
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Payment {
   paymentID?: number;
@@ -75,6 +76,7 @@ export class Payment {
     } else {
       return new Payment(await response.text());
     }
+  }
 }
 
-}
+Payment satisfies StarRezStructureStatic<Payment>

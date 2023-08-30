@@ -1,7 +1,8 @@
 // Generated from XML description of Lookup
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Lookup {
   lookupID?: number;
@@ -41,6 +42,7 @@ export class Lookup {
     } else {
       return new Lookup(await response.text());
     }
+  }
 }
 
-}
+Lookup satisfies StarRezStructureStatic<Lookup>

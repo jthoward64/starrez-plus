@@ -1,7 +1,8 @@
 // Generated from XML description of EntrySituationResponseHistory
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntrySituationResponseHistory {
   entrySituationResponseHistoryID?: number;
@@ -51,6 +52,7 @@ export class EntrySituationResponseHistory {
     } else {
       return new EntrySituationResponseHistory(await response.text());
     }
+  }
 }
 
-}
+EntrySituationResponseHistory satisfies StarRezStructureStatic<EntrySituationResponseHistory>

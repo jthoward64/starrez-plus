@@ -1,7 +1,8 @@
 // Generated from XML description of EntryApplicationRoomPreference
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryApplicationRoomPreference {
   entryApplicationRoomPreferenceID?: number;
@@ -45,6 +46,7 @@ export class EntryApplicationRoomPreference {
     } else {
       return new EntryApplicationRoomPreference(await response.text());
     }
+  }
 }
 
-}
+EntryApplicationRoomPreference satisfies StarRezStructureStatic<EntryApplicationRoomPreference>

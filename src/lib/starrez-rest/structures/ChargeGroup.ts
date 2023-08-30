@@ -1,7 +1,8 @@
 // Generated from XML description of ChargeGroup
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ChargeGroup {
   chargeGroupID?: number;
@@ -89,6 +90,7 @@ export class ChargeGroup {
     } else {
       return new ChargeGroup(await response.text());
     }
+  }
 }
 
-}
+ChargeGroup satisfies StarRezStructureStatic<ChargeGroup>

@@ -1,7 +1,8 @@
 // Generated from XML description of ContributionEntry
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ContributionEntry {
   contributionEntryID?: number;
@@ -53,6 +54,7 @@ export class ContributionEntry {
     } else {
       return new ContributionEntry(await response.text());
     }
+  }
 }
 
-}
+ContributionEntry satisfies StarRezStructureStatic<ContributionEntry>

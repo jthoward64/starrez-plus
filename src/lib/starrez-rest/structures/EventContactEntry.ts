@@ -1,7 +1,8 @@
 // Generated from XML description of EventContactEntry
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventContactEntry {
   eventContactEntryID?: number;
@@ -45,6 +46,7 @@ export class EventContactEntry {
     } else {
       return new EventContactEntry(await response.text());
     }
+  }
 }
 
-}
+EventContactEntry satisfies StarRezStructureStatic<EventContactEntry>

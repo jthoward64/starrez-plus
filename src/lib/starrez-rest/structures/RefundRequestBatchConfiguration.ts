@@ -1,7 +1,8 @@
 // Generated from XML description of RefundRequestBatchConfiguration
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RefundRequestBatchConfiguration {
   refundRequestBatchConfigurationID?: number;
@@ -51,6 +52,7 @@ export class RefundRequestBatchConfiguration {
     } else {
       return new RefundRequestBatchConfiguration(await response.text());
     }
+  }
 }
 
-}
+RefundRequestBatchConfiguration satisfies StarRezStructureStatic<RefundRequestBatchConfiguration>

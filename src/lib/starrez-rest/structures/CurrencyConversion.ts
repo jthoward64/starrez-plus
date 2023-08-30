@@ -1,7 +1,8 @@
 // Generated from XML description of CurrencyConversion
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class CurrencyConversion {
   currencyConversionID?: number;
@@ -43,6 +44,7 @@ export class CurrencyConversion {
     } else {
       return new CurrencyConversion(await response.text());
     }
+  }
 }
 
-}
+CurrencyConversion satisfies StarRezStructureStatic<CurrencyConversion>

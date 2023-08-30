@@ -1,7 +1,8 @@
 // Generated from XML description of BookingReason
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class BookingReason {
   bookingReasonID?: number;
@@ -45,6 +46,7 @@ export class BookingReason {
     } else {
       return new BookingReason(await response.text());
     }
+  }
 }
 
-}
+BookingReason satisfies StarRezStructureStatic<BookingReason>

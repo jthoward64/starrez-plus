@@ -1,7 +1,8 @@
 // Generated from XML description of WebRuleLink
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebRuleLink {
   webRuleLinkID?: number;
@@ -51,6 +52,7 @@ export class WebRuleLink {
     } else {
       return new WebRuleLink(await response.text());
     }
+  }
 }
 
-}
+WebRuleLink satisfies StarRezStructureStatic<WebRuleLink>

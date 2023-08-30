@@ -1,7 +1,8 @@
 // Generated from XML description of PortalChoice
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalChoice {
   portalChoiceID?: number;
@@ -45,6 +46,7 @@ export class PortalChoice {
     } else {
       return new PortalChoice(await response.text());
     }
+  }
 }
 
-}
+PortalChoice satisfies StarRezStructureStatic<PortalChoice>

@@ -1,7 +1,8 @@
 // Generated from XML description of EntryAddress
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryAddress {
   entryAddressID?: number;
@@ -79,6 +80,7 @@ export class EntryAddress {
     } else {
       return new EntryAddress(await response.text());
     }
+  }
 }
 
-}
+EntryAddress satisfies StarRezStructureStatic<EntryAddress>

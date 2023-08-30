@@ -1,7 +1,8 @@
 // Generated from XML description of EntryScholarship
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryScholarship {
   entryScholarshipID?: number;
@@ -51,6 +52,7 @@ export class EntryScholarship {
     } else {
       return new EntryScholarship(await response.text());
     }
+  }
 }
 
-}
+EntryScholarship satisfies StarRezStructureStatic<EntryScholarship>

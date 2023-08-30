@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentSanctionType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentSanctionType {
   incidentSanctionTypeID?: number;
@@ -43,6 +44,7 @@ export class IncidentSanctionType {
     } else {
       return new IncidentSanctionType(await response.text());
     }
+  }
 }
 
-}
+IncidentSanctionType satisfies StarRezStructureStatic<IncidentSanctionType>

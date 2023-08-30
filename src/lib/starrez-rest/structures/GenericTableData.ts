@@ -1,7 +1,8 @@
 // Generated from XML description of GenericTableData
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GenericTableData {
   genericTableDataID?: number;
@@ -45,6 +46,7 @@ export class GenericTableData {
     } else {
       return new GenericTableData(await response.text());
     }
+  }
 }
 
-}
+GenericTableData satisfies StarRezStructureStatic<GenericTableData>

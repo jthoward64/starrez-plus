@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentFinding
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentFinding {
   incidentFindingID?: number;
@@ -45,6 +46,7 @@ export class IncidentFinding {
     } else {
       return new IncidentFinding(await response.text());
     }
+  }
 }
 
-}
+IncidentFinding satisfies StarRezStructureStatic<IncidentFinding>

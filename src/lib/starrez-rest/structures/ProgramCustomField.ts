@@ -1,7 +1,8 @@
 // Generated from XML description of ProgramCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ProgramCustomField {
   programCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class ProgramCustomField {
     } else {
       return new ProgramCustomField(await response.text());
     }
+  }
 }
 
-}
+ProgramCustomField satisfies StarRezStructureStatic<ProgramCustomField>

@@ -1,7 +1,8 @@
 // Generated from XML description of EntryNote
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryNote {
   entryNoteID?: number;
@@ -53,6 +54,7 @@ export class EntryNote {
     } else {
       return new EntryNote(await response.text());
     }
+  }
 }
 
-}
+EntryNote satisfies StarRezStructureStatic<EntryNote>

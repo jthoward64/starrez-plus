@@ -1,7 +1,8 @@
 // Generated from XML description of ProgramEntry
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ProgramEntry {
   programEntryID?: number;
@@ -59,6 +60,7 @@ export class ProgramEntry {
     } else {
       return new ProgramEntry(await response.text());
     }
+  }
 }
 
-}
+ProgramEntry satisfies StarRezStructureStatic<ProgramEntry>

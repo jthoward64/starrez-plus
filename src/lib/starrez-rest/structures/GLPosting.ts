@@ -1,7 +1,8 @@
 // Generated from XML description of GLPosting
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GLPosting {
   gLPostingID?: number;
@@ -47,6 +48,7 @@ export class GLPosting {
     } else {
       return new GLPosting(await response.text());
     }
+  }
 }
 
-}
+GLPosting satisfies StarRezStructureStatic<GLPosting>

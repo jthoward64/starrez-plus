@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceMaintenanceJobAction
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceMaintenanceJobAction {
   roomSpaceMaintenanceJobActionID?: number;
@@ -53,6 +54,7 @@ export class RoomSpaceMaintenanceJobAction {
     } else {
       return new RoomSpaceMaintenanceJobAction(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceMaintenanceJobAction satisfies StarRezStructureStatic<RoomSpaceMaintenanceJobAction>

@@ -1,7 +1,8 @@
 // Generated from XML description of WebLog
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebLog {
   webLogID?: number;
@@ -55,6 +56,7 @@ export class WebLog {
     } else {
       return new WebLog(await response.text());
     }
+  }
 }
 
-}
+WebLog satisfies StarRezStructureStatic<WebLog>

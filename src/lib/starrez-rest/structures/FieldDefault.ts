@@ -1,7 +1,8 @@
 // Generated from XML description of FieldDefault
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class FieldDefault {
   fieldDefaultID?: number;
@@ -61,6 +62,7 @@ export class FieldDefault {
     } else {
       return new FieldDefault(await response.text());
     }
+  }
 }
 
-}
+FieldDefault satisfies StarRezStructureStatic<FieldDefault>

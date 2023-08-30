@@ -1,7 +1,8 @@
 // Generated from XML description of FunctionRoom
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class FunctionRoom {
   functionRoomID?: number;
@@ -75,6 +76,7 @@ export class FunctionRoom {
     } else {
       return new FunctionRoom(await response.text());
     }
+  }
 }
 
-}
+FunctionRoom satisfies StarRezStructureStatic<FunctionRoom>

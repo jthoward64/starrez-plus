@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentAppealDecision
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentAppealDecision {
   incidentAppealDecisionID?: number;
@@ -43,6 +44,7 @@ export class IncidentAppealDecision {
     } else {
       return new IncidentAppealDecision(await response.text());
     }
+  }
 }
 
-}
+IncidentAppealDecision satisfies StarRezStructureStatic<IncidentAppealDecision>

@@ -1,7 +1,8 @@
 // Generated from XML description of EntryApplicationNote
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryApplicationNote {
   entryApplicationNoteID?: number;
@@ -53,6 +54,7 @@ export class EntryApplicationNote {
     } else {
       return new EntryApplicationNote(await response.text());
     }
+  }
 }
 
-}
+EntryApplicationNote satisfies StarRezStructureStatic<EntryApplicationNote>

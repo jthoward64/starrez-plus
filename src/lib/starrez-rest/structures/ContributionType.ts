@@ -1,7 +1,8 @@
 // Generated from XML description of ContributionType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ContributionType {
   contributionTypeID?: number;
@@ -43,6 +44,7 @@ export class ContributionType {
     } else {
       return new ContributionType(await response.text());
     }
+  }
 }
 
-}
+ContributionType satisfies StarRezStructureStatic<ContributionType>

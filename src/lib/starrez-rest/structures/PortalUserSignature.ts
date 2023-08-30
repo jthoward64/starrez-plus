@@ -1,7 +1,8 @@
 // Generated from XML description of PortalUserSignature
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalUserSignature {
   portalUserSignatureID?: number;
@@ -53,6 +54,7 @@ export class PortalUserSignature {
     } else {
       return new PortalUserSignature(await response.text());
     }
+  }
 }
 
-}
+PortalUserSignature satisfies StarRezStructureStatic<PortalUserSignature>

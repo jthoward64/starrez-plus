@@ -1,7 +1,8 @@
 // Generated from XML description of EventServicesQueuedEvent
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventServicesQueuedEvent {
   eventServicesQueuedEventID?: number;
@@ -45,6 +46,7 @@ export class EventServicesQueuedEvent {
     } else {
       return new EventServicesQueuedEvent(await response.text());
     }
+  }
 }
 
-}
+EventServicesQueuedEvent satisfies StarRezStructureStatic<EventServicesQueuedEvent>

@@ -1,7 +1,8 @@
 // Generated from XML description of RoomTypeCapacity
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomTypeCapacity {
   roomTypeCapacityID?: number;
@@ -51,6 +52,7 @@ export class RoomTypeCapacity {
     } else {
       return new RoomTypeCapacity(await response.text());
     }
+  }
 }
 
-}
+RoomTypeCapacity satisfies StarRezStructureStatic<RoomTypeCapacity>

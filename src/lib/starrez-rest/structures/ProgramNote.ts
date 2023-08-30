@@ -1,7 +1,8 @@
 // Generated from XML description of ProgramNote
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ProgramNote {
   programNoteID?: number;
@@ -53,6 +54,7 @@ export class ProgramNote {
     } else {
       return new ProgramNote(await response.text());
     }
+  }
 }
 
-}
+ProgramNote satisfies StarRezStructureStatic<ProgramNote>

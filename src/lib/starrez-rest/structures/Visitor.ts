@@ -1,7 +1,8 @@
 // Generated from XML description of Visitor
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Visitor {
   visitorID?: number;
@@ -87,6 +88,7 @@ export class Visitor {
     } else {
       return new Visitor(await response.text());
     }
+  }
 }
 
-}
+Visitor satisfies StarRezStructureStatic<Visitor>

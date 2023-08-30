@@ -1,7 +1,8 @@
 // Generated from XML description of PaymentType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PaymentType {
   paymentTypeID?: number;
@@ -57,6 +58,7 @@ export class PaymentType {
     } else {
       return new PaymentType(await response.text());
     }
+  }
 }
 
-}
+PaymentType satisfies StarRezStructureStatic<PaymentType>

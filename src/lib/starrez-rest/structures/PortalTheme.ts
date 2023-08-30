@@ -1,7 +1,8 @@
 // Generated from XML description of PortalTheme
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalTheme {
   portalThemeID?: number;
@@ -49,6 +50,7 @@ export class PortalTheme {
     } else {
       return new PortalTheme(await response.text());
     }
+  }
 }
 
-}
+PortalTheme satisfies StarRezStructureStatic<PortalTheme>

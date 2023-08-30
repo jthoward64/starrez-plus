@@ -1,7 +1,8 @@
 // Generated from XML description of EventCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventCustomField {
   eventCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class EventCustomField {
     } else {
       return new EventCustomField(await response.text());
     }
+  }
 }
 
-}
+EventCustomField satisfies StarRezStructureStatic<EventCustomField>

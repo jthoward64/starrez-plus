@@ -1,7 +1,8 @@
 // Generated from XML description of DashboardSharing
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class DashboardSharing {
   dashboardSharingID?: number;
@@ -41,6 +42,7 @@ export class DashboardSharing {
     } else {
       return new DashboardSharing(await response.text());
     }
+  }
 }
 
-}
+DashboardSharing satisfies StarRezStructureStatic<DashboardSharing>

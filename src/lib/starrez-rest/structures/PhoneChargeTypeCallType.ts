@@ -1,7 +1,8 @@
 // Generated from XML description of PhoneChargeTypeCallType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PhoneChargeTypeCallType {
   phoneChargeTypeCallTypeID?: number;
@@ -73,6 +74,7 @@ export class PhoneChargeTypeCallType {
     } else {
       return new PhoneChargeTypeCallType(await response.text());
     }
+  }
 }
 
-}
+PhoneChargeTypeCallType satisfies StarRezStructureStatic<PhoneChargeTypeCallType>

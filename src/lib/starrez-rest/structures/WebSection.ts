@@ -1,7 +1,8 @@
 // Generated from XML description of WebSection
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebSection {
   webSectionID?: number;
@@ -73,6 +74,7 @@ export class WebSection {
     } else {
       return new WebSection(await response.text());
     }
+  }
 }
 
-}
+WebSection satisfies StarRezStructureStatic<WebSection>

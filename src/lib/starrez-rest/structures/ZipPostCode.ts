@@ -1,7 +1,8 @@
 // Generated from XML description of ZipPostCode
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ZipPostCode {
   zipPostCodeID?: number;
@@ -47,6 +48,7 @@ export class ZipPostCode {
     } else {
       return new ZipPostCode(await response.text());
     }
+  }
 }
 
-}
+ZipPostCode satisfies StarRezStructureStatic<ZipPostCode>

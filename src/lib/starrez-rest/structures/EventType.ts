@@ -1,7 +1,8 @@
 // Generated from XML description of EventType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventType {
   eventTypeID?: number;
@@ -43,6 +44,7 @@ export class EventType {
     } else {
       return new EventType(await response.text());
     }
+  }
 }
 
-}
+EventType satisfies StarRezStructureStatic<EventType>

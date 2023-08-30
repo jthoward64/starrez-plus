@@ -1,7 +1,8 @@
 // Generated from XML description of EntryApplicationPreference
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryApplicationPreference {
   entryApplicationPreferenceID?: number;
@@ -45,6 +46,7 @@ export class EntryApplicationPreference {
     } else {
       return new EntryApplicationPreference(await response.text());
     }
+  }
 }
 
-}
+EntryApplicationPreference satisfies StarRezStructureStatic<EntryApplicationPreference>

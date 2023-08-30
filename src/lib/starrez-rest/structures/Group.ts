@@ -1,7 +1,8 @@
 // Generated from XML description of Group
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Group {
   groupID?: number;
@@ -99,6 +100,7 @@ export class Group {
     } else {
       return new Group(await response.text());
     }
+  }
 }
 
-}
+Group satisfies StarRezStructureStatic<Group>

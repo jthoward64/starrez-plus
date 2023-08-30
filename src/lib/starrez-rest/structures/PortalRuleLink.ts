@@ -1,7 +1,8 @@
 // Generated from XML description of PortalRuleLink
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalRuleLink {
   portalRuleLinkID?: number;
@@ -53,6 +54,7 @@ export class PortalRuleLink {
     } else {
       return new PortalRuleLink(await response.text());
     }
+  }
 }
 
-}
+PortalRuleLink satisfies StarRezStructureStatic<PortalRuleLink>

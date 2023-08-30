@@ -1,7 +1,8 @@
 // Generated from XML description of ShoppingCartItemHold
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ShoppingCartItemHold {
   shoppingCartItemHoldID?: number;
@@ -81,6 +82,7 @@ export class ShoppingCartItemHold {
     } else {
       return new ShoppingCartItemHold(await response.text());
     }
+  }
 }
 
-}
+ShoppingCartItemHold satisfies StarRezStructureStatic<ShoppingCartItemHold>

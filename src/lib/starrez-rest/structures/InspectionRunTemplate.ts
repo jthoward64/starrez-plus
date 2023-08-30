@@ -1,7 +1,8 @@
 // Generated from XML description of InspectionRunTemplate
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class InspectionRunTemplate {
   inspectionRunTemplateID?: number;
@@ -61,6 +62,7 @@ export class InspectionRunTemplate {
     } else {
       return new InspectionRunTemplate(await response.text());
     }
+  }
 }
 
-}
+InspectionRunTemplate satisfies StarRezStructureStatic<InspectionRunTemplate>

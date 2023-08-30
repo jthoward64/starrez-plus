@@ -1,7 +1,8 @@
 // Generated from XML description of WebMenuClassification
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebMenuClassification {
   webMenuClassificationID?: number;
@@ -47,6 +48,7 @@ export class WebMenuClassification {
     } else {
       return new WebMenuClassification(await response.text());
     }
+  }
 }
 
-}
+WebMenuClassification satisfies StarRezStructureStatic<WebMenuClassification>

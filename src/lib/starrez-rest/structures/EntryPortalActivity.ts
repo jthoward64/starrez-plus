@@ -1,7 +1,8 @@
 // Generated from XML description of EntryPortalActivity
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryPortalActivity {
   entryPortalActivityID?: number;
@@ -53,6 +54,7 @@ export class EntryPortalActivity {
     } else {
       return new EntryPortalActivity(await response.text());
     }
+  }
 }
 
-}
+EntryPortalActivity satisfies StarRezStructureStatic<EntryPortalActivity>

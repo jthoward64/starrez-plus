@@ -1,7 +1,8 @@
 // Generated from XML description of TransactionTag
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TransactionTag {
   transactionTagID?: number;
@@ -45,6 +46,7 @@ export class TransactionTag {
     } else {
       return new TransactionTag(await response.text());
     }
+  }
 }
 
-}
+TransactionTag satisfies StarRezStructureStatic<TransactionTag>

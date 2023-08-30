@@ -1,7 +1,8 @@
 // Generated from XML description of LogActivity
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class LogActivity {
   logActivityID?: number;
@@ -55,6 +56,7 @@ export class LogActivity {
     } else {
       return new LogActivity(await response.text());
     }
+  }
 }
 
-}
+LogActivity satisfies StarRezStructureStatic<LogActivity>

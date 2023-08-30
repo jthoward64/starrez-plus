@@ -1,7 +1,8 @@
 // Generated from XML description of ContactStatus
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ContactStatus {
   contactStatusID?: number;
@@ -43,6 +44,7 @@ export class ContactStatus {
     } else {
       return new ContactStatus(await response.text());
     }
+  }
 }
 
-}
+ContactStatus satisfies StarRezStructureStatic<ContactStatus>

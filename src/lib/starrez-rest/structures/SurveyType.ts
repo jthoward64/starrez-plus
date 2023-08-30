@@ -1,7 +1,8 @@
 // Generated from XML description of SurveyType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class SurveyType {
   surveyTypeID?: number;
@@ -41,6 +42,7 @@ export class SurveyType {
     } else {
       return new SurveyType(await response.text());
     }
+  }
 }
 
-}
+SurveyType satisfies StarRezStructureStatic<SurveyType>

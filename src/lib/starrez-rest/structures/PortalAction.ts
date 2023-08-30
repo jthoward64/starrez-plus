@@ -1,7 +1,8 @@
 // Generated from XML description of PortalAction
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalAction {
   portalActionID?: number;
@@ -49,6 +50,7 @@ export class PortalAction {
     } else {
       return new PortalAction(await response.text());
     }
+  }
 }
 
-}
+PortalAction satisfies StarRezStructureStatic<PortalAction>

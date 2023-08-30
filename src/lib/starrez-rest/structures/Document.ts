@@ -1,7 +1,8 @@
 // Generated from XML description of Document
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Document {
   documentID?: number;
@@ -51,6 +52,7 @@ export class Document {
     } else {
       return new Document(await response.text());
     }
+  }
 }
 
-}
+Document satisfies StarRezStructureStatic<Document>

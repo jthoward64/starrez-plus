@@ -1,7 +1,8 @@
 // Generated from XML description of Invoice
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Invoice {
   invoiceID?: number;
@@ -105,6 +106,7 @@ export class Invoice {
     } else {
       return new Invoice(await response.text());
     }
+  }
 }
 
-}
+Invoice satisfies StarRezStructureStatic<Invoice>

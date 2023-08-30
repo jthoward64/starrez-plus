@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSortProfile
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSortProfile {
   roomSortProfileID?: number;
@@ -55,6 +56,7 @@ export class RoomSortProfile {
     } else {
       return new RoomSortProfile(await response.text());
     }
+  }
 }
 
-}
+RoomSortProfile satisfies StarRezStructureStatic<RoomSortProfile>

@@ -1,7 +1,8 @@
 // Generated from XML description of ParcelType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ParcelType {
   parcelTypeID?: number;
@@ -43,6 +44,7 @@ export class ParcelType {
     } else {
       return new ParcelType(await response.text());
     }
+  }
 }
 
-}
+ParcelType satisfies StarRezStructureStatic<ParcelType>

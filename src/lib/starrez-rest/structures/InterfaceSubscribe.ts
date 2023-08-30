@@ -1,7 +1,8 @@
 // Generated from XML description of InterfaceSubscribe
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class InterfaceSubscribe {
   interfaceSubscribeID?: number;
@@ -41,6 +42,7 @@ export class InterfaceSubscribe {
     } else {
       return new InterfaceSubscribe(await response.text());
     }
+  }
 }
 
-}
+InterfaceSubscribe satisfies StarRezStructureStatic<InterfaceSubscribe>

@@ -1,7 +1,8 @@
 // Generated from XML description of RecordAttachment
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RecordAttachment {
   recordAttachmentID?: number;
@@ -55,6 +56,7 @@ export class RecordAttachment {
     } else {
       return new RecordAttachment(await response.text());
     }
+  }
 }
 
-}
+RecordAttachment satisfies StarRezStructureStatic<RecordAttachment>

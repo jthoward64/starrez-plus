@@ -1,7 +1,8 @@
 // Generated from XML description of WebField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebField {
   webFieldID?: number;
@@ -95,6 +96,7 @@ export class WebField {
     } else {
       return new WebField(await response.text());
     }
+  }
 }
 
-}
+WebField satisfies StarRezStructureStatic<WebField>

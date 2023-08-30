@@ -1,7 +1,8 @@
 // Generated from XML description of RefundRequest
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RefundRequest {
   refundRequestID?: number;
@@ -75,6 +76,7 @@ export class RefundRequest {
     } else {
       return new RefundRequest(await response.text());
     }
+  }
 }
 
-}
+RefundRequest satisfies StarRezStructureStatic<RefundRequest>

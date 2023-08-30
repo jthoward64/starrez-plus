@@ -1,7 +1,8 @@
 // Generated from XML description of DynamicList
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class DynamicList {
   dynamicListID?: number;
@@ -55,6 +56,7 @@ export class DynamicList {
     } else {
       return new DynamicList(await response.text());
     }
+  }
 }
 
-}
+DynamicList satisfies StarRezStructureStatic<DynamicList>

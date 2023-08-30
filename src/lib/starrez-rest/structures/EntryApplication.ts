@@ -1,7 +1,8 @@
 // Generated from XML description of EntryApplication
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryApplication {
   entryApplicationID?: number;
@@ -153,6 +154,7 @@ export class EntryApplication {
     } else {
       return new EntryApplication(await response.text());
     }
+  }
 }
 
-}
+EntryApplication satisfies StarRezStructureStatic<EntryApplication>

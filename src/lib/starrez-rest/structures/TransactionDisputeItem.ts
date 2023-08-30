@@ -1,7 +1,8 @@
 // Generated from XML description of TransactionDisputeItem
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TransactionDisputeItem {
   transactionDisputeItemID?: number;
@@ -49,6 +50,7 @@ export class TransactionDisputeItem {
     } else {
       return new TransactionDisputeItem(await response.text());
     }
+  }
 }
 
-}
+TransactionDisputeItem satisfies StarRezStructureStatic<TransactionDisputeItem>

@@ -1,7 +1,8 @@
 // Generated from XML description of ConcernCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ConcernCustomField {
   concernCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class ConcernCustomField {
     } else {
       return new ConcernCustomField(await response.text());
     }
+  }
 }
 
-}
+ConcernCustomField satisfies StarRezStructureStatic<ConcernCustomField>

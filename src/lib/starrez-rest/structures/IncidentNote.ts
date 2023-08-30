@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentNote
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentNote {
   incidentNoteID?: number;
@@ -53,6 +54,7 @@ export class IncidentNote {
     } else {
       return new IncidentNote(await response.text());
     }
+  }
 }
 
-}
+IncidentNote satisfies StarRezStructureStatic<IncidentNote>

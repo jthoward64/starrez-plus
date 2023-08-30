@@ -1,7 +1,8 @@
 // Generated from XML description of PromoCodeUsage
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PromoCodeUsage {
   promoCodeUsageID?: number;
@@ -45,6 +46,7 @@ export class PromoCodeUsage {
     } else {
       return new PromoCodeUsage(await response.text());
     }
+  }
 }
 
-}
+PromoCodeUsage satisfies StarRezStructureStatic<PromoCodeUsage>

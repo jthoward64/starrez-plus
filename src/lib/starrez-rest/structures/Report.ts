@@ -1,7 +1,8 @@
 // Generated from XML description of Report
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Report {
   reportID?: number;
@@ -75,6 +76,7 @@ export class Report {
     } else {
       return new Report(await response.text());
     }
+  }
 }
 
-}
+Report satisfies StarRezStructureStatic<Report>

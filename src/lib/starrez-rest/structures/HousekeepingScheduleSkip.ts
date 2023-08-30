@@ -1,7 +1,8 @@
 // Generated from XML description of HousekeepingScheduleSkip
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class HousekeepingScheduleSkip {
   housekeepingScheduleSkipID?: number;
@@ -51,6 +52,7 @@ export class HousekeepingScheduleSkip {
     } else {
       return new HousekeepingScheduleSkip(await response.text());
     }
+  }
 }
 
-}
+HousekeepingScheduleSkip satisfies StarRezStructureStatic<HousekeepingScheduleSkip>

@@ -1,7 +1,8 @@
 // Generated from XML description of WorkflowStepPermission
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WorkflowStepPermission {
   workflowStepPermissionID?: number;
@@ -43,6 +44,7 @@ export class WorkflowStepPermission {
     } else {
       return new WorkflowStepPermission(await response.text());
     }
+  }
 }
 
-}
+WorkflowStepPermission satisfies StarRezStructureStatic<WorkflowStepPermission>

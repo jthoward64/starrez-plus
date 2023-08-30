@@ -1,7 +1,8 @@
 // Generated from XML description of Resource
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Resource {
   resourceID?: number;
@@ -77,6 +78,7 @@ export class Resource {
     } else {
       return new Resource(await response.text());
     }
+  }
 }
 
-}
+Resource satisfies StarRezStructureStatic<Resource>

@@ -1,7 +1,8 @@
 // Generated from XML description of CustomMethodTag
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class CustomMethodTag {
   customMethodTagID?: number;
@@ -51,6 +52,7 @@ export class CustomMethodTag {
     } else {
       return new CustomMethodTag(await response.text());
     }
+  }
 }
 
-}
+CustomMethodTag satisfies StarRezStructureStatic<CustomMethodTag>

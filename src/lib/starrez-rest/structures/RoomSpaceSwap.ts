@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceSwap
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceSwap {
   roomSpaceSwapID?: number;
@@ -59,6 +60,7 @@ export class RoomSpaceSwap {
     } else {
       return new RoomSpaceSwap(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceSwap satisfies StarRezStructureStatic<RoomSpaceSwap>

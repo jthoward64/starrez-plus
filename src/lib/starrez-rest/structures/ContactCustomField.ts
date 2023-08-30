@@ -1,7 +1,8 @@
 // Generated from XML description of ContactCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ContactCustomField {
   contactCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class ContactCustomField {
     } else {
       return new ContactCustomField(await response.text());
     }
+  }
 }
 
-}
+ContactCustomField satisfies StarRezStructureStatic<ContactCustomField>

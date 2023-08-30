@@ -1,7 +1,8 @@
 // Generated from XML description of WebSite
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebSite {
   webSiteID?: number;
@@ -57,6 +58,7 @@ export class WebSite {
     } else {
       return new WebSite(await response.text());
     }
+  }
 }
 
-}
+WebSite satisfies StarRezStructureStatic<WebSite>

@@ -1,7 +1,8 @@
 // Generated from XML description of TaskStatus
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TaskStatus {
   taskStatusID?: number;
@@ -43,6 +44,7 @@ export class TaskStatus {
     } else {
       return new TaskStatus(await response.text());
     }
+  }
 }
 
-}
+TaskStatus satisfies StarRezStructureStatic<TaskStatus>

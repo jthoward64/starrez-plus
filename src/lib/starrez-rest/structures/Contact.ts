@@ -1,7 +1,8 @@
 // Generated from XML description of Contact
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Contact {
   contactID?: number;
@@ -101,6 +102,7 @@ export class Contact {
     } else {
       return new Contact(await response.text());
     }
+  }
 }
 
-}
+Contact satisfies StarRezStructureStatic<Contact>

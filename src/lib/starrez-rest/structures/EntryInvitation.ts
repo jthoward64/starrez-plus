@@ -1,7 +1,8 @@
 // Generated from XML description of EntryInvitation
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryInvitation {
   entryInvitationID?: number;
@@ -59,6 +60,7 @@ export class EntryInvitation {
     } else {
       return new EntryInvitation(await response.text());
     }
+  }
 }
 
-}
+EntryInvitation satisfies StarRezStructureStatic<EntryInvitation>

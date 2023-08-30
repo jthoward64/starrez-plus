@@ -1,7 +1,8 @@
 // Generated from XML description of EntryTemporarySpace
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryTemporarySpace {
   entryTemporarySpaceID?: number;
@@ -79,6 +80,7 @@ export class EntryTemporarySpace {
     } else {
       return new EntryTemporarySpace(await response.text());
     }
+  }
 }
 
-}
+EntryTemporarySpace satisfies StarRezStructureStatic<EntryTemporarySpace>

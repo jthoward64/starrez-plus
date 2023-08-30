@@ -1,7 +1,8 @@
 // Generated from XML description of AutoAllocateRun
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class AutoAllocateRun {
   autoAllocateRunID?: number;
@@ -59,6 +60,7 @@ export class AutoAllocateRun {
     } else {
       return new AutoAllocateRun(await response.text());
     }
+  }
 }
 
-}
+AutoAllocateRun satisfies StarRezStructureStatic<AutoAllocateRun>

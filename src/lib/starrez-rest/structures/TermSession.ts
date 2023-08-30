@@ -1,7 +1,8 @@
 // Generated from XML description of TermSession
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TermSession {
   termSessionID?: number;
@@ -129,6 +130,7 @@ export class TermSession {
     } else {
       return new TermSession(await response.text());
     }
+  }
 }
 
-}
+TermSession satisfies StarRezStructureStatic<TermSession>

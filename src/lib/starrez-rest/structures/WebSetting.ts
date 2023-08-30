@@ -1,7 +1,8 @@
 // Generated from XML description of WebSetting
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebSetting {
   webSettingID?: number;
@@ -51,6 +52,7 @@ export class WebSetting {
     } else {
       return new WebSetting(await response.text());
     }
+  }
 }
 
-}
+WebSetting satisfies StarRezStructureStatic<WebSetting>

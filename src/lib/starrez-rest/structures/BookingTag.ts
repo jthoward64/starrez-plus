@@ -1,7 +1,8 @@
 // Generated from XML description of BookingTag
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class BookingTag {
   bookingTagID?: number;
@@ -45,6 +46,7 @@ export class BookingTag {
     } else {
       return new BookingTag(await response.text());
     }
+  }
 }
 
-}
+BookingTag satisfies StarRezStructureStatic<BookingTag>

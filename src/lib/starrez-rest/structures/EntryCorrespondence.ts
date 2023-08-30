@@ -1,7 +1,8 @@
 // Generated from XML description of EntryCorrespondence
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryCorrespondence {
   entryID?: number;
@@ -67,6 +68,7 @@ export class EntryCorrespondence {
     } else {
       return new EntryCorrespondence(await response.text());
     }
+  }
 }
 
-}
+EntryCorrespondence satisfies StarRezStructureStatic<EntryCorrespondence>

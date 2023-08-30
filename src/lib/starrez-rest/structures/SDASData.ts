@@ -1,7 +1,8 @@
 // Generated from XML description of SDASData
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class SDASData {
   sDASDataID?: number;
@@ -53,6 +54,7 @@ export class SDASData {
     } else {
       return new SDASData(await response.text());
     }
+  }
 }
 
-}
+SDASData satisfies StarRezStructureStatic<SDASData>

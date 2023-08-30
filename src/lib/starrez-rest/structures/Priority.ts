@@ -1,7 +1,8 @@
 // Generated from XML description of Priority
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Priority {
   priorityID?: number;
@@ -41,6 +42,7 @@ export class Priority {
     } else {
       return new Priority(await response.text());
     }
+  }
 }
 
-}
+Priority satisfies StarRezStructureStatic<Priority>

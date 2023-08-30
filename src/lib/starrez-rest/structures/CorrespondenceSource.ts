@@ -1,7 +1,8 @@
 // Generated from XML description of CorrespondenceSource
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class CorrespondenceSource {
   correspondenceSourceID?: number;
@@ -43,6 +44,7 @@ export class CorrespondenceSource {
     } else {
       return new CorrespondenceSource(await response.text());
     }
+  }
 }
 
-}
+CorrespondenceSource satisfies StarRezStructureStatic<CorrespondenceSource>

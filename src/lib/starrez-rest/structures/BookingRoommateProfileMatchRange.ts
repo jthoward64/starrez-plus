@@ -1,7 +1,8 @@
 // Generated from XML description of BookingRoommateProfileMatchRange
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class BookingRoommateProfileMatchRange {
   bookingRoommateProfileMatchRangeID?: number;
@@ -63,6 +64,7 @@ export class BookingRoommateProfileMatchRange {
     } else {
       return new BookingRoommateProfileMatchRange(await response.text());
     }
+  }
 }
 
-}
+BookingRoommateProfileMatchRange satisfies StarRezStructureStatic<BookingRoommateProfileMatchRange>

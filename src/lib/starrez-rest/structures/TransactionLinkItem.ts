@@ -1,7 +1,8 @@
 // Generated from XML description of TransactionLinkItem
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TransactionLinkItem {
   transactionLinkItemID?: number;
@@ -43,6 +44,7 @@ export class TransactionLinkItem {
     } else {
       return new TransactionLinkItem(await response.text());
     }
+  }
 }
 
-}
+TransactionLinkItem satisfies StarRezStructureStatic<TransactionLinkItem>

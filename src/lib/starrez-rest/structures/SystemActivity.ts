@@ -1,7 +1,8 @@
 // Generated from XML description of SystemActivity
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class SystemActivity {
   systemActivityID?: number;
@@ -45,6 +46,7 @@ export class SystemActivity {
     } else {
       return new SystemActivity(await response.text());
     }
+  }
 }
 
-}
+SystemActivity satisfies StarRezStructureStatic<SystemActivity>

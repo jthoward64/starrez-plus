@@ -1,7 +1,8 @@
 // Generated from XML description of Term
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Term {
   termID?: number;
@@ -57,6 +58,7 @@ export class Term {
     } else {
       return new Term(await response.text());
     }
+  }
 }
 
-}
+Term satisfies StarRezStructureStatic<Term>

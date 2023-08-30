@@ -1,7 +1,8 @@
 // Generated from XML description of ConcernSubType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ConcernSubType {
   concernSubTypeID?: number;
@@ -43,6 +44,7 @@ export class ConcernSubType {
     } else {
       return new ConcernSubType(await response.text());
     }
+  }
 }
 
-}
+ConcernSubType satisfies StarRezStructureStatic<ConcernSubType>

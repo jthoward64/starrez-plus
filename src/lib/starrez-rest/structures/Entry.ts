@@ -1,7 +1,8 @@
 // Generated from XML description of Entry
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Entry {
   entryID?: number;
@@ -139,6 +140,7 @@ export class Entry {
     } else {
       return new Entry(await response.text());
     }
+  }
 }
 
-}
+Entry satisfies StarRezStructureStatic<Entry>

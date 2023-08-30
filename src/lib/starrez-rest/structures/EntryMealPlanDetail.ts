@@ -1,7 +1,8 @@
 // Generated from XML description of EntryMealPlanDetail
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryMealPlanDetail {
   entryMealPlanDetailID?: number;
@@ -51,6 +52,7 @@ export class EntryMealPlanDetail {
     } else {
       return new EntryMealPlanDetail(await response.text());
     }
+  }
 }
 
-}
+EntryMealPlanDetail satisfies StarRezStructureStatic<EntryMealPlanDetail>

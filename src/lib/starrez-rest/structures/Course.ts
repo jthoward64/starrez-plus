@@ -1,7 +1,8 @@
 // Generated from XML description of Course
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Course {
   courseID?: number;
@@ -49,6 +50,7 @@ export class Course {
     } else {
       return new Course(await response.text());
     }
+  }
 }
 
-}
+Course satisfies StarRezStructureStatic<Course>

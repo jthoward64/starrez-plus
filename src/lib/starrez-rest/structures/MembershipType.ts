@@ -1,7 +1,8 @@
 // Generated from XML description of MembershipType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class MembershipType {
   membershipTypeID?: number;
@@ -43,6 +44,7 @@ export class MembershipType {
     } else {
       return new MembershipType(await response.text());
     }
+  }
 }
 
-}
+MembershipType satisfies StarRezStructureStatic<MembershipType>

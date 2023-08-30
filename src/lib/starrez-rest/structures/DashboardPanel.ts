@@ -1,7 +1,8 @@
 // Generated from XML description of DashboardPanel
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class DashboardPanel {
   dashboardPanelID?: number;
@@ -57,6 +58,7 @@ export class DashboardPanel {
     } else {
       return new DashboardPanel(await response.text());
     }
+  }
 }
 
-}
+DashboardPanel satisfies StarRezStructureStatic<DashboardPanel>

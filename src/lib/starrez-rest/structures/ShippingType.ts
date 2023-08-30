@@ -1,7 +1,8 @@
 // Generated from XML description of ShippingType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ShippingType {
   shippingTypeID?: number;
@@ -43,6 +44,7 @@ export class ShippingType {
     } else {
       return new ShippingType(await response.text());
     }
+  }
 }
 
-}
+ShippingType satisfies StarRezStructureStatic<ShippingType>

@@ -1,7 +1,8 @@
 // Generated from XML description of TermSessionFree
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TermSessionFree {
   termSessionFreeID?: number;
@@ -45,6 +46,7 @@ export class TermSessionFree {
     } else {
       return new TermSessionFree(await response.text());
     }
+  }
 }
 
-}
+TermSessionFree satisfies StarRezStructureStatic<TermSessionFree>

@@ -1,7 +1,8 @@
 // Generated from XML description of WebMenu
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebMenu {
   webMenuID?: number;
@@ -49,6 +50,7 @@ export class WebMenu {
     } else {
       return new WebMenu(await response.text());
     }
+  }
 }
 
-}
+WebMenu satisfies StarRezStructureStatic<WebMenu>

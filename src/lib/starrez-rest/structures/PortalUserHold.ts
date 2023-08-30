@@ -1,7 +1,8 @@
 // Generated from XML description of PortalUserHold
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalUserHold {
   portalUserHoldID?: number;
@@ -53,6 +54,7 @@ export class PortalUserHold {
     } else {
       return new PortalUserHold(await response.text());
     }
+  }
 }
 
-}
+PortalUserHold satisfies StarRezStructureStatic<PortalUserHold>

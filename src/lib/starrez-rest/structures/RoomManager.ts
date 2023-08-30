@@ -1,7 +1,8 @@
 // Generated from XML description of RoomManager
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomManager {
   roomManagerID?: number;
@@ -53,6 +54,7 @@ export class RoomManager {
     } else {
       return new RoomManager(await response.text());
     }
+  }
 }
 
-}
+RoomManager satisfies StarRezStructureStatic<RoomManager>

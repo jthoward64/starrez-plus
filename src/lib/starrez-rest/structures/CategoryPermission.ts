@@ -1,7 +1,8 @@
 // Generated from XML description of CategoryPermission
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class CategoryPermission {
   categoryPermissionID?: number;
@@ -43,6 +44,7 @@ export class CategoryPermission {
     } else {
       return new CategoryPermission(await response.text());
     }
+  }
 }
 
-}
+CategoryPermission satisfies StarRezStructureStatic<CategoryPermission>

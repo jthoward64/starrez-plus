@@ -1,7 +1,8 @@
 // Generated from XML description of WebTransaction
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebTransaction {
   webTransactionID?: number;
@@ -57,6 +58,7 @@ export class WebTransaction {
     } else {
       return new WebTransaction(await response.text());
     }
+  }
 }
 
-}
+WebTransaction satisfies StarRezStructureStatic<WebTransaction>

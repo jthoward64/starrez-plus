@@ -1,7 +1,8 @@
 // Generated from XML description of EntryPosition
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryPosition {
   entryPositionID?: number;
@@ -53,6 +54,7 @@ export class EntryPosition {
     } else {
       return new EntryPosition(await response.text());
     }
+  }
 }
 
-}
+EntryPosition satisfies StarRezStructureStatic<EntryPosition>

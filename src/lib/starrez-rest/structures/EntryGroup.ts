@@ -1,7 +1,8 @@
 // Generated from XML description of EntryGroup
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryGroup {
   entryGroupID?: number;
@@ -47,6 +48,7 @@ export class EntryGroup {
     } else {
       return new EntryGroup(await response.text());
     }
+  }
 }
 
-}
+EntryGroup satisfies StarRezStructureStatic<EntryGroup>

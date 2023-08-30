@@ -1,7 +1,8 @@
 // Generated from XML description of RoomRate
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomRate {
   roomRateID?: number;
@@ -49,6 +50,7 @@ export class RoomRate {
     } else {
       return new RoomRate(await response.text());
     }
+  }
 }
 
-}
+RoomRate satisfies StarRezStructureStatic<RoomRate>

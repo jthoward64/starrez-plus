@@ -1,7 +1,8 @@
 // Generated from XML description of TransactionDisputeCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TransactionDisputeCustomField {
   transactionDisputeCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class TransactionDisputeCustomField {
     } else {
       return new TransactionDisputeCustomField(await response.text());
     }
+  }
 }
 
-}
+TransactionDisputeCustomField satisfies StarRezStructureStatic<TransactionDisputeCustomField>

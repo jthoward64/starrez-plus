@@ -1,7 +1,8 @@
 // Generated from XML description of LogAddIn
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class LogAddIn {
   logAddInID?: number;
@@ -57,6 +58,7 @@ export class LogAddIn {
     } else {
       return new LogAddIn(await response.text());
     }
+  }
 }
 
-}
+LogAddIn satisfies StarRezStructureStatic<LogAddIn>

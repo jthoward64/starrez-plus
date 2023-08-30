@@ -1,7 +1,8 @@
 // Generated from XML description of BookingCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class BookingCustomField {
   bookingCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class BookingCustomField {
     } else {
       return new BookingCustomField(await response.text());
     }
+  }
 }
 
-}
+BookingCustomField satisfies StarRezStructureStatic<BookingCustomField>

@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentAction
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentAction {
   incidentActionID?: number;
@@ -67,6 +68,7 @@ export class IncidentAction {
     } else {
       return new IncidentAction(await response.text());
     }
+  }
 }
 
-}
+IncidentAction satisfies StarRezStructureStatic<IncidentAction>

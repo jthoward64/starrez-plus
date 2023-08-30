@@ -1,7 +1,8 @@
 // Generated from XML description of Nationality
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Nationality {
   nationalityID?: number;
@@ -41,6 +42,7 @@ export class Nationality {
     } else {
       return new Nationality(await response.text());
     }
+  }
 }
 
-}
+Nationality satisfies StarRezStructureStatic<Nationality>

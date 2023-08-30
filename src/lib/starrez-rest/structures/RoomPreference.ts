@@ -1,7 +1,8 @@
 // Generated from XML description of RoomPreference
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomPreference {
   roomPreferenceID?: number;
@@ -73,6 +74,7 @@ export class RoomPreference {
     } else {
       return new RoomPreference(await response.text());
     }
+  }
 }
 
-}
+RoomPreference satisfies StarRezStructureStatic<RoomPreference>

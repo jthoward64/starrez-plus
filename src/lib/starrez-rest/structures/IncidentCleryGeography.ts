@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentCleryGeography
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentCleryGeography {
   incidentCleryGeographyID?: number;
@@ -43,6 +44,7 @@ export class IncidentCleryGeography {
     } else {
       return new IncidentCleryGeography(await response.text());
     }
+  }
 }
 
-}
+IncidentCleryGeography satisfies StarRezStructureStatic<IncidentCleryGeography>

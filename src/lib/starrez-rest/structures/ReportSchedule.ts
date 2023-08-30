@@ -1,7 +1,8 @@
 // Generated from XML description of ReportSchedule
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ReportSchedule {
   reportScheduleID?: number;
@@ -77,6 +78,7 @@ export class ReportSchedule {
     } else {
       return new ReportSchedule(await response.text());
     }
+  }
 }
 
-}
+ReportSchedule satisfies StarRezStructureStatic<ReportSchedule>

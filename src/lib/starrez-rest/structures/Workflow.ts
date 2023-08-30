@@ -1,7 +1,8 @@
 // Generated from XML description of Workflow
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Workflow {
   workflowID?: number;
@@ -49,6 +50,7 @@ export class Workflow {
     } else {
       return new Workflow(await response.text());
     }
+  }
 }
 
-}
+Workflow satisfies StarRezStructureStatic<Workflow>

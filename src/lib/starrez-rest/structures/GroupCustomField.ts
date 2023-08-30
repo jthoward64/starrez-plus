@@ -1,7 +1,8 @@
 // Generated from XML description of GroupCustomField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GroupCustomField {
   groupCustomFieldID?: number;
@@ -53,6 +54,7 @@ export class GroupCustomField {
     } else {
       return new GroupCustomField(await response.text());
     }
+  }
 }
 
-}
+GroupCustomField satisfies StarRezStructureStatic<GroupCustomField>

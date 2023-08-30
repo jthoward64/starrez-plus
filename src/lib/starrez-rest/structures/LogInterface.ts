@@ -1,7 +1,8 @@
 // Generated from XML description of LogInterface
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class LogInterface {
   logInterfaceID?: number;
@@ -67,6 +68,7 @@ export class LogInterface {
     } else {
       return new LogInterface(await response.text());
     }
+  }
 }
 
-}
+LogInterface satisfies StarRezStructureStatic<LogInterface>

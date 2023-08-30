@@ -1,7 +1,8 @@
 // Generated from XML description of SavedList
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class SavedList {
   savedListID?: number;
@@ -53,6 +54,7 @@ export class SavedList {
     } else {
       return new SavedList(await response.text());
     }
+  }
 }
 
-}
+SavedList satisfies StarRezStructureStatic<SavedList>

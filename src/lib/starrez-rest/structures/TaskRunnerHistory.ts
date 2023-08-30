@@ -1,7 +1,8 @@
 // Generated from XML description of TaskRunnerHistory
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TaskRunnerHistory {
   taskRunnerHistoryID?: number;
@@ -59,6 +60,7 @@ export class TaskRunnerHistory {
     } else {
       return new TaskRunnerHistory(await response.text());
     }
+  }
 }
 
-}
+TaskRunnerHistory satisfies StarRezStructureStatic<TaskRunnerHistory>

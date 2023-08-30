@@ -1,7 +1,8 @@
 // Generated from XML description of GenericTableDefinitionField
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GenericTableDefinitionField {
   genericTableDefinitionFieldID?: number;
@@ -49,6 +50,7 @@ export class GenericTableDefinitionField {
     } else {
       return new GenericTableDefinitionField(await response.text());
     }
+  }
 }
 
-}
+GenericTableDefinitionField satisfies StarRezStructureStatic<GenericTableDefinitionField>

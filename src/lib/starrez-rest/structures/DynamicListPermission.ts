@@ -1,7 +1,8 @@
 // Generated from XML description of DynamicListPermission
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class DynamicListPermission {
   dynamicListPermissionID?: number;
@@ -43,6 +44,7 @@ export class DynamicListPermission {
     } else {
       return new DynamicListPermission(await response.text());
     }
+  }
 }
 
-}
+DynamicListPermission satisfies StarRezStructureStatic<DynamicListPermission>

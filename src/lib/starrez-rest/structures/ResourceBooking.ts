@@ -1,7 +1,8 @@
 // Generated from XML description of ResourceBooking
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ResourceBooking {
   resourceBookingID?: number;
@@ -61,6 +62,7 @@ export class ResourceBooking {
     } else {
       return new ResourceBooking(await response.text());
     }
+  }
 }
 
-}
+ResourceBooking satisfies StarRezStructureStatic<ResourceBooking>

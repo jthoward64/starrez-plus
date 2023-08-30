@@ -1,7 +1,8 @@
 // Generated from XML description of FailedLoginAttempt
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class FailedLoginAttempt {
   failedLoginAttemptID?: number;
@@ -39,6 +40,7 @@ export class FailedLoginAttempt {
     } else {
       return new FailedLoginAttempt(await response.text());
     }
+  }
 }
 
-}
+FailedLoginAttempt satisfies StarRezStructureStatic<FailedLoginAttempt>

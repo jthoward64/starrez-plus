@@ -1,7 +1,8 @@
 // Generated from XML description of TimeSlot
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TimeSlot {
   timeSlotID?: number;
@@ -69,6 +70,7 @@ export class TimeSlot {
     } else {
       return new TimeSlot(await response.text());
     }
+  }
 }
 
-}
+TimeSlot satisfies StarRezStructureStatic<TimeSlot>

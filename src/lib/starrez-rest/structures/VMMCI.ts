@@ -1,7 +1,8 @@
 // Generated from XML description of VMMCI
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMMCI {
   vMMCIID?: number;
@@ -47,6 +48,7 @@ export class VMMCI {
     } else {
       return new VMMCI(await response.text());
     }
+  }
 }
 
-}
+VMMCI satisfies StarRezStructureStatic<VMMCI>

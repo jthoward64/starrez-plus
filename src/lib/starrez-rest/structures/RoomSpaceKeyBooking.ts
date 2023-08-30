@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceKeyBooking
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceKeyBooking {
   dateCreated?: Date;
@@ -55,6 +56,7 @@ export class RoomSpaceKeyBooking {
     } else {
       return new RoomSpaceKeyBooking(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceKeyBooking satisfies StarRezStructureStatic<RoomSpaceKeyBooking>

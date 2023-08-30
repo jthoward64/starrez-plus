@@ -1,7 +1,8 @@
 // Generated from XML description of TermRule
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TermRule {
   termRuleID?: number;
@@ -53,6 +54,7 @@ export class TermRule {
     } else {
       return new TermRule(await response.text());
     }
+  }
 }
 
-}
+TermRule satisfies StarRezStructureStatic<TermRule>

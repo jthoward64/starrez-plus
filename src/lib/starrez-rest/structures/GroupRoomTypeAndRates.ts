@@ -1,7 +1,8 @@
 // Generated from XML description of GroupRoomTypeAndRates
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GroupRoomTypeAndRates {
   groupRoomTypeAndRatesID?: number;
@@ -71,6 +72,7 @@ export class GroupRoomTypeAndRates {
     } else {
       return new GroupRoomTypeAndRates(await response.text());
     }
+  }
 }
 
-}
+GroupRoomTypeAndRates satisfies StarRezStructureStatic<GroupRoomTypeAndRates>

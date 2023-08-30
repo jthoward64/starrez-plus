@@ -1,7 +1,8 @@
 // Generated from XML description of Classification
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Classification {
   classificationID?: number;
@@ -45,6 +46,7 @@ export class Classification {
     } else {
       return new Classification(await response.text());
     }
+  }
 }
 
-}
+Classification satisfies StarRezStructureStatic<Classification>

@@ -1,7 +1,8 @@
 // Generated from XML description of MessageSubscription
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class MessageSubscription {
   messageSubscriptionID?: number;
@@ -55,6 +56,7 @@ export class MessageSubscription {
     } else {
       return new MessageSubscription(await response.text());
     }
+  }
 }
 
-}
+MessageSubscription satisfies StarRezStructureStatic<MessageSubscription>

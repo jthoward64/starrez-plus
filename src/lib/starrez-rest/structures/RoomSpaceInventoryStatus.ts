@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceInventoryStatus
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceInventoryStatus {
   roomSpaceInventoryStatusID?: number;
@@ -45,6 +46,7 @@ export class RoomSpaceInventoryStatus {
     } else {
       return new RoomSpaceInventoryStatus(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceInventoryStatus satisfies StarRezStructureStatic<RoomSpaceInventoryStatus>

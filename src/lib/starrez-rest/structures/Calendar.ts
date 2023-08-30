@@ -1,7 +1,8 @@
 // Generated from XML description of Calendar
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Calendar {
   calendarID?: number;
@@ -39,6 +40,7 @@ export class Calendar {
     } else {
       return new Calendar(await response.text());
     }
+  }
 }
 
-}
+Calendar satisfies StarRezStructureStatic<Calendar>

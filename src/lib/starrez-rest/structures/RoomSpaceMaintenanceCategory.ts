@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceMaintenanceCategory
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceMaintenanceCategory {
   roomSpaceMaintenanceCategoryID?: number;
@@ -45,6 +46,7 @@ export class RoomSpaceMaintenanceCategory {
     } else {
       return new RoomSpaceMaintenanceCategory(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceMaintenanceCategory satisfies StarRezStructureStatic<RoomSpaceMaintenanceCategory>

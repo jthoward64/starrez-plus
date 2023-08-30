@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentSeverity
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentSeverity {
   incidentSeverityID?: number;
@@ -43,6 +44,7 @@ export class IncidentSeverity {
     } else {
       return new IncidentSeverity(await response.text());
     }
+  }
 }
 
-}
+IncidentSeverity satisfies StarRezStructureStatic<IncidentSeverity>

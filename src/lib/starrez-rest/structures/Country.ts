@@ -1,7 +1,8 @@
 // Generated from XML description of Country
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Country {
   countryID?: number;
@@ -49,6 +50,7 @@ export class Country {
     } else {
       return new Country(await response.text());
     }
+  }
 }
 
-}
+Country satisfies StarRezStructureStatic<Country>

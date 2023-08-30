@@ -1,7 +1,8 @@
 // Generated from XML description of EntrySDAS
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntrySDAS {
   entrySDASID?: number;
@@ -67,6 +68,7 @@ export class EntrySDAS {
     } else {
       return new EntrySDAS(await response.text());
     }
+  }
 }
 
-}
+EntrySDAS satisfies StarRezStructureStatic<EntrySDAS>

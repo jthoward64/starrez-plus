@@ -1,7 +1,8 @@
 // Generated from XML description of EntryFamily
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryFamily {
   entryFamilyID?: number;
@@ -63,6 +64,7 @@ export class EntryFamily {
     } else {
       return new EntryFamily(await response.text());
     }
+  }
 }
 
-}
+EntryFamily satisfies StarRezStructureStatic<EntryFamily>

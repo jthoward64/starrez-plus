@@ -1,7 +1,8 @@
 // Generated from XML description of WaitListRoomSpace
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WaitListRoomSpace {
   waitListRoomSpaceID?: number;
@@ -43,6 +44,7 @@ export class WaitListRoomSpace {
     } else {
       return new WaitListRoomSpace(await response.text());
     }
+  }
 }
 
-}
+WaitListRoomSpace satisfies StarRezStructureStatic<WaitListRoomSpace>

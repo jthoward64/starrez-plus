@@ -1,7 +1,8 @@
 // Generated from XML description of VMData
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMData {
   vMDataID?: number;
@@ -47,6 +48,7 @@ export class VMData {
     } else {
       return new VMData(await response.text());
     }
+  }
 }
 
-}
+VMData satisfies StarRezStructureStatic<VMData>

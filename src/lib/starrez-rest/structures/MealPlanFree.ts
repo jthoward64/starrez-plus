@@ -1,7 +1,8 @@
 // Generated from XML description of MealPlanFree
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class MealPlanFree {
   mealPlanFreeID?: number;
@@ -45,6 +46,7 @@ export class MealPlanFree {
     } else {
       return new MealPlanFree(await response.text());
     }
+  }
 }
 
-}
+MealPlanFree satisfies StarRezStructureStatic<MealPlanFree>

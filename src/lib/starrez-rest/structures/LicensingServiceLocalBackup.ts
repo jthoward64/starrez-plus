@@ -1,7 +1,8 @@
 // Generated from XML description of LicensingServiceLocalBackup
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class LicensingServiceLocalBackup {
   licensingServiceLocalBackupID?: number;
@@ -41,6 +42,7 @@ export class LicensingServiceLocalBackup {
     } else {
       return new LicensingServiceLocalBackup(await response.text());
     }
+  }
 }
 
-}
+LicensingServiceLocalBackup satisfies StarRezStructureStatic<LicensingServiceLocalBackup>

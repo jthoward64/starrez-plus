@@ -1,7 +1,8 @@
 // Generated from XML description of EntryApplicationPortalSection
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryApplicationPortalSection {
   entryApplicationPortalSectionID?: number;
@@ -47,6 +48,7 @@ export class EntryApplicationPortalSection {
     } else {
       return new EntryApplicationPortalSection(await response.text());
     }
+  }
 }
 
-}
+EntryApplicationPortalSection satisfies StarRezStructureStatic<EntryApplicationPortalSection>

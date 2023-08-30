@@ -1,7 +1,8 @@
 // Generated from XML description of FinancialSupport
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class FinancialSupport {
   financialSupportID?: number;
@@ -43,6 +44,7 @@ export class FinancialSupport {
     } else {
       return new FinancialSupport(await response.text());
     }
+  }
 }
 
-}
+FinancialSupport satisfies StarRezStructureStatic<FinancialSupport>

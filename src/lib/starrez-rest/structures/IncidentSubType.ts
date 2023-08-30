@@ -1,7 +1,8 @@
 // Generated from XML description of IncidentSubType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class IncidentSubType {
   incidentSubTypeID?: number;
@@ -53,6 +54,7 @@ export class IncidentSubType {
     } else {
       return new IncidentSubType(await response.text());
     }
+  }
 }
 
-}
+IncidentSubType satisfies StarRezStructureStatic<IncidentSubType>

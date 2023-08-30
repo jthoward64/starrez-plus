@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceClosed
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceClosed {
   roomSpaceClosedID?: number;
@@ -77,6 +78,7 @@ export class RoomSpaceClosed {
     } else {
       return new RoomSpaceClosed(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceClosed satisfies StarRezStructureStatic<RoomSpaceClosed>

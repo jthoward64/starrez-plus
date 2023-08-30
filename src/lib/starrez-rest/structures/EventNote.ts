@@ -1,7 +1,8 @@
 // Generated from XML description of EventNote
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EventNote {
   eventNoteID?: number;
@@ -53,6 +54,7 @@ export class EventNote {
     } else {
       return new EventNote(await response.text());
     }
+  }
 }
 
-}
+EventNote satisfies StarRezStructureStatic<EventNote>

@@ -1,7 +1,8 @@
 // Generated from XML description of Total
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Total {
   totalID?: number;
@@ -51,6 +52,7 @@ export class Total {
     } else {
       return new Total(await response.text());
     }
+  }
 }
 
-}
+Total satisfies StarRezStructureStatic<Total>

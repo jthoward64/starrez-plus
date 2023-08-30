@@ -1,7 +1,8 @@
 // Generated from XML description of AddressType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class AddressType {
   addressTypeID?: number;
@@ -45,6 +46,7 @@ export class AddressType {
     } else {
       return new AddressType(await response.text());
     }
+  }
 }
 
-}
+AddressType satisfies StarRezStructureStatic<AddressType>

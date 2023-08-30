@@ -1,7 +1,8 @@
 // Generated from XML description of RegionOfBirth
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RegionOfBirth {
   regionOfBirthID?: number;
@@ -41,6 +42,7 @@ export class RegionOfBirth {
     } else {
       return new RegionOfBirth(await response.text());
     }
+  }
 }
 
-}
+RegionOfBirth satisfies StarRezStructureStatic<RegionOfBirth>

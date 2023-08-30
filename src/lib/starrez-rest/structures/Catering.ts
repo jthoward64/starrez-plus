@@ -1,7 +1,8 @@
 // Generated from XML description of Catering
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Catering {
   cateringID?: number;
@@ -59,6 +60,7 @@ export class Catering {
     } else {
       return new Catering(await response.text());
     }
+  }
 }
 
-}
+Catering satisfies StarRezStructureStatic<Catering>

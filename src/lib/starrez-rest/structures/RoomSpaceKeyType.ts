@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceKeyType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceKeyType {
   roomSpaceKeyTypeID?: number;
@@ -49,6 +50,7 @@ export class RoomSpaceKeyType {
     } else {
       return new RoomSpaceKeyType(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceKeyType satisfies StarRezStructureStatic<RoomSpaceKeyType>

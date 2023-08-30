@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceInventoryInspectionRun
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceInventoryInspectionRun {
   roomSpaceInventoryInspectionRunID?: number;
@@ -59,6 +60,7 @@ export class RoomSpaceInventoryInspectionRun {
     } else {
       return new RoomSpaceInventoryInspectionRun(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceInventoryInspectionRun satisfies StarRezStructureStatic<RoomSpaceInventoryInspectionRun>

@@ -1,7 +1,8 @@
 // Generated from XML description of NoteType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class NoteType {
   noteTypeID?: number;
@@ -45,6 +46,7 @@ export class NoteType {
     } else {
       return new NoteType(await response.text());
     }
+  }
 }
 
-}
+NoteType satisfies StarRezStructureStatic<NoteType>

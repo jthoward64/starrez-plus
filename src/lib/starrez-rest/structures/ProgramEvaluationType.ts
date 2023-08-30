@@ -1,7 +1,8 @@
 // Generated from XML description of ProgramEvaluationType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ProgramEvaluationType {
   programEvaluationTypeID?: number;
@@ -41,6 +42,7 @@ export class ProgramEvaluationType {
     } else {
       return new ProgramEvaluationType(await response.text());
     }
+  }
 }
 
-}
+ProgramEvaluationType satisfies StarRezStructureStatic<ProgramEvaluationType>

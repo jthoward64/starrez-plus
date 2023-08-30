@@ -1,7 +1,8 @@
 // Generated from XML description of PortalStepLink
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class PortalStepLink {
   portalStepLinkID?: number;
@@ -49,6 +50,7 @@ export class PortalStepLink {
     } else {
       return new PortalStepLink(await response.text());
     }
+  }
 }
 
-}
+PortalStepLink satisfies StarRezStructureStatic<PortalStepLink>

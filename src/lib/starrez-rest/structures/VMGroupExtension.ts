@@ -1,7 +1,8 @@
 // Generated from XML description of VMGroupExtension
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMGroupExtension {
   vMGroupExtensionID?: number;
@@ -41,6 +42,7 @@ export class VMGroupExtension {
     } else {
       return new VMGroupExtension(await response.text());
     }
+  }
 }
 
-}
+VMGroupExtension satisfies StarRezStructureStatic<VMGroupExtension>

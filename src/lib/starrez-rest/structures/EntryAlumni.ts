@@ -1,7 +1,8 @@
 // Generated from XML description of EntryAlumni
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryAlumni {
   entryAlumniID?: number;
@@ -73,6 +74,7 @@ export class EntryAlumni {
     } else {
       return new EntryAlumni(await response.text());
     }
+  }
 }
 
-}
+EntryAlumni satisfies StarRezStructureStatic<EntryAlumni>

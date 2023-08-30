@@ -1,7 +1,8 @@
 // Generated from XML description of Process
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Process {
   processID?: number;
@@ -87,6 +88,7 @@ export class Process {
     } else {
       return new Process(await response.text());
     }
+  }
 }
 
-}
+Process satisfies StarRezStructureStatic<Process>

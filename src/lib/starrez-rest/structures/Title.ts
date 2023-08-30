@@ -1,7 +1,8 @@
 // Generated from XML description of Title
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Title {
   titleID?: number;
@@ -43,6 +44,7 @@ export class Title {
     } else {
       return new Title(await response.text());
     }
+  }
 }
 
-}
+Title satisfies StarRezStructureStatic<Title>

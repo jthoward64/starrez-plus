@@ -1,7 +1,8 @@
 // Generated from XML description of WebModule
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebModule {
   webModuleID?: number;
@@ -57,6 +58,7 @@ export class WebModule {
     } else {
       return new WebModule(await response.text());
     }
+  }
 }
 
-}
+WebModule satisfies StarRezStructureStatic<WebModule>

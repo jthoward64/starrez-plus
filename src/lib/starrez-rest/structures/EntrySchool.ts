@@ -1,7 +1,8 @@
 // Generated from XML description of EntrySchool
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntrySchool {
   entrySchoolID?: number;
@@ -59,6 +60,7 @@ export class EntrySchool {
     } else {
       return new EntrySchool(await response.text());
     }
+  }
 }
 
-}
+EntrySchool satisfies StarRezStructureStatic<EntrySchool>

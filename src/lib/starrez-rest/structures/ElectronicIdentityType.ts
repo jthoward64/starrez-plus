@@ -1,7 +1,8 @@
 // Generated from XML description of ElectronicIdentityType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ElectronicIdentityType {
   electronicIdentityTypeID?: number;
@@ -47,6 +48,7 @@ export class ElectronicIdentityType {
     } else {
       return new ElectronicIdentityType(await response.text());
     }
+  }
 }
 
-}
+ElectronicIdentityType satisfies StarRezStructureStatic<ElectronicIdentityType>

@@ -1,7 +1,8 @@
 // Generated from XML description of RoomClassification
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomClassification {
   roomClassificationID?: number;
@@ -39,6 +40,7 @@ export class RoomClassification {
     } else {
       return new RoomClassification(await response.text());
     }
+  }
 }
 
-}
+RoomClassification satisfies StarRezStructureStatic<RoomClassification>

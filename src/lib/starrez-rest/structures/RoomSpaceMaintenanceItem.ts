@@ -1,7 +1,8 @@
 // Generated from XML description of RoomSpaceMaintenanceItem
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class RoomSpaceMaintenanceItem {
   roomSpaceMaintenanceItemID?: number;
@@ -51,6 +52,7 @@ export class RoomSpaceMaintenanceItem {
     } else {
       return new RoomSpaceMaintenanceItem(await response.text());
     }
+  }
 }
 
-}
+RoomSpaceMaintenanceItem satisfies StarRezStructureStatic<RoomSpaceMaintenanceItem>

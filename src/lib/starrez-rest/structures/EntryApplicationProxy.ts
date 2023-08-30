@@ -1,7 +1,8 @@
 // Generated from XML description of EntryApplicationProxy
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class EntryApplicationProxy {
   entryApplicationProxyID?: number;
@@ -73,6 +74,7 @@ export class EntryApplicationProxy {
     } else {
       return new EntryApplicationProxy(await response.text());
     }
+  }
 }
 
-}
+EntryApplicationProxy satisfies StarRezStructureStatic<EntryApplicationProxy>

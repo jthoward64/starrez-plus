@@ -1,7 +1,8 @@
 // Generated from XML description of WebSectionTextBlock
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebSectionTextBlock {
   webSectionTextBlockID?: number;
@@ -49,6 +50,7 @@ export class WebSectionTextBlock {
     } else {
       return new WebSectionTextBlock(await response.text());
     }
+  }
 }
 
-}
+WebSectionTextBlock satisfies StarRezStructureStatic<WebSectionTextBlock>

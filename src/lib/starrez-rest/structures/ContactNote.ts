@@ -1,7 +1,8 @@
 // Generated from XML description of ContactNote
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ContactNote {
   contactNoteID?: number;
@@ -53,6 +54,7 @@ export class ContactNote {
     } else {
       return new ContactNote(await response.text());
     }
+  }
 }
 
-}
+ContactNote satisfies StarRezStructureStatic<ContactNote>

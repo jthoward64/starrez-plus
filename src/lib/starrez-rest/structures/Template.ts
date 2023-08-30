@@ -1,7 +1,8 @@
 // Generated from XML description of Template
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class Template {
   templateID?: number;
@@ -63,6 +64,7 @@ export class Template {
     } else {
       return new Template(await response.text());
     }
+  }
 }
 
-}
+Template satisfies StarRezStructureStatic<Template>

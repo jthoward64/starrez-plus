@@ -1,7 +1,8 @@
 // Generated from XML description of WebControl
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WebControl {
   webControlID?: number;
@@ -57,6 +58,7 @@ export class WebControl {
     } else {
       return new WebControl(await response.text());
     }
+  }
 }
 
-}
+WebControl satisfies StarRezStructureStatic<WebControl>

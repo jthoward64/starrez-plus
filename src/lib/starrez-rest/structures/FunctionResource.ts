@@ -1,7 +1,8 @@
 // Generated from XML description of FunctionResource
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class FunctionResource {
   functionResourceID?: number;
@@ -57,6 +58,7 @@ export class FunctionResource {
     } else {
       return new FunctionResource(await response.text());
     }
+  }
 }
 
-}
+FunctionResource satisfies StarRezStructureStatic<FunctionResource>

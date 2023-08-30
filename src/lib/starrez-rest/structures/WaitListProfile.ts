@@ -1,7 +1,8 @@
 // Generated from XML description of WaitListProfile
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class WaitListProfile {
   waitListProfileID?: number;
@@ -41,6 +42,7 @@ export class WaitListProfile {
     } else {
       return new WaitListProfile(await response.text());
     }
+  }
 }
 
-}
+WaitListProfile satisfies StarRezStructureStatic<WaitListProfile>

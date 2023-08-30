@@ -1,7 +1,8 @@
 // Generated from XML description of VMMailBoxType
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMMailBoxType {
   vMMailBoxTypeID?: number;
@@ -53,6 +54,7 @@ export class VMMailBoxType {
     } else {
       return new VMMailBoxType(await response.text());
     }
+  }
 }
 
-}
+VMMailBoxType satisfies StarRezStructureStatic<VMMailBoxType>

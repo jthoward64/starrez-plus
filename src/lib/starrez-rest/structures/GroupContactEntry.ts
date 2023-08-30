@@ -1,7 +1,8 @@
 // Generated from XML description of GroupContactEntry
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class GroupContactEntry {
   groupContactEntryID?: number;
@@ -45,6 +46,7 @@ export class GroupContactEntry {
     } else {
       return new GroupContactEntry(await response.text());
     }
+  }
 }
 
-}
+GroupContactEntry satisfies StarRezStructureStatic<GroupContactEntry>

@@ -1,7 +1,8 @@
 // Generated from XML description of TaskTemplate
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class TaskTemplate {
   taskTemplateID?: number;
@@ -51,6 +52,7 @@ export class TaskTemplate {
     } else {
       return new TaskTemplate(await response.text());
     }
+  }
 }
 
-}
+TaskTemplate satisfies StarRezStructureStatic<TaskTemplate>

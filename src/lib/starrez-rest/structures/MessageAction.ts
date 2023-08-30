@@ -1,7 +1,8 @@
 // Generated from XML description of MessageAction
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class MessageAction {
   messageActionID?: number;
@@ -39,6 +40,7 @@ export class MessageAction {
     } else {
       return new MessageAction(await response.text());
     }
+  }
 }
 
-}
+MessageAction satisfies StarRezStructureStatic<MessageAction>

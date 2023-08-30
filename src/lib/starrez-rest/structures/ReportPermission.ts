@@ -1,7 +1,8 @@
 // Generated from XML description of ReportPermission
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ReportPermission {
   reportPermissionID?: number;
@@ -43,6 +44,7 @@ export class ReportPermission {
     } else {
       return new ReportPermission(await response.text());
     }
+  }
 }
 
-}
+ReportPermission satisfies StarRezStructureStatic<ReportPermission>

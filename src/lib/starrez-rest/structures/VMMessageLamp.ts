@@ -1,7 +1,8 @@
 // Generated from XML description of VMMessageLamp
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class VMMessageLamp {
   vMMessageLampID?: number;
@@ -43,6 +44,7 @@ export class VMMessageLamp {
     } else {
       return new VMMessageLamp(await response.text());
     }
+  }
 }
 
-}
+VMMessageLamp satisfies StarRezStructureStatic<VMMessageLamp>

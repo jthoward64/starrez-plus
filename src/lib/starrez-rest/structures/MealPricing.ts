@@ -1,7 +1,8 @@
 // Generated from XML description of MealPricing
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class MealPricing {
   mealPricingID?: number;
@@ -49,6 +50,7 @@ export class MealPricing {
     } else {
       return new MealPricing(await response.text());
     }
+  }
 }
 
-}
+MealPricing satisfies StarRezStructureStatic<MealPricing>

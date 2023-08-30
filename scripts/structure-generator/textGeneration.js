@@ -15,7 +15,8 @@ export function generateClassText(tableName, parsedTableInfo) {
   return `// Generated from XML description of ${tableName}
 
 import { starRezXmlToJson } from "../parsing.js";
-import { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezRestConfig } from "../StarRezRestConfig.js";
+import type { StarRezStructureStatic } from "../StructureStatic.js";
 
 export class ${tableName} {
 ${fieldDeclarations[tableName].join("\n")}
@@ -38,8 +39,9 @@ ${Object.entries(parsedTableInfo[tableName]).map(([fieldName, fieldDescription])
   }
 
   ${generateIdFetchText(tableName)}
-
 }
+
+${tableName} satisfies StarRezStructureStatic<${tableName}>
 `;
 }
 
@@ -58,5 +60,5 @@ function generateIdFetchText(tableName) {
     } else {
       return new ${tableName}(await response.text());
     }
-}`
+  }`
 }
