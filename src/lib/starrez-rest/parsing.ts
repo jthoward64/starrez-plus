@@ -9,7 +9,7 @@
  * @returns A Record<string, any> object containing the parsed data
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function fromXML(xml: string | Node, tagName: string): Record<string, any> | null {
+export function starRezXmlToJson(xml: string | Node, tagName: string): Record<string, string> | null {
   const parser = new DOMParser();
   let xmlDoc: Document;
   if (typeof xml === 'string') {
@@ -38,7 +38,11 @@ export function fromXML(xml: string | Node, tagName: string): Record<string, any
     const propertyValue = property.textContent;
 
     if (propertyName && propertyName in data) {
-      data[propertyName] = propertyValue;
+      if (typeof propertyValue === 'string') {
+        data[propertyName] = propertyValue;
+      } else {
+        throw new Error(`Property ${propertyName} has invalid value ${propertyValue} with type ${typeof propertyValue}`);
+      }
     }
   }
 

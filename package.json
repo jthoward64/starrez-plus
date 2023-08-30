@@ -15,8 +15,10 @@
   "type": "module",
   "dependencies": {
     "@types/webextension-polyfill": "^0.10.0",
+    "@types/xml2js": "^0.4.11",
     "preact": "^10.17.1",
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": "^0.10.0",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@esbuilder/html": "^0.0.6",
