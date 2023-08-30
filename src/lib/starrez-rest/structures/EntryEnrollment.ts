@@ -1,6 +1,7 @@
 // Generated from XML description of EntryEnrollment
 
 import { starRezXmlToJson } from "../parsing.js";
+import { StarRezRestConfig } from "../StarRezRestConfig.js";
 
 export class EntryEnrollment {
   entryEnrollmentID?: number;
@@ -82,9 +83,26 @@ export class EntryEnrollment {
     if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
     if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
 
-  const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
+    const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
       console.warn('Custom fields populated:', customFields);
     }
   }
+
+  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryEnrollment | null> {
+    const fetchUrl = new URL(starRezConfig.baseUrl);
+    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryEnrollment/${id}`;
+    const response = await fetch(fetchUrl.toString(), {
+      headers: {
+        ...starRezConfig.fetchHeaders,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch EntryEnrollment with id ${id}`);
+    } else {
+      return new EntryEnrollment(await response.text());
+    }
+}
+
 }

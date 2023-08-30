@@ -1,6 +1,7 @@
 // Generated from XML description of DashboardPanel
 
 import { starRezXmlToJson } from "../parsing.js";
+import { StarRezRestConfig } from "../StarRezRestConfig.js";
 
 export class DashboardPanel {
   dashboardPanelID?: number;
@@ -36,9 +37,26 @@ export class DashboardPanel {
     if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
     if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
 
-  const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
+    const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
       console.warn('Custom fields populated:', customFields);
     }
   }
+
+  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<DashboardPanel | null> {
+    const fetchUrl = new URL(starRezConfig.baseUrl);
+    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/DashboardPanel/${id}`;
+    const response = await fetch(fetchUrl.toString(), {
+      headers: {
+        ...starRezConfig.fetchHeaders,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch DashboardPanel with id ${id}`);
+    } else {
+      return new DashboardPanel(await response.text());
+    }
+}
+
 }

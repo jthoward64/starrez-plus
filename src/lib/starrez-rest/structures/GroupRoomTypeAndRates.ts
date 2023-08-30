@@ -1,6 +1,7 @@
 // Generated from XML description of GroupRoomTypeAndRates
 
 import { starRezXmlToJson } from "../parsing.js";
+import { StarRezRestConfig } from "../StarRezRestConfig.js";
 
 export class GroupRoomTypeAndRates {
   groupRoomTypeAndRatesID?: number;
@@ -50,9 +51,26 @@ export class GroupRoomTypeAndRates {
     if (data.WebComments != null) this.webComments = data.WebComments;
     if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
 
-  const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
+    const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
       console.warn('Custom fields populated:', customFields);
     }
   }
+
+  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<GroupRoomTypeAndRates | null> {
+    const fetchUrl = new URL(starRezConfig.baseUrl);
+    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupRoomTypeAndRates/${id}`;
+    const response = await fetch(fetchUrl.toString(), {
+      headers: {
+        ...starRezConfig.fetchHeaders,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch GroupRoomTypeAndRates with id ${id}`);
+    } else {
+      return new GroupRoomTypeAndRates(await response.text());
+    }
+}
+
 }

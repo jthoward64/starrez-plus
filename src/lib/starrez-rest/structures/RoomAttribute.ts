@@ -1,6 +1,7 @@
 // Generated from XML description of RoomAttribute
 
 import { starRezXmlToJson } from "../parsing.js";
+import { StarRezRestConfig } from "../StarRezRestConfig.js";
 
 export class RoomAttribute {
   roomAttributeID?: number;
@@ -24,9 +25,26 @@ export class RoomAttribute {
     if (data.FieldValue != null) this.fieldValue = data.FieldValue;
     if (data.Weighting != null) this.weighting = parseInt(data.Weighting, 10);
 
-  const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
+    const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
       console.warn('Custom fields populated:', customFields);
     }
   }
+
+  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomAttribute | null> {
+    const fetchUrl = new URL(starRezConfig.baseUrl);
+    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomAttribute/${id}`;
+    const response = await fetch(fetchUrl.toString(), {
+      headers: {
+        ...starRezConfig.fetchHeaders,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch RoomAttribute with id ${id}`);
+    } else {
+      return new RoomAttribute(await response.text());
+    }
+}
+
 }

@@ -1,6 +1,7 @@
 // Generated from XML description of NoVisitorPeriod
 
 import { starRezXmlToJson } from "../parsing.js";
+import { StarRezRestConfig } from "../StarRezRestConfig.js";
 
 export class NoVisitorPeriod {
   noVisitorPeriodID?: number;
@@ -28,9 +29,26 @@ export class NoVisitorPeriod {
     if (data.VisitorTypeID != null) this.visitorTypeID = parseInt(data.VisitorTypeID, 10);
     if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
 
-  const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
+    const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
       console.warn('Custom fields populated:', customFields);
     }
   }
+
+  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<NoVisitorPeriod | null> {
+    const fetchUrl = new URL(starRezConfig.baseUrl);
+    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/NoVisitorPeriod/${id}`;
+    const response = await fetch(fetchUrl.toString(), {
+      headers: {
+        ...starRezConfig.fetchHeaders,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch NoVisitorPeriod with id ${id}`);
+    } else {
+      return new NoVisitorPeriod(await response.text());
+    }
+}
+
 }

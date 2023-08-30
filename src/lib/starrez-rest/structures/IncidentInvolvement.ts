@@ -1,6 +1,7 @@
 // Generated from XML description of IncidentInvolvement
 
 import { starRezXmlToJson } from "../parsing.js";
+import { StarRezRestConfig } from "../StarRezRestConfig.js";
 
 export class IncidentInvolvement {
   incidentInvolvementID?: number;
@@ -26,9 +27,26 @@ export class IncidentInvolvement {
     if (data.IsManager != null) this.isManager = data.IsManager === 'true';
     if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
 
-  const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
+    const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
       console.warn('Custom fields populated:', customFields);
     }
   }
+
+  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentInvolvement | null> {
+    const fetchUrl = new URL(starRezConfig.baseUrl);
+    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentInvolvement/${id}`;
+    const response = await fetch(fetchUrl.toString(), {
+      headers: {
+        ...starRezConfig.fetchHeaders,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch IncidentInvolvement with id ${id}`);
+    } else {
+      return new IncidentInvolvement(await response.text());
+    }
+}
+
 }

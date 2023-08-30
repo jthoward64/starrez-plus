@@ -1,6 +1,7 @@
 // Generated from XML description of EntryInvitation
 
 import { starRezXmlToJson } from "../parsing.js";
+import { StarRezRestConfig } from "../StarRezRestConfig.js";
 
 export class EntryInvitation {
   entryInvitationID?: number;
@@ -38,9 +39,26 @@ export class EntryInvitation {
     if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
     if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
 
-  const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
+    const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
       console.warn('Custom fields populated:', customFields);
     }
   }
+
+  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryInvitation | null> {
+    const fetchUrl = new URL(starRezConfig.baseUrl);
+    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryInvitation/${id}`;
+    const response = await fetch(fetchUrl.toString(), {
+      headers: {
+        ...starRezConfig.fetchHeaders,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch EntryInvitation with id ${id}`);
+    } else {
+      return new EntryInvitation(await response.text());
+    }
+}
+
 }
