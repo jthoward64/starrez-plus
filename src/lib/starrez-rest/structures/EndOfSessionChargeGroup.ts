@@ -17,10 +17,10 @@ export class EndOfSessionChargeGroup {
       throw new Error('Invalid XML');
     }
 
-    if (data.EndOfSessionChargeGroupID != null) this.endOfSessionChargeGroupID = parseInt(data.EndOfSessionChargeGroupID, 10);
-    if (data.EndOfSessionID != null) this.endOfSessionID = parseInt(data.EndOfSessionID, 10);
-    if (data.ChargeGroupID != null) this.chargeGroupID = parseInt(data.ChargeGroupID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.EndOfSessionChargeGroupID != null) this.endOfSessionChargeGroupID = (data.EndOfSessionChargeGroupID != null ? parseInt(data.EndOfSessionChargeGroupID, 10) : data.EndOfSessionChargeGroupID);
+    if (data.EndOfSessionID != null) this.endOfSessionID = (data.EndOfSessionID != null ? parseInt(data.EndOfSessionID, 10) : data.EndOfSessionID);
+    if (data.ChargeGroupID != null) this.chargeGroupID = (data.ChargeGroupID != null ? parseInt(data.ChargeGroupID, 10) : data.ChargeGroupID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

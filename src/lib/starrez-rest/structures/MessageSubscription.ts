@@ -24,17 +24,17 @@ export class MessageSubscription {
       throw new Error('Invalid XML');
     }
 
-    if (data.MessageSubscriptionID != null) this.messageSubscriptionID = parseInt(data.MessageSubscriptionID, 10);
-    if (data.MessageActionID != null) this.messageActionID = parseInt(data.MessageActionID, 10);
-    if (data.MessageSubscriberID != null) this.messageSubscriberID = parseInt(data.MessageSubscriberID, 10);
+    if (data.MessageSubscriptionID != null) this.messageSubscriptionID = (data.MessageSubscriptionID != null ? parseInt(data.MessageSubscriptionID, 10) : data.MessageSubscriptionID);
+    if (data.MessageActionID != null) this.messageActionID = (data.MessageActionID != null ? parseInt(data.MessageActionID, 10) : data.MessageActionID);
+    if (data.MessageSubscriberID != null) this.messageSubscriberID = (data.MessageSubscriberID != null ? parseInt(data.MessageSubscriberID, 10) : data.MessageSubscriberID);
     if (data.Enabled != null) this.enabled = data.Enabled === 'true';
-    if (data.ActiveStartDate != null) this.activeStartDate = new Date(data.ActiveStartDate);
-    if (data.ActiveEndDate != null) this.activeEndDate = new Date(data.ActiveEndDate);
+    if (data.ActiveStartDate != null) this.activeStartDate = (data.ActiveStartDate != null ? new Date(data.ActiveStartDate) : data.ActiveStartDate);
+    if (data.ActiveEndDate != null) this.activeEndDate = (data.ActiveEndDate != null ? new Date(data.ActiveEndDate) : data.ActiveEndDate);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -24,17 +24,17 @@ export class TaskTemplateItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.TaskTemplateItemID != null) this.taskTemplateItemID = parseInt(data.TaskTemplateItemID, 10);
-    if (data.TaskTemplateID != null) this.taskTemplateID = parseInt(data.TaskTemplateID, 10);
+    if (data.TaskTemplateItemID != null) this.taskTemplateItemID = (data.TaskTemplateItemID != null ? parseInt(data.TaskTemplateItemID, 10) : data.TaskTemplateItemID);
+    if (data.TaskTemplateID != null) this.taskTemplateID = (data.TaskTemplateID != null ? parseInt(data.TaskTemplateID, 10) : data.TaskTemplateID);
     if (data.Description != null) this.description = data.Description;
-    if (data.HoursStartFromFirst != null) this.hoursStartFromFirst = parseInt(data.HoursStartFromFirst, 10);
-    if (data.ExpectedDuration != null) this.expectedDuration = parseInt(data.ExpectedDuration, 10);
-    if (data.PriorityID != null) this.priorityID = parseInt(data.PriorityID, 10);
-    if (data.TaskStatusID != null) this.taskStatusID = parseInt(data.TaskStatusID, 10);
-    if (data.TaskTypeID != null) this.taskTypeID = parseInt(data.TaskTypeID, 10);
+    if (data.HoursStartFromFirst != null) this.hoursStartFromFirst = (data.HoursStartFromFirst != null ? parseInt(data.HoursStartFromFirst, 10) : data.HoursStartFromFirst);
+    if (data.ExpectedDuration != null) this.expectedDuration = (data.ExpectedDuration != null ? parseInt(data.ExpectedDuration, 10) : data.ExpectedDuration);
+    if (data.PriorityID != null) this.priorityID = (data.PriorityID != null ? parseInt(data.PriorityID, 10) : data.PriorityID);
+    if (data.TaskStatusID != null) this.taskStatusID = (data.TaskStatusID != null ? parseInt(data.TaskStatusID, 10) : data.TaskStatusID);
+    if (data.TaskTypeID != null) this.taskTypeID = (data.TaskTypeID != null ? parseInt(data.TaskTypeID, 10) : data.TaskTypeID);
     if (data.Reminder != null) this.reminder = data.Reminder === 'true';
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

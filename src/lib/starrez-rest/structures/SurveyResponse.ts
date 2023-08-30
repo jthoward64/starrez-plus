@@ -20,13 +20,13 @@ export class SurveyResponse {
       throw new Error('Invalid XML');
     }
 
-    if (data.SurveyResponseID != null) this.surveyResponseID = parseInt(data.SurveyResponseID, 10);
-    if (data.SurveyID != null) this.surveyID = parseInt(data.SurveyID, 10);
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateComplete != null) this.dateComplete = new Date(data.DateComplete);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.ResponseStatusID != null) this.responseStatusID = parseInt(data.ResponseStatusID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SurveyResponseID != null) this.surveyResponseID = (data.SurveyResponseID != null ? parseInt(data.SurveyResponseID, 10) : data.SurveyResponseID);
+    if (data.SurveyID != null) this.surveyID = (data.SurveyID != null ? parseInt(data.SurveyID, 10) : data.SurveyID);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateComplete != null) this.dateComplete = (data.DateComplete != null ? new Date(data.DateComplete) : data.DateComplete);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.ResponseStatusID != null) this.responseStatusID = (data.ResponseStatusID != null ? parseInt(data.ResponseStatusID, 10) : data.ResponseStatusID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

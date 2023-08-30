@@ -21,14 +21,14 @@ export class GenericTableDefinitionField {
       throw new Error('Invalid XML');
     }
 
-    if (data.GenericTableDefinitionFieldID != null) this.genericTableDefinitionFieldID = parseInt(data.GenericTableDefinitionFieldID, 10);
-    if (data.GenericTableDefinitionID != null) this.genericTableDefinitionID = parseInt(data.GenericTableDefinitionID, 10);
+    if (data.GenericTableDefinitionFieldID != null) this.genericTableDefinitionFieldID = (data.GenericTableDefinitionFieldID != null ? parseInt(data.GenericTableDefinitionFieldID, 10) : data.GenericTableDefinitionFieldID);
+    if (data.GenericTableDefinitionID != null) this.genericTableDefinitionID = (data.GenericTableDefinitionID != null ? parseInt(data.GenericTableDefinitionID, 10) : data.GenericTableDefinitionID);
     if (data.FieldDataTypeEnum != null) this.fieldDataTypeEnum = data.FieldDataTypeEnum;
-    if (data.GenericFieldOrder != null) this.genericFieldOrder = parseInt(data.GenericFieldOrder, 10);
+    if (data.GenericFieldOrder != null) this.genericFieldOrder = (data.GenericFieldOrder != null ? parseInt(data.GenericFieldOrder, 10) : data.GenericFieldOrder);
     if (data.GenericFieldName != null) this.genericFieldName = data.GenericFieldName;
     if (data.GenericFieldGroup != null) this.genericFieldGroup = data.GenericFieldGroup;
     if (data.GenericFieldComment != null) this.genericFieldComment = data.GenericFieldComment;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

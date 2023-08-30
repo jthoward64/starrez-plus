@@ -21,14 +21,14 @@ export class Course {
       throw new Error('Invalid XML');
     }
 
-    if (data.CourseID != null) this.courseID = parseInt(data.CourseID, 10);
+    if (data.CourseID != null) this.courseID = (data.CourseID != null ? parseInt(data.CourseID, 10) : data.CourseID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.CourseCode != null) this.courseCode = data.CourseCode;
-    if (data.EffectiveDate != null) this.effectiveDate = new Date(data.EffectiveDate);
+    if (data.EffectiveDate != null) this.effectiveDate = (data.EffectiveDate != null ? new Date(data.EffectiveDate) : data.EffectiveDate);
     if (data.Status != null) this.status = data.Status;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

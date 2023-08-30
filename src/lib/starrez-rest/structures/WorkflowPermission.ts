@@ -18,11 +18,11 @@ export class WorkflowPermission {
       throw new Error('Invalid XML');
     }
 
-    if (data.WorkflowPermissionID != null) this.workflowPermissionID = parseInt(data.WorkflowPermissionID, 10);
-    if (data.WorkflowID != null) this.workflowID = parseInt(data.WorkflowID, 10);
+    if (data.WorkflowPermissionID != null) this.workflowPermissionID = (data.WorkflowPermissionID != null ? parseInt(data.WorkflowPermissionID, 10) : data.WorkflowPermissionID);
+    if (data.WorkflowID != null) this.workflowID = (data.WorkflowID != null ? parseInt(data.WorkflowID, 10) : data.WorkflowID);
     if (data.AccessTypeEnum != null) this.accessTypeEnum = data.AccessTypeEnum;
-    if (data.SecurityGroupID != null) this.securityGroupID = parseInt(data.SecurityGroupID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityGroupID != null) this.securityGroupID = (data.SecurityGroupID != null ? parseInt(data.SecurityGroupID, 10) : data.SecurityGroupID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -26,19 +26,19 @@ export class ProgramEntry {
       throw new Error('Invalid XML');
     }
 
-    if (data.ProgramEntryID != null) this.programEntryID = parseInt(data.ProgramEntryID, 10);
-    if (data.ProgramID != null) this.programID = parseInt(data.ProgramID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.ProgramEntryID != null) this.programEntryID = (data.ProgramEntryID != null ? parseInt(data.ProgramEntryID, 10) : data.ProgramEntryID);
+    if (data.ProgramID != null) this.programID = (data.ProgramID != null ? parseInt(data.ProgramID, 10) : data.ProgramID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.ProgramEntryStatusEnum != null) this.programEntryStatusEnum = data.ProgramEntryStatusEnum;
-    if (data.CheckInDate != null) this.checkInDate = new Date(data.CheckInDate);
-    if (data.CheckOutDate != null) this.checkOutDate = new Date(data.CheckOutDate);
-    if (data.WorkflowStepID != null) this.workflowStepID = parseInt(data.WorkflowStepID, 10);
-    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = parseInt(data.AssignedTo_SecurityUserID, 10);
-    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = parseInt(data.Current_WorkflowHistoryID, 10);
-    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = parseInt(data.Previous_WorkflowHistoryID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
+    if (data.CheckInDate != null) this.checkInDate = (data.CheckInDate != null ? new Date(data.CheckInDate) : data.CheckInDate);
+    if (data.CheckOutDate != null) this.checkOutDate = (data.CheckOutDate != null ? new Date(data.CheckOutDate) : data.CheckOutDate);
+    if (data.WorkflowStepID != null) this.workflowStepID = (data.WorkflowStepID != null ? parseInt(data.WorkflowStepID, 10) : data.WorkflowStepID);
+    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = (data.AssignedTo_SecurityUserID != null ? parseInt(data.AssignedTo_SecurityUserID, 10) : data.AssignedTo_SecurityUserID);
+    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = (data.Current_WorkflowHistoryID != null ? parseInt(data.Current_WorkflowHistoryID, 10) : data.Current_WorkflowHistoryID);
+    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = (data.Previous_WorkflowHistoryID != null ? parseInt(data.Previous_WorkflowHistoryID, 10) : data.Previous_WorkflowHistoryID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
     if (data.ProgramEntryGUID != null) this.programEntryGUID = data.ProgramEntryGUID;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -18,11 +18,11 @@ export class IncidentAppealDecision {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentAppealDecisionID != null) this.incidentAppealDecisionID = parseInt(data.IncidentAppealDecisionID, 10);
+    if (data.IncidentAppealDecisionID != null) this.incidentAppealDecisionID = (data.IncidentAppealDecisionID != null ? parseInt(data.IncidentAppealDecisionID, 10) : data.IncidentAppealDecisionID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

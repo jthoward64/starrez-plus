@@ -20,13 +20,13 @@ export class EntryGroup {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryGroupID != null) this.entryGroupID = parseInt(data.EntryGroupID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.GroupID != null) this.groupID = parseInt(data.GroupID, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.EntryGroupID != null) this.entryGroupID = (data.EntryGroupID != null ? parseInt(data.EntryGroupID, 10) : data.EntryGroupID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.GroupID != null) this.groupID = (data.GroupID != null ? parseInt(data.GroupID, 10) : data.GroupID);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

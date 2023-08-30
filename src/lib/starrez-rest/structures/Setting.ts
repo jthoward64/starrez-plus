@@ -18,11 +18,11 @@ export class Setting {
       throw new Error('Invalid XML');
     }
 
-    if (data.SettingID != null) this.settingID = parseInt(data.SettingID, 10);
+    if (data.SettingID != null) this.settingID = (data.SettingID != null ? parseInt(data.SettingID, 10) : data.SettingID);
     if (data.Application != null) this.application = data.Application;
     if (data.Setting != null) this.setting = data.Setting;
     if (data.SettingValue != null) this.settingValue = data.SettingValue;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

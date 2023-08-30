@@ -19,12 +19,12 @@ export class SystemActivity {
       throw new Error('Invalid XML');
     }
 
-    if (data.SystemActivityID != null) this.systemActivityID = parseInt(data.SystemActivityID, 10);
+    if (data.SystemActivityID != null) this.systemActivityID = (data.SystemActivityID != null ? parseInt(data.SystemActivityID, 10) : data.SystemActivityID);
     if (data.Client != null) this.client = data.Client;
     if (data.Tracking != null) this.tracking = data.Tracking;
     if (data.ActivityKey != null) this.activityKey = data.ActivityKey;
     if (data.Instance != null) this.instance = data.Instance;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

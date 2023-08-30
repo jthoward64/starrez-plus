@@ -17,10 +17,10 @@ export class ProgramEvaluationType {
       throw new Error('Invalid XML');
     }
 
-    if (data.ProgramEvaluationTypeID != null) this.programEvaluationTypeID = parseInt(data.ProgramEvaluationTypeID, 10);
+    if (data.ProgramEvaluationTypeID != null) this.programEvaluationTypeID = (data.ProgramEvaluationTypeID != null ? parseInt(data.ProgramEvaluationTypeID, 10) : data.ProgramEvaluationTypeID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

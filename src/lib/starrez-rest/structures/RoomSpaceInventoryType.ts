@@ -20,13 +20,13 @@ export class RoomSpaceInventoryType {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceInventoryTypeID != null) this.roomSpaceInventoryTypeID = parseInt(data.RoomSpaceInventoryTypeID, 10);
+    if (data.RoomSpaceInventoryTypeID != null) this.roomSpaceInventoryTypeID = (data.RoomSpaceInventoryTypeID != null ? parseInt(data.RoomSpaceInventoryTypeID, 10) : data.RoomSpaceInventoryTypeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
     if (data.DefaultChargeAmount != null) this.defaultChargeAmount = data.DefaultChargeAmount;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -24,17 +24,17 @@ export class IncidentEntryViolation {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentEntryViolationID != null) this.incidentEntryViolationID = parseInt(data.IncidentEntryViolationID, 10);
-    if (data.IncidentEntryID != null) this.incidentEntryID = parseInt(data.IncidentEntryID, 10);
-    if (data.IncidentViolationID != null) this.incidentViolationID = parseInt(data.IncidentViolationID, 10);
-    if (data.IncidentEntryAppealID != null) this.incidentEntryAppealID = parseInt(data.IncidentEntryAppealID, 10);
-    if (data.IncidentTypeID != null) this.incidentTypeID = parseInt(data.IncidentTypeID, 10);
-    if (data.IncidentSubTypeID != null) this.incidentSubTypeID = parseInt(data.IncidentSubTypeID, 10);
-    if (data.IncidentSeverityID != null) this.incidentSeverityID = parseInt(data.IncidentSeverityID, 10);
-    if (data.IncidentPleaID != null) this.incidentPleaID = parseInt(data.IncidentPleaID, 10);
-    if (data.IncidentFindingID != null) this.incidentFindingID = parseInt(data.IncidentFindingID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.IncidentEntryViolationID != null) this.incidentEntryViolationID = (data.IncidentEntryViolationID != null ? parseInt(data.IncidentEntryViolationID, 10) : data.IncidentEntryViolationID);
+    if (data.IncidentEntryID != null) this.incidentEntryID = (data.IncidentEntryID != null ? parseInt(data.IncidentEntryID, 10) : data.IncidentEntryID);
+    if (data.IncidentViolationID != null) this.incidentViolationID = (data.IncidentViolationID != null ? parseInt(data.IncidentViolationID, 10) : data.IncidentViolationID);
+    if (data.IncidentEntryAppealID != null) this.incidentEntryAppealID = (data.IncidentEntryAppealID != null ? parseInt(data.IncidentEntryAppealID, 10) : data.IncidentEntryAppealID);
+    if (data.IncidentTypeID != null) this.incidentTypeID = (data.IncidentTypeID != null ? parseInt(data.IncidentTypeID, 10) : data.IncidentTypeID);
+    if (data.IncidentSubTypeID != null) this.incidentSubTypeID = (data.IncidentSubTypeID != null ? parseInt(data.IncidentSubTypeID, 10) : data.IncidentSubTypeID);
+    if (data.IncidentSeverityID != null) this.incidentSeverityID = (data.IncidentSeverityID != null ? parseInt(data.IncidentSeverityID, 10) : data.IncidentSeverityID);
+    if (data.IncidentPleaID != null) this.incidentPleaID = (data.IncidentPleaID != null ? parseInt(data.IncidentPleaID, 10) : data.IncidentPleaID);
+    if (data.IncidentFindingID != null) this.incidentFindingID = (data.IncidentFindingID != null ? parseInt(data.IncidentFindingID, 10) : data.IncidentFindingID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -40,18 +40,18 @@ export class EntryParcel {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryParcelID != null) this.entryParcelID = parseInt(data.EntryParcelID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.ParcelTypeID != null) this.parcelTypeID = parseInt(data.ParcelTypeID, 10);
-    if (data.ShippingTypeID != null) this.shippingTypeID = parseInt(data.ShippingTypeID, 10);
-    if (data.AddressTypeID != null) this.addressTypeID = parseInt(data.AddressTypeID, 10);
+    if (data.EntryParcelID != null) this.entryParcelID = (data.EntryParcelID != null ? parseInt(data.EntryParcelID, 10) : data.EntryParcelID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.ParcelTypeID != null) this.parcelTypeID = (data.ParcelTypeID != null ? parseInt(data.ParcelTypeID, 10) : data.ParcelTypeID);
+    if (data.ShippingTypeID != null) this.shippingTypeID = (data.ShippingTypeID != null ? parseInt(data.ShippingTypeID, 10) : data.ShippingTypeID);
+    if (data.AddressTypeID != null) this.addressTypeID = (data.AddressTypeID != null ? parseInt(data.AddressTypeID, 10) : data.AddressTypeID);
     if (data.ParcelStatusEnum != null) this.parcelStatusEnum = data.ParcelStatusEnum;
-    if (data.ElectronicIdentityTypeID != null) this.electronicIdentityTypeID = parseInt(data.ElectronicIdentityTypeID, 10);
+    if (data.ElectronicIdentityTypeID != null) this.electronicIdentityTypeID = (data.ElectronicIdentityTypeID != null ? parseInt(data.ElectronicIdentityTypeID, 10) : data.ElectronicIdentityTypeID);
     if (data.ElectronicIdentity != null) this.electronicIdentity = data.ElectronicIdentity;
     if (data.Description != null) this.description = data.Description;
     if (data.TrackingNumber != null) this.trackingNumber = data.TrackingNumber;
-    if (data.ReceiptDate != null) this.receiptDate = new Date(data.ReceiptDate);
-    if (data.IssueDate != null) this.issueDate = new Date(data.IssueDate);
+    if (data.ReceiptDate != null) this.receiptDate = (data.ReceiptDate != null ? new Date(data.ReceiptDate) : data.ReceiptDate);
+    if (data.IssueDate != null) this.issueDate = (data.IssueDate != null ? new Date(data.IssueDate) : data.IssueDate);
     if (data.Comments != null) this.comments = data.Comments;
     if (data.CustomBit1 != null) this.customBit1 = data.CustomBit1 === 'true';
     if (data.CustomBit2 != null) this.customBit2 = data.CustomBit2 === 'true';
@@ -61,12 +61,12 @@ export class EntryParcel {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

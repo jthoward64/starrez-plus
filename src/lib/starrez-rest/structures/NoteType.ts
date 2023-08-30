@@ -19,12 +19,12 @@ export class NoteType {
       throw new Error('Invalid XML');
     }
 
-    if (data.NoteTypeID != null) this.noteTypeID = parseInt(data.NoteTypeID, 10);
+    if (data.NoteTypeID != null) this.noteTypeID = (data.NoteTypeID != null ? parseInt(data.NoteTypeID, 10) : data.NoteTypeID);
     if (data.TableName != null) this.tableName = data.TableName;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.XMLSchema != null) this.xMLSchema = data.XMLSchema;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

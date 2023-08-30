@@ -23,16 +23,16 @@ export class PortalUserSignature {
       throw new Error('Invalid XML');
     }
 
-    if (data.PortalUserSignatureID != null) this.portalUserSignatureID = parseInt(data.PortalUserSignatureID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.PortalPageWidgetID != null) this.portalPageWidgetID = parseInt(data.PortalPageWidgetID, 10);
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
+    if (data.PortalUserSignatureID != null) this.portalUserSignatureID = (data.PortalUserSignatureID != null ? parseInt(data.PortalUserSignatureID, 10) : data.PortalUserSignatureID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.PortalPageWidgetID != null) this.portalPageWidgetID = (data.PortalPageWidgetID != null ? parseInt(data.PortalPageWidgetID, 10) : data.PortalPageWidgetID);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
     if (data.TableName != null) this.tableName = data.TableName;
     if (data.Description != null) this.description = data.Description;
     if (data.Signature != null) this.signature = data.Signature;
-    if (data.DateSigned != null) this.dateSigned = new Date(data.DateSigned);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateSigned != null) this.dateSigned = (data.DateSigned != null ? new Date(data.DateSigned) : data.DateSigned);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

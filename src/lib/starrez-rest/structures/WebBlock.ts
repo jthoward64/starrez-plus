@@ -36,16 +36,16 @@ export class WebBlock {
       throw new Error('Invalid XML');
     }
 
-    if (data.WebBlockID != null) this.webBlockID = parseInt(data.WebBlockID, 10);
-    if (data.WebSectionID != null) this.webSectionID = parseInt(data.WebSectionID, 10);
+    if (data.WebBlockID != null) this.webBlockID = (data.WebBlockID != null ? parseInt(data.WebBlockID, 10) : data.WebBlockID);
+    if (data.WebSectionID != null) this.webSectionID = (data.WebSectionID != null ? parseInt(data.WebSectionID, 10) : data.WebSectionID);
     if (data.BlockName != null) this.blockName = data.BlockName;
     if (data.Display != null) this.display = data.Display === 'true';
-    if (data.BlockOrder != null) this.blockOrder = parseInt(data.BlockOrder, 10);
+    if (data.BlockOrder != null) this.blockOrder = (data.BlockOrder != null ? parseInt(data.BlockOrder, 10) : data.BlockOrder);
     if (data.Header != null) this.header = data.Header;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.WebBlockTypeEnum != null) this.webBlockTypeEnum = data.WebBlockTypeEnum;
     if (data.CustomObjectName != null) this.customObjectName = data.CustomObjectName;
-    if (data.Repeat != null) this.repeat = parseInt(data.Repeat, 10);
+    if (data.Repeat != null) this.repeat = (data.Repeat != null ? parseInt(data.Repeat, 10) : data.Repeat);
     if (data.DestTable != null) this.destTable = data.DestTable;
     if (data.DestTableSortBy != null) this.destTableSortBy = data.DestTableSortBy;
     if (data.SourceTable != null) this.sourceTable = data.SourceTable;
@@ -56,9 +56,9 @@ export class WebBlock {
     if (data.NoInsertCondition != null) this.noInsertCondition = data.NoInsertCondition;
     if (data.DataFilter != null) this.dataFilter = data.DataFilter;
     if (data.LinkingField != null) this.linkingField = data.LinkingField;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

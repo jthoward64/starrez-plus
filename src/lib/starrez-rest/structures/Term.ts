@@ -25,18 +25,18 @@ export class Term {
       throw new Error('Invalid XML');
     }
 
-    if (data.TermID != null) this.termID = parseInt(data.TermID, 10);
+    if (data.TermID != null) this.termID = (data.TermID != null ? parseInt(data.TermID, 10) : data.TermID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
     if (data.TermCode != null) this.termCode = data.TermCode;
-    if (data.TermTypeID != null) this.termTypeID = parseInt(data.TermTypeID, 10);
+    if (data.TermTypeID != null) this.termTypeID = (data.TermTypeID != null ? parseInt(data.TermTypeID, 10) : data.TermTypeID);
     if (data.Active != null) this.active = data.Active === 'true';
-    if (data.ActiveDateOpen != null) this.activeDateOpen = new Date(data.ActiveDateOpen);
-    if (data.ActiveDateClose != null) this.activeDateClose = new Date(data.ActiveDateClose);
+    if (data.ActiveDateOpen != null) this.activeDateOpen = (data.ActiveDateOpen != null ? new Date(data.ActiveDateOpen) : data.ActiveDateOpen);
+    if (data.ActiveDateClose != null) this.activeDateClose = (data.ActiveDateClose != null ? new Date(data.ActiveDateClose) : data.ActiveDateClose);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

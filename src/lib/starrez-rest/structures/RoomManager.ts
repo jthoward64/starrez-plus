@@ -23,16 +23,16 @@ export class RoomManager {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomManagerID != null) this.roomManagerID = parseInt(data.RoomManagerID, 10);
+    if (data.RoomManagerID != null) this.roomManagerID = (data.RoomManagerID != null ? parseInt(data.RoomManagerID, 10) : data.RoomManagerID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.ContactID != null) this.contactID = parseInt(data.ContactID, 10);
+    if (data.ContactID != null) this.contactID = (data.ContactID != null ? parseInt(data.ContactID, 10) : data.ContactID);
     if (data.Description != null) this.description = data.Description;
-    if (data.LeaseDateStart != null) this.leaseDateStart = new Date(data.LeaseDateStart);
-    if (data.LeaseDateEnd != null) this.leaseDateEnd = new Date(data.LeaseDateEnd);
+    if (data.LeaseDateStart != null) this.leaseDateStart = (data.LeaseDateStart != null ? new Date(data.LeaseDateStart) : data.LeaseDateStart);
+    if (data.LeaseDateEnd != null) this.leaseDateEnd = (data.LeaseDateEnd != null ? new Date(data.LeaseDateEnd) : data.LeaseDateEnd);
     if (data.AmountRent != null) this.amountRent = data.AmountRent;
     if (data.AmountBond != null) this.amountBond = data.AmountBond;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

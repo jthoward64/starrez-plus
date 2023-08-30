@@ -19,12 +19,12 @@ export class IncidentFinding {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentFindingID != null) this.incidentFindingID = parseInt(data.IncidentFindingID, 10);
+    if (data.IncidentFindingID != null) this.incidentFindingID = (data.IncidentFindingID != null ? parseInt(data.IncidentFindingID, 10) : data.IncidentFindingID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.IsResponsible != null) this.isResponsible = data.IsResponsible === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

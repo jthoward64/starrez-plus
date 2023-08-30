@@ -18,11 +18,11 @@ export class RoomSpaceSwapPreference {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceSwapPreferenceID != null) this.roomSpaceSwapPreferenceID = parseInt(data.RoomSpaceSwapPreferenceID, 10);
-    if (data.BookingID != null) this.bookingID = parseInt(data.BookingID, 10);
-    if (data.RoomPreferenceID != null) this.roomPreferenceID = parseInt(data.RoomPreferenceID, 10);
-    if (data.Preference != null) this.preference = parseInt(data.Preference, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.RoomSpaceSwapPreferenceID != null) this.roomSpaceSwapPreferenceID = (data.RoomSpaceSwapPreferenceID != null ? parseInt(data.RoomSpaceSwapPreferenceID, 10) : data.RoomSpaceSwapPreferenceID);
+    if (data.BookingID != null) this.bookingID = (data.BookingID != null ? parseInt(data.BookingID, 10) : data.BookingID);
+    if (data.RoomPreferenceID != null) this.roomPreferenceID = (data.RoomPreferenceID != null ? parseInt(data.RoomPreferenceID, 10) : data.RoomPreferenceID);
+    if (data.Preference != null) this.preference = (data.Preference != null ? parseInt(data.Preference, 10) : data.Preference);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

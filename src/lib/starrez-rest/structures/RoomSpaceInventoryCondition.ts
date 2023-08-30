@@ -20,13 +20,13 @@ export class RoomSpaceInventoryCondition {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceInventoryConditionID != null) this.roomSpaceInventoryConditionID = parseInt(data.RoomSpaceInventoryConditionID, 10);
+    if (data.RoomSpaceInventoryConditionID != null) this.roomSpaceInventoryConditionID = (data.RoomSpaceInventoryConditionID != null ? parseInt(data.RoomSpaceInventoryConditionID, 10) : data.RoomSpaceInventoryConditionID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.RoomSpaceInventoryTypeID != null) this.roomSpaceInventoryTypeID = parseInt(data.RoomSpaceInventoryTypeID, 10);
-    if (data.ConditionOrder != null) this.conditionOrder = parseInt(data.ConditionOrder, 10);
+    if (data.RoomSpaceInventoryTypeID != null) this.roomSpaceInventoryTypeID = (data.RoomSpaceInventoryTypeID != null ? parseInt(data.RoomSpaceInventoryTypeID, 10) : data.RoomSpaceInventoryTypeID);
+    if (data.ConditionOrder != null) this.conditionOrder = (data.ConditionOrder != null ? parseInt(data.ConditionOrder, 10) : data.ConditionOrder);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

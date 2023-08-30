@@ -18,11 +18,11 @@ export class ProgramSubType {
       throw new Error('Invalid XML');
     }
 
-    if (data.ProgramSubTypeID != null) this.programSubTypeID = parseInt(data.ProgramSubTypeID, 10);
-    if (data.ProgramTypeID != null) this.programTypeID = parseInt(data.ProgramTypeID, 10);
+    if (data.ProgramSubTypeID != null) this.programSubTypeID = (data.ProgramSubTypeID != null ? parseInt(data.ProgramSubTypeID, 10) : data.ProgramSubTypeID);
+    if (data.ProgramTypeID != null) this.programTypeID = (data.ProgramTypeID != null ? parseInt(data.ProgramTypeID, 10) : data.ProgramTypeID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

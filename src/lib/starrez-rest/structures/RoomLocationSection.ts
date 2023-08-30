@@ -23,8 +23,8 @@ export class RoomLocationSection {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomLocationSectionID != null) this.roomLocationSectionID = parseInt(data.RoomLocationSectionID, 10);
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
+    if (data.RoomLocationSectionID != null) this.roomLocationSectionID = (data.RoomLocationSectionID != null ? parseInt(data.RoomLocationSectionID, 10) : data.RoomLocationSectionID);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
@@ -32,7 +32,7 @@ export class RoomLocationSection {
     if (data.WebImageLocation != null) this.webImageLocation = data.WebImageLocation;
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
     if (data.WebComments != null) this.webComments = data.WebComments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

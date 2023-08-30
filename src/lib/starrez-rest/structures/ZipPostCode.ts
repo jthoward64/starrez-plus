@@ -20,13 +20,13 @@ export class ZipPostCode {
       throw new Error('Invalid XML');
     }
 
-    if (data.ZipPostCodeID != null) this.zipPostCodeID = parseInt(data.ZipPostCodeID, 10);
+    if (data.ZipPostCodeID != null) this.zipPostCodeID = (data.ZipPostCodeID != null ? parseInt(data.ZipPostCodeID, 10) : data.ZipPostCodeID);
     if (data.ZipPostCode != null) this.zipPostCode = data.ZipPostCode;
-    if (data.PostCodeSort != null) this.postCodeSort = parseInt(data.PostCodeSort, 10);
+    if (data.PostCodeSort != null) this.postCodeSort = (data.PostCodeSort != null ? parseInt(data.PostCodeSort, 10) : data.PostCodeSort);
     if (data.Locality != null) this.locality = data.Locality;
     if (data.StateProvince != null) this.stateProvince = data.StateProvince;
-    if (data.CountryID != null) this.countryID = parseInt(data.CountryID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CountryID != null) this.countryID = (data.CountryID != null ? parseInt(data.CountryID, 10) : data.CountryID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -21,14 +21,14 @@ export class Workflow {
       throw new Error('Invalid XML');
     }
 
-    if (data.WorkflowID != null) this.workflowID = parseInt(data.WorkflowID, 10);
+    if (data.WorkflowID != null) this.workflowID = (data.WorkflowID != null ? parseInt(data.WorkflowID, 10) : data.WorkflowID);
     if (data.TableName != null) this.tableName = data.TableName;
     if (data.Description != null) this.description = data.Description;
-    if (data.WorkflowOrder != null) this.workflowOrder = parseInt(data.WorkflowOrder, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.WorkflowOrder != null) this.workflowOrder = (data.WorkflowOrder != null ? parseInt(data.WorkflowOrder, 10) : data.WorkflowOrder);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

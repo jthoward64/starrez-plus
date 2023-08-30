@@ -18,11 +18,11 @@ export class ReportPermission {
       throw new Error('Invalid XML');
     }
 
-    if (data.ReportPermissionID != null) this.reportPermissionID = parseInt(data.ReportPermissionID, 10);
-    if (data.ReportID != null) this.reportID = parseInt(data.ReportID, 10);
+    if (data.ReportPermissionID != null) this.reportPermissionID = (data.ReportPermissionID != null ? parseInt(data.ReportPermissionID, 10) : data.ReportPermissionID);
+    if (data.ReportID != null) this.reportID = (data.ReportID != null ? parseInt(data.ReportID, 10) : data.ReportID);
     if (data.AccessTypeEnum != null) this.accessTypeEnum = data.AccessTypeEnum;
-    if (data.SecurityGroupID != null) this.securityGroupID = parseInt(data.SecurityGroupID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityGroupID != null) this.securityGroupID = (data.SecurityGroupID != null ? parseInt(data.SecurityGroupID, 10) : data.SecurityGroupID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

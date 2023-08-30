@@ -27,20 +27,20 @@ export class TransactionTemplateItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.TransactionTemplateItemID != null) this.transactionTemplateItemID = parseInt(data.TransactionTemplateItemID, 10);
-    if (data.TransactionTemplateID != null) this.transactionTemplateID = parseInt(data.TransactionTemplateID, 10);
-    if (data.ChargeGroupID != null) this.chargeGroupID = parseInt(data.ChargeGroupID, 10);
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
+    if (data.TransactionTemplateItemID != null) this.transactionTemplateItemID = (data.TransactionTemplateItemID != null ? parseInt(data.TransactionTemplateItemID, 10) : data.TransactionTemplateItemID);
+    if (data.TransactionTemplateID != null) this.transactionTemplateID = (data.TransactionTemplateID != null ? parseInt(data.TransactionTemplateID, 10) : data.TransactionTemplateID);
+    if (data.ChargeGroupID != null) this.chargeGroupID = (data.ChargeGroupID != null ? parseInt(data.ChargeGroupID, 10) : data.ChargeGroupID);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
     if (data.TransactionTypeEnum != null) this.transactionTypeEnum = data.TransactionTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.AutoPayOverride != null) this.autoPayOverride = data.AutoPayOverride === 'true';
     if (data.Amount != null) this.amount = data.Amount;
-    if (data.DueDate != null) this.dueDate = new Date(data.DueDate);
+    if (data.DueDate != null) this.dueDate = (data.DueDate != null ? new Date(data.DueDate) : data.DueDate);
     if (data.Tag != null) this.tag = data.Tag;
     if (data.TagFinance != null) this.tagFinance = data.TagFinance;
-    if (data.TermSessionID != null) this.termSessionID = parseInt(data.TermSessionID, 10);
+    if (data.TermSessionID != null) this.termSessionID = (data.TermSessionID != null ? parseInt(data.TermSessionID, 10) : data.TermSessionID);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

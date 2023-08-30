@@ -49,19 +49,19 @@ export class Invoice {
       throw new Error('Invalid XML');
     }
 
-    if (data.InvoiceID != null) this.invoiceID = parseInt(data.InvoiceID, 10);
+    if (data.InvoiceID != null) this.invoiceID = (data.InvoiceID != null ? parseInt(data.InvoiceID, 10) : data.InvoiceID);
     if (data.InvoiceTypeEnum != null) this.invoiceTypeEnum = data.InvoiceTypeEnum;
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.Description != null) this.description = data.Description;
-    if (data.InvoiceFromDate != null) this.invoiceFromDate = new Date(data.InvoiceFromDate);
-    if (data.InvoiceToDate != null) this.invoiceToDate = new Date(data.InvoiceToDate);
-    if (data.InvoiceDate != null) this.invoiceDate = new Date(data.InvoiceDate);
-    if (data.DueDate != null) this.dueDate = new Date(data.DueDate);
+    if (data.InvoiceFromDate != null) this.invoiceFromDate = (data.InvoiceFromDate != null ? new Date(data.InvoiceFromDate) : data.InvoiceFromDate);
+    if (data.InvoiceToDate != null) this.invoiceToDate = (data.InvoiceToDate != null ? new Date(data.InvoiceToDate) : data.InvoiceToDate);
+    if (data.InvoiceDate != null) this.invoiceDate = (data.InvoiceDate != null ? new Date(data.InvoiceDate) : data.InvoiceDate);
+    if (data.DueDate != null) this.dueDate = (data.DueDate != null ? new Date(data.DueDate) : data.DueDate);
     if (data.PreviousBalance != null) this.previousBalance = data.PreviousBalance;
     if (data.InvoiceTotal != null) this.invoiceTotal = data.InvoiceTotal;
     if (data.InvoiceTaxTotal != null) this.invoiceTaxTotal = data.InvoiceTaxTotal;
     if (data.InvoiceBalance != null) this.invoiceBalance = data.InvoiceBalance;
-    if (data.DiscountDate != null) this.discountDate = new Date(data.DiscountDate);
+    if (data.DiscountDate != null) this.discountDate = (data.DiscountDate != null ? new Date(data.DiscountDate) : data.DiscountDate);
     if (data.DiscountTotal != null) this.discountTotal = data.DiscountTotal;
     if (data.ChargeGroupList != null) this.chargeGroupList = data.ChargeGroupList;
     if (data.EntryName != null) this.entryName = data.EntryName;
@@ -69,7 +69,7 @@ export class Invoice {
     if (data.RoomSpace_Description != null) this.roomSpace_Description = data.RoomSpace_Description;
     if (data.ElectronicIdentity != null) this.electronicIdentity = data.ElectronicIdentity;
     if (data.AccountCode != null) this.accountCode = data.AccountCode;
-    if (data.AccountDueDate != null) this.accountDueDate = new Date(data.AccountDueDate);
+    if (data.AccountDueDate != null) this.accountDueDate = (data.AccountDueDate != null ? new Date(data.AccountDueDate) : data.AccountDueDate);
     if (data.AccountDue != null) this.accountDue = data.AccountDue === 'true';
     if (data.ID1 != null) this.iD1 = data.ID1;
     if (data.AddressSalutation != null) this.addressSalutation = data.AddressSalutation;
@@ -83,8 +83,8 @@ export class Invoice {
     if (data.Comments != null) this.comments = data.Comments;
     if (data.MachineName != null) this.machineName = data.MachineName;
     if (data.ExternalNumber != null) this.externalNumber = data.ExternalNumber;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

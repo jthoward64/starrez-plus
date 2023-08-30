@@ -19,12 +19,12 @@ export class RoomAttribute {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomAttributeID != null) this.roomAttributeID = parseInt(data.RoomAttributeID, 10);
-    if (data.RoomID != null) this.roomID = parseInt(data.RoomID, 10);
+    if (data.RoomAttributeID != null) this.roomAttributeID = (data.RoomAttributeID != null ? parseInt(data.RoomAttributeID, 10) : data.RoomAttributeID);
+    if (data.RoomID != null) this.roomID = (data.RoomID != null ? parseInt(data.RoomID, 10) : data.RoomID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.FieldName != null) this.fieldName = data.FieldName;
     if (data.FieldValue != null) this.fieldValue = data.FieldValue;
-    if (data.Weighting != null) this.weighting = parseInt(data.Weighting, 10);
+    if (data.Weighting != null) this.weighting = (data.Weighting != null ? parseInt(data.Weighting, 10) : data.Weighting);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

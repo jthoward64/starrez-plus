@@ -23,16 +23,16 @@ export class EntryPosition {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryPositionID != null) this.entryPositionID = parseInt(data.EntryPositionID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.TermID != null) this.termID = parseInt(data.TermID, 10);
+    if (data.EntryPositionID != null) this.entryPositionID = (data.EntryPositionID != null ? parseInt(data.EntryPositionID, 10) : data.EntryPositionID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.TermID != null) this.termID = (data.TermID != null ? parseInt(data.TermID, 10) : data.TermID);
     if (data.PositionYear != null) this.positionYear = data.PositionYear;
     if (data.TermDetail != null) this.termDetail = data.TermDetail;
     if (data.Position != null) this.position = data.Position;
-    if (data.PositionDateStart != null) this.positionDateStart = new Date(data.PositionDateStart);
-    if (data.PositionDateEnd != null) this.positionDateEnd = new Date(data.PositionDateEnd);
+    if (data.PositionDateStart != null) this.positionDateStart = (data.PositionDateStart != null ? new Date(data.PositionDateStart) : data.PositionDateStart);
+    if (data.PositionDateEnd != null) this.positionDateEnd = (data.PositionDateEnd != null ? new Date(data.PositionDateEnd) : data.PositionDateEnd);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

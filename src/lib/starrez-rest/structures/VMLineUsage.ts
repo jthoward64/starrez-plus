@@ -21,14 +21,14 @@ export class VMLineUsage {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMLineUsageID != null) this.vMLineUsageID = parseInt(data.VMLineUsageID, 10);
-    if (data.VMLineUsageDate != null) this.vMLineUsageDate = new Date(data.VMLineUsageDate);
-    if (data.SiteID != null) this.siteID = parseInt(data.SiteID, 10);
-    if (data.Line != null) this.line = parseInt(data.Line, 10);
-    if (data.Duration != null) this.duration = parseInt(data.Duration, 10);
-    if (data.ExtensionID != null) this.extensionID = parseInt(data.ExtensionID, 10);
+    if (data.VMLineUsageID != null) this.vMLineUsageID = (data.VMLineUsageID != null ? parseInt(data.VMLineUsageID, 10) : data.VMLineUsageID);
+    if (data.VMLineUsageDate != null) this.vMLineUsageDate = (data.VMLineUsageDate != null ? new Date(data.VMLineUsageDate) : data.VMLineUsageDate);
+    if (data.SiteID != null) this.siteID = (data.SiteID != null ? parseInt(data.SiteID, 10) : data.SiteID);
+    if (data.Line != null) this.line = (data.Line != null ? parseInt(data.Line, 10) : data.Line);
+    if (data.Duration != null) this.duration = (data.Duration != null ? parseInt(data.Duration, 10) : data.Duration);
+    if (data.ExtensionID != null) this.extensionID = (data.ExtensionID != null ? parseInt(data.ExtensionID, 10) : data.ExtensionID);
     if (data.Admin != null) this.admin = data.Admin === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

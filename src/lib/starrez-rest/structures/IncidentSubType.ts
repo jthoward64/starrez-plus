@@ -23,16 +23,16 @@ export class IncidentSubType {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentSubTypeID != null) this.incidentSubTypeID = parseInt(data.IncidentSubTypeID, 10);
+    if (data.IncidentSubTypeID != null) this.incidentSubTypeID = (data.IncidentSubTypeID != null ? parseInt(data.IncidentSubTypeID, 10) : data.IncidentSubTypeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.IncidentTypeID != null) this.incidentTypeID = parseInt(data.IncidentTypeID, 10);
-    if (data.IncidentSeverityID != null) this.incidentSeverityID = parseInt(data.IncidentSeverityID, 10);
+    if (data.IncidentTypeID != null) this.incidentTypeID = (data.IncidentTypeID != null ? parseInt(data.IncidentTypeID, 10) : data.IncidentTypeID);
+    if (data.IncidentSeverityID != null) this.incidentSeverityID = (data.IncidentSeverityID != null ? parseInt(data.IncidentSeverityID, 10) : data.IncidentSeverityID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Clery != null) this.clery = data.Clery === 'true';
-    if (data.CleryOrder != null) this.cleryOrder = parseInt(data.CleryOrder, 10);
+    if (data.CleryOrder != null) this.cleryOrder = (data.CleryOrder != null ? parseInt(data.CleryOrder, 10) : data.CleryOrder);
     if (data.AlwaysCountInClery != null) this.alwaysCountInClery = data.AlwaysCountInClery === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -19,12 +19,12 @@ export class VMGroup {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMGroupID != null) this.vMGroupID = parseInt(data.VMGroupID, 10);
-    if (data.GroupNumber != null) this.groupNumber = parseInt(data.GroupNumber, 10);
+    if (data.VMGroupID != null) this.vMGroupID = (data.VMGroupID != null ? parseInt(data.VMGroupID, 10) : data.VMGroupID);
+    if (data.GroupNumber != null) this.groupNumber = (data.GroupNumber != null ? parseInt(data.GroupNumber, 10) : data.GroupNumber);
     if (data.VMGroupName != null) this.vMGroupName = data.VMGroupName;
     if (data.ExtensionType != null) this.extensionType = data.ExtensionType === 'true';
     if (data.Description != null) this.description = data.Description;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

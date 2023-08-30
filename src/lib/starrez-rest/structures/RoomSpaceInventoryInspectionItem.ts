@@ -26,19 +26,19 @@ export class RoomSpaceInventoryInspectionItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceInventoryInspectionItemID != null) this.roomSpaceInventoryInspectionItemID = parseInt(data.RoomSpaceInventoryInspectionItemID, 10);
-    if (data.RoomSpaceInventoryInspectionID != null) this.roomSpaceInventoryInspectionID = parseInt(data.RoomSpaceInventoryInspectionID, 10);
-    if (data.RoomSpaceInventoryID != null) this.roomSpaceInventoryID = parseInt(data.RoomSpaceInventoryID, 10);
-    if (data.RoomSpaceInventoryConditionID != null) this.roomSpaceInventoryConditionID = parseInt(data.RoomSpaceInventoryConditionID, 10);
-    if (data.Old_RoomSpaceInventoryConditionID != null) this.old_RoomSpaceInventoryConditionID = parseInt(data.Old_RoomSpaceInventoryConditionID, 10);
-    if (data.TransactionID != null) this.transactionID = parseInt(data.TransactionID, 10);
+    if (data.RoomSpaceInventoryInspectionItemID != null) this.roomSpaceInventoryInspectionItemID = (data.RoomSpaceInventoryInspectionItemID != null ? parseInt(data.RoomSpaceInventoryInspectionItemID, 10) : data.RoomSpaceInventoryInspectionItemID);
+    if (data.RoomSpaceInventoryInspectionID != null) this.roomSpaceInventoryInspectionID = (data.RoomSpaceInventoryInspectionID != null ? parseInt(data.RoomSpaceInventoryInspectionID, 10) : data.RoomSpaceInventoryInspectionID);
+    if (data.RoomSpaceInventoryID != null) this.roomSpaceInventoryID = (data.RoomSpaceInventoryID != null ? parseInt(data.RoomSpaceInventoryID, 10) : data.RoomSpaceInventoryID);
+    if (data.RoomSpaceInventoryConditionID != null) this.roomSpaceInventoryConditionID = (data.RoomSpaceInventoryConditionID != null ? parseInt(data.RoomSpaceInventoryConditionID, 10) : data.RoomSpaceInventoryConditionID);
+    if (data.Old_RoomSpaceInventoryConditionID != null) this.old_RoomSpaceInventoryConditionID = (data.Old_RoomSpaceInventoryConditionID != null ? parseInt(data.Old_RoomSpaceInventoryConditionID, 10) : data.Old_RoomSpaceInventoryConditionID);
+    if (data.TransactionID != null) this.transactionID = (data.TransactionID != null ? parseInt(data.TransactionID, 10) : data.TransactionID);
     if (data.Inspected != null) this.inspected = data.Inspected === 'true';
     if (data.Accepted != null) this.accepted = data.Accepted === 'true';
     if (data.ReviewComments != null) this.reviewComments = data.ReviewComments;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Chargeable != null) this.chargeable = data.Chargeable === 'true';
     if (data.ChargeAmount != null) this.chargeAmount = data.ChargeAmount;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

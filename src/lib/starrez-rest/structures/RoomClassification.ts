@@ -16,9 +16,9 @@ export class RoomClassification {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomClassificationID != null) this.roomClassificationID = parseInt(data.RoomClassificationID, 10);
-    if (data.RoomID != null) this.roomID = parseInt(data.RoomID, 10);
-    if (data.ClassificationID != null) this.classificationID = parseInt(data.ClassificationID, 10);
+    if (data.RoomClassificationID != null) this.roomClassificationID = (data.RoomClassificationID != null ? parseInt(data.RoomClassificationID, 10) : data.RoomClassificationID);
+    if (data.RoomID != null) this.roomID = (data.RoomID != null ? parseInt(data.RoomID, 10) : data.RoomID);
+    if (data.ClassificationID != null) this.classificationID = (data.ClassificationID != null ? parseInt(data.ClassificationID, 10) : data.ClassificationID);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

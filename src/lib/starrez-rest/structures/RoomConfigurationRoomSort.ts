@@ -18,11 +18,11 @@ export class RoomConfigurationRoomSort {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomConfigurationRoomSortID != null) this.roomConfigurationRoomSortID = parseInt(data.RoomConfigurationRoomSortID, 10);
+    if (data.RoomConfigurationRoomSortID != null) this.roomConfigurationRoomSortID = (data.RoomConfigurationRoomSortID != null ? parseInt(data.RoomConfigurationRoomSortID, 10) : data.RoomConfigurationRoomSortID);
     if (data.IsBestMatchWhenNoRoomProfile != null) this.isBestMatchWhenNoRoomProfile = data.IsBestMatchWhenNoRoomProfile === 'true';
-    if (data.RoomConfigurationID != null) this.roomConfigurationID = parseInt(data.RoomConfigurationID, 10);
-    if (data.RoomSortProfileItemID != null) this.roomSortProfileItemID = parseInt(data.RoomSortProfileItemID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.RoomConfigurationID != null) this.roomConfigurationID = (data.RoomConfigurationID != null ? parseInt(data.RoomConfigurationID, 10) : data.RoomConfigurationID);
+    if (data.RoomSortProfileItemID != null) this.roomSortProfileItemID = (data.RoomSortProfileItemID != null ? parseInt(data.RoomSortProfileItemID, 10) : data.RoomSortProfileItemID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

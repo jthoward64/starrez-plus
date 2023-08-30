@@ -18,11 +18,11 @@ export class TransactionLink {
       throw new Error('Invalid XML');
     }
 
-    if (data.TransactionLinkID != null) this.transactionLinkID = parseInt(data.TransactionLinkID, 10);
+    if (data.TransactionLinkID != null) this.transactionLinkID = (data.TransactionLinkID != null ? parseInt(data.TransactionLinkID, 10) : data.TransactionLinkID);
     if (data.TransactionLinkTypeEnum != null) this.transactionLinkTypeEnum = data.TransactionLinkTypeEnum;
-    if (data.TransactionLinkDate != null) this.transactionLinkDate = new Date(data.TransactionLinkDate);
+    if (data.TransactionLinkDate != null) this.transactionLinkDate = (data.TransactionLinkDate != null ? new Date(data.TransactionLinkDate) : data.TransactionLinkDate);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

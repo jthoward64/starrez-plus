@@ -18,11 +18,11 @@ export class EntryElectronicIdentity {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryElectronicIdentityID != null) this.entryElectronicIdentityID = parseInt(data.EntryElectronicIdentityID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.ElectronicIdentityTypeID != null) this.electronicIdentityTypeID = parseInt(data.ElectronicIdentityTypeID, 10);
+    if (data.EntryElectronicIdentityID != null) this.entryElectronicIdentityID = (data.EntryElectronicIdentityID != null ? parseInt(data.EntryElectronicIdentityID, 10) : data.EntryElectronicIdentityID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.ElectronicIdentityTypeID != null) this.electronicIdentityTypeID = (data.ElectronicIdentityTypeID != null ? parseInt(data.ElectronicIdentityTypeID, 10) : data.ElectronicIdentityTypeID);
     if (data.ElectronicIdentity != null) this.electronicIdentity = data.ElectronicIdentity;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

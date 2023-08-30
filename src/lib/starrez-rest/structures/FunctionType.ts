@@ -18,11 +18,11 @@ export class FunctionType {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionTypeID != null) this.functionTypeID = parseInt(data.FunctionTypeID, 10);
+    if (data.FunctionTypeID != null) this.functionTypeID = (data.FunctionTypeID != null ? parseInt(data.FunctionTypeID, 10) : data.FunctionTypeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

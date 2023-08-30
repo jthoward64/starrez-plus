@@ -19,12 +19,12 @@ export class GroupContactEntry {
       throw new Error('Invalid XML');
     }
 
-    if (data.GroupContactEntryID != null) this.groupContactEntryID = parseInt(data.GroupContactEntryID, 10);
-    if (data.GroupID != null) this.groupID = parseInt(data.GroupID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.GroupContactEntryID != null) this.groupContactEntryID = (data.GroupContactEntryID != null ? parseInt(data.GroupContactEntryID, 10) : data.GroupContactEntryID);
+    if (data.GroupID != null) this.groupID = (data.GroupID != null ? parseInt(data.GroupID, 10) : data.GroupID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.Responsibilities != null) this.responsibilities = data.Responsibilities;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

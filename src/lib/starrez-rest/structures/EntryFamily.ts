@@ -28,13 +28,13 @@ export class EntryFamily {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryFamilyID != null) this.entryFamilyID = parseInt(data.EntryFamilyID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntryFamilyID != null) this.entryFamilyID = (data.EntryFamilyID != null ? parseInt(data.EntryFamilyID, 10) : data.EntryFamilyID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.EntryFamilyName != null) this.entryFamilyName = data.EntryFamilyName;
-    if (data.DOB != null) this.dOB = new Date(data.DOB);
+    if (data.DOB != null) this.dOB = (data.DOB != null ? new Date(data.DOB) : data.DOB);
     if (data.Relationship != null) this.relationship = data.Relationship;
     if (data.GenderEnum != null) this.genderEnum = data.GenderEnum;
-    if (data.Related_EntryID != null) this.related_EntryID = parseInt(data.Related_EntryID, 10);
+    if (data.Related_EntryID != null) this.related_EntryID = (data.Related_EntryID != null ? parseInt(data.Related_EntryID, 10) : data.Related_EntryID);
     if (data.Resident != null) this.resident = data.Resident === 'true';
     if (data.Grade != null) this.grade = data.Grade;
     if (data.School != null) this.school = data.School;
@@ -42,7 +42,7 @@ export class EntryFamily {
     if (data.Occupation != null) this.occupation = data.Occupation;
     if (data.Deceased != null) this.deceased = data.Deceased === 'true';
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

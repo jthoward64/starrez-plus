@@ -19,12 +19,12 @@ export class GenericTableData {
       throw new Error('Invalid XML');
     }
 
-    if (data.GenericTableDataID != null) this.genericTableDataID = parseInt(data.GenericTableDataID, 10);
-    if (data.GenericTableDefinitionID != null) this.genericTableDefinitionID = parseInt(data.GenericTableDefinitionID, 10);
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
+    if (data.GenericTableDataID != null) this.genericTableDataID = (data.GenericTableDataID != null ? parseInt(data.GenericTableDataID, 10) : data.GenericTableDataID);
+    if (data.GenericTableDefinitionID != null) this.genericTableDefinitionID = (data.GenericTableDefinitionID != null ? parseInt(data.GenericTableDefinitionID, 10) : data.GenericTableDefinitionID);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

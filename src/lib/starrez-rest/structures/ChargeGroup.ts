@@ -41,10 +41,10 @@ export class ChargeGroup {
       throw new Error('Invalid XML');
     }
 
-    if (data.ChargeGroupID != null) this.chargeGroupID = parseInt(data.ChargeGroupID, 10);
+    if (data.ChargeGroupID != null) this.chargeGroupID = (data.ChargeGroupID != null ? parseInt(data.ChargeGroupID, 10) : data.ChargeGroupID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Abbreviation != null) this.abbreviation = data.Abbreviation;
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
     if (data.Description != null) this.description = data.Description;
     if (data.Hold != null) this.hold = data.Hold === 'true';
     if (data.Deposit != null) this.deposit = data.Deposit === 'true';
@@ -66,9 +66,9 @@ export class ChargeGroup {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -18,11 +18,11 @@ export class EmailFromAddressPermission {
       throw new Error('Invalid XML');
     }
 
-    if (data.EmailFromAddressPermissionID != null) this.emailFromAddressPermissionID = parseInt(data.EmailFromAddressPermissionID, 10);
-    if (data.EmailFromAddressID != null) this.emailFromAddressID = parseInt(data.EmailFromAddressID, 10);
+    if (data.EmailFromAddressPermissionID != null) this.emailFromAddressPermissionID = (data.EmailFromAddressPermissionID != null ? parseInt(data.EmailFromAddressPermissionID, 10) : data.EmailFromAddressPermissionID);
+    if (data.EmailFromAddressID != null) this.emailFromAddressID = (data.EmailFromAddressID != null ? parseInt(data.EmailFromAddressID, 10) : data.EmailFromAddressID);
     if (data.AccessTypeEnum != null) this.accessTypeEnum = data.AccessTypeEnum;
-    if (data.SecurityGroupID != null) this.securityGroupID = parseInt(data.SecurityGroupID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityGroupID != null) this.securityGroupID = (data.SecurityGroupID != null ? parseInt(data.SecurityGroupID, 10) : data.SecurityGroupID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

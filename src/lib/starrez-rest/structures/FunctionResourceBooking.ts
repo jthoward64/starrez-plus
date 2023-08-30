@@ -22,15 +22,15 @@ export class FunctionResourceBooking {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionResourceBookingID != null) this.functionResourceBookingID = parseInt(data.FunctionResourceBookingID, 10);
-    if (data.FunctionRoomBookingID != null) this.functionRoomBookingID = parseInt(data.FunctionRoomBookingID, 10);
-    if (data.FunctionResourceID != null) this.functionResourceID = parseInt(data.FunctionResourceID, 10);
-    if (data.Quantity != null) this.quantity = parseInt(data.Quantity, 10);
+    if (data.FunctionResourceBookingID != null) this.functionResourceBookingID = (data.FunctionResourceBookingID != null ? parseInt(data.FunctionResourceBookingID, 10) : data.FunctionResourceBookingID);
+    if (data.FunctionRoomBookingID != null) this.functionRoomBookingID = (data.FunctionRoomBookingID != null ? parseInt(data.FunctionRoomBookingID, 10) : data.FunctionRoomBookingID);
+    if (data.FunctionResourceID != null) this.functionResourceID = (data.FunctionResourceID != null ? parseInt(data.FunctionResourceID, 10) : data.FunctionResourceID);
+    if (data.Quantity != null) this.quantity = (data.Quantity != null ? parseInt(data.Quantity, 10) : data.Quantity);
     if (data.FunctionResourceAmount != null) this.functionResourceAmount = data.FunctionResourceAmount;
     if (data.FunctionResourceAmountCost != null) this.functionResourceAmountCost = data.FunctionResourceAmountCost;
     if (data.SetupNotes != null) this.setupNotes = data.SetupNotes;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

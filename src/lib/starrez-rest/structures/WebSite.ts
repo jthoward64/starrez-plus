@@ -25,7 +25,7 @@ export class WebSite {
       throw new Error('Invalid XML');
     }
 
-    if (data.WebSiteID != null) this.webSiteID = parseInt(data.WebSiteID, 10);
+    if (data.WebSiteID != null) this.webSiteID = (data.WebSiteID != null ? parseInt(data.WebSiteID, 10) : data.WebSiteID);
     if (data.SiteName != null) this.siteName = data.SiteName;
     if (data.Description != null) this.description = data.Description;
     if (data.URL != null) this.uRL = data.URL;
@@ -34,9 +34,9 @@ export class WebSite {
     if (data.HeaderSQL != null) this.headerSQL = data.HeaderSQL;
     if (data.FooterSQL != null) this.footerSQL = data.FooterSQL;
     if (data.WebSiteStatusEnum != null) this.webSiteStatusEnum = data.WebSiteStatusEnum;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -25,18 +25,18 @@ export class WebTransaction {
       throw new Error('Invalid XML');
     }
 
-    if (data.WebTransactionID != null) this.webTransactionID = parseInt(data.WebTransactionID, 10);
-    if (data.WebPaymentID != null) this.webPaymentID = parseInt(data.WebPaymentID, 10);
-    if (data.ChargeGroupID != null) this.chargeGroupID = parseInt(data.ChargeGroupID, 10);
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
+    if (data.WebTransactionID != null) this.webTransactionID = (data.WebTransactionID != null ? parseInt(data.WebTransactionID, 10) : data.WebTransactionID);
+    if (data.WebPaymentID != null) this.webPaymentID = (data.WebPaymentID != null ? parseInt(data.WebPaymentID, 10) : data.WebPaymentID);
+    if (data.ChargeGroupID != null) this.chargeGroupID = (data.ChargeGroupID != null ? parseInt(data.ChargeGroupID, 10) : data.ChargeGroupID);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
     if (data.Description != null) this.description = data.Description;
     if (data.Amount != null) this.amount = data.Amount;
     if (data.FullAccountPayment != null) this.fullAccountPayment = data.FullAccountPayment === 'true';
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
     if (data.TableName != null) this.tableName = data.TableName;
     if (data.Data != null) this.data = data.Data;
-    if (data.TermSessionID != null) this.termSessionID = parseInt(data.TermSessionID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.TermSessionID != null) this.termSessionID = (data.TermSessionID != null ? parseInt(data.TermSessionID, 10) : data.TermSessionID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

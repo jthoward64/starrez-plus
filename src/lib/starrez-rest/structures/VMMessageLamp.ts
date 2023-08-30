@@ -18,11 +18,11 @@ export class VMMessageLamp {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMMessageLampID != null) this.vMMessageLampID = parseInt(data.VMMessageLampID, 10);
-    if (data.SiteID != null) this.siteID = parseInt(data.SiteID, 10);
-    if (data.Extension != null) this.extension = parseInt(data.Extension, 10);
+    if (data.VMMessageLampID != null) this.vMMessageLampID = (data.VMMessageLampID != null ? parseInt(data.VMMessageLampID, 10) : data.VMMessageLampID);
+    if (data.SiteID != null) this.siteID = (data.SiteID != null ? parseInt(data.SiteID, 10) : data.SiteID);
+    if (data.Extension != null) this.extension = (data.Extension != null ? parseInt(data.Extension, 10) : data.Extension);
     if (data.LampOn != null) this.lampOn = data.LampOn === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

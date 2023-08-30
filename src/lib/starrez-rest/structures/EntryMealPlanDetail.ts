@@ -22,15 +22,15 @@ export class EntryMealPlanDetail {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryMealPlanDetailID != null) this.entryMealPlanDetailID = parseInt(data.EntryMealPlanDetailID, 10);
-    if (data.EntryMealID != null) this.entryMealID = parseInt(data.EntryMealID, 10);
+    if (data.EntryMealPlanDetailID != null) this.entryMealPlanDetailID = (data.EntryMealPlanDetailID != null ? parseInt(data.EntryMealPlanDetailID, 10) : data.EntryMealPlanDetailID);
+    if (data.EntryMealID != null) this.entryMealID = (data.EntryMealID != null ? parseInt(data.EntryMealID, 10) : data.EntryMealID);
     if (data.DayInWeekEnum != null) this.dayInWeekEnum = data.DayInWeekEnum;
-    if (data.MealPlanDate != null) this.mealPlanDate = new Date(data.MealPlanDate);
-    if (data.Breakfast != null) this.breakfast = parseInt(data.Breakfast, 10);
-    if (data.Lunch != null) this.lunch = parseInt(data.Lunch, 10);
-    if (data.Dinner != null) this.dinner = parseInt(data.Dinner, 10);
-    if (data.Other != null) this.other = parseInt(data.Other, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.MealPlanDate != null) this.mealPlanDate = (data.MealPlanDate != null ? new Date(data.MealPlanDate) : data.MealPlanDate);
+    if (data.Breakfast != null) this.breakfast = (data.Breakfast != null ? parseInt(data.Breakfast, 10) : data.Breakfast);
+    if (data.Lunch != null) this.lunch = (data.Lunch != null ? parseInt(data.Lunch, 10) : data.Lunch);
+    if (data.Dinner != null) this.dinner = (data.Dinner != null ? parseInt(data.Dinner, 10) : data.Dinner);
+    if (data.Other != null) this.other = (data.Other != null ? parseInt(data.Other, 10) : data.Other);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

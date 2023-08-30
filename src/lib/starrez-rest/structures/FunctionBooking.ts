@@ -48,21 +48,21 @@ export class FunctionBooking {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionBookingID != null) this.functionBookingID = parseInt(data.FunctionBookingID, 10);
-    if (data.EventID != null) this.eventID = parseInt(data.EventID, 10);
-    if (data.FunctionTypeID != null) this.functionTypeID = parseInt(data.FunctionTypeID, 10);
+    if (data.FunctionBookingID != null) this.functionBookingID = (data.FunctionBookingID != null ? parseInt(data.FunctionBookingID, 10) : data.FunctionBookingID);
+    if (data.EventID != null) this.eventID = (data.EventID != null ? parseInt(data.EventID, 10) : data.EventID);
+    if (data.FunctionTypeID != null) this.functionTypeID = (data.FunctionTypeID != null ? parseInt(data.FunctionTypeID, 10) : data.FunctionTypeID);
     if (data.Description != null) this.description = data.Description;
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
-    if (data.ActiveDateStart != null) this.activeDateStart = new Date(data.ActiveDateStart);
-    if (data.ActiveDateEnd != null) this.activeDateEnd = new Date(data.ActiveDateEnd);
-    if (data.Assigned_SecurityUserID != null) this.assigned_SecurityUserID = parseInt(data.Assigned_SecurityUserID, 10);
-    if (data.AttendeeGuarantee != null) this.attendeeGuarantee = parseInt(data.AttendeeGuarantee, 10);
-    if (data.AttendeeEstimate != null) this.attendeeEstimate = parseInt(data.AttendeeEstimate, 10);
-    if (data.AttendeeMaximum != null) this.attendeeMaximum = parseInt(data.AttendeeMaximum, 10);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
+    if (data.ActiveDateStart != null) this.activeDateStart = (data.ActiveDateStart != null ? new Date(data.ActiveDateStart) : data.ActiveDateStart);
+    if (data.ActiveDateEnd != null) this.activeDateEnd = (data.ActiveDateEnd != null ? new Date(data.ActiveDateEnd) : data.ActiveDateEnd);
+    if (data.Assigned_SecurityUserID != null) this.assigned_SecurityUserID = (data.Assigned_SecurityUserID != null ? parseInt(data.Assigned_SecurityUserID, 10) : data.Assigned_SecurityUserID);
+    if (data.AttendeeGuarantee != null) this.attendeeGuarantee = (data.AttendeeGuarantee != null ? parseInt(data.AttendeeGuarantee, 10) : data.AttendeeGuarantee);
+    if (data.AttendeeEstimate != null) this.attendeeEstimate = (data.AttendeeEstimate != null ? parseInt(data.AttendeeEstimate, 10) : data.AttendeeEstimate);
+    if (data.AttendeeMaximum != null) this.attendeeMaximum = (data.AttendeeMaximum != null ? parseInt(data.AttendeeMaximum, 10) : data.AttendeeMaximum);
     if (data.AllowQuantity != null) this.allowQuantity = data.AllowQuantity === 'true';
-    if (data.QuantityMaximum != null) this.quantityMaximum = parseInt(data.QuantityMaximum, 10);
-    if (data.ServiceFeePercentage != null) this.serviceFeePercentage = parseInt(data.ServiceFeePercentage, 10);
+    if (data.QuantityMaximum != null) this.quantityMaximum = (data.QuantityMaximum != null ? parseInt(data.QuantityMaximum, 10) : data.QuantityMaximum);
+    if (data.ServiceFeePercentage != null) this.serviceFeePercentage = (data.ServiceFeePercentage != null ? parseInt(data.ServiceFeePercentage, 10) : data.ServiceFeePercentage);
     if (data.SetupNotes != null) this.setupNotes = data.SetupNotes;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.CustomBit1 != null) this.customBit1 = data.CustomBit1 === 'true';
@@ -73,16 +73,16 @@ export class FunctionBooking {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
-    if (data.WebOrder != null) this.webOrder = parseInt(data.WebOrder, 10);
+    if (data.WebOrder != null) this.webOrder = (data.WebOrder != null ? parseInt(data.WebOrder, 10) : data.WebOrder);
     if (data.WebComments != null) this.webComments = data.WebComments;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

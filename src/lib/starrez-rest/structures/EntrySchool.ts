@@ -26,8 +26,8 @@ export class EntrySchool {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntrySchoolID != null) this.entrySchoolID = parseInt(data.EntrySchoolID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntrySchoolID != null) this.entrySchoolID = (data.EntrySchoolID != null ? parseInt(data.EntrySchoolID, 10) : data.EntrySchoolID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.SchoolName != null) this.schoolName = data.SchoolName;
     if (data.SchoolType != null) this.schoolType = data.SchoolType;
     if (data.SchoolYears != null) this.schoolYears = data.SchoolYears;
@@ -38,7 +38,7 @@ export class EntrySchool {
     if (data.SchoolFinalYearScore != null) this.schoolFinalYearScore = data.SchoolFinalYearScore;
     if (data.SchoolFinalYearSubjects != null) this.schoolFinalYearSubjects = data.SchoolFinalYearSubjects;
     if (data.SchoolComments != null) this.schoolComments = data.SchoolComments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

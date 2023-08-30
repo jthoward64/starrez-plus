@@ -21,14 +21,14 @@ export class NoVisitorPeriod {
       throw new Error('Invalid XML');
     }
 
-    if (data.NoVisitorPeriodID != null) this.noVisitorPeriodID = parseInt(data.NoVisitorPeriodID, 10);
+    if (data.NoVisitorPeriodID != null) this.noVisitorPeriodID = (data.NoVisitorPeriodID != null ? parseInt(data.NoVisitorPeriodID, 10) : data.NoVisitorPeriodID);
     if (data.Description != null) this.description = data.Description;
-    if (data.NoVisitorStartDate != null) this.noVisitorStartDate = new Date(data.NoVisitorStartDate);
-    if (data.NoVisitorEndDate != null) this.noVisitorEndDate = new Date(data.NoVisitorEndDate);
+    if (data.NoVisitorStartDate != null) this.noVisitorStartDate = (data.NoVisitorStartDate != null ? new Date(data.NoVisitorStartDate) : data.NoVisitorStartDate);
+    if (data.NoVisitorEndDate != null) this.noVisitorEndDate = (data.NoVisitorEndDate != null ? new Date(data.NoVisitorEndDate) : data.NoVisitorEndDate);
     if (data.Enabled != null) this.enabled = data.Enabled === 'true';
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.VisitorTypeID != null) this.visitorTypeID = parseInt(data.VisitorTypeID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.VisitorTypeID != null) this.visitorTypeID = (data.VisitorTypeID != null ? parseInt(data.VisitorTypeID, 10) : data.VisitorTypeID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

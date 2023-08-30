@@ -33,15 +33,15 @@ export class EntryApplicationProxy {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryApplicationProxyID != null) this.entryApplicationProxyID = parseInt(data.EntryApplicationProxyID, 10);
-    if (data.EntryApplicationID != null) this.entryApplicationID = parseInt(data.EntryApplicationID, 10);
+    if (data.EntryApplicationProxyID != null) this.entryApplicationProxyID = (data.EntryApplicationProxyID != null ? parseInt(data.EntryApplicationProxyID, 10) : data.EntryApplicationProxyID);
+    if (data.EntryApplicationID != null) this.entryApplicationID = (data.EntryApplicationID != null ? parseInt(data.EntryApplicationID, 10) : data.EntryApplicationID);
     if (data.NameFirst != null) this.nameFirst = data.NameFirst;
     if (data.NameLast != null) this.nameLast = data.NameLast;
     if (data.Email != null) this.email = data.Email;
     if (data.Relationship != null) this.relationship = data.Relationship;
-    if (data.PinNumber != null) this.pinNumber = parseInt(data.PinNumber, 10);
-    if (data.DateExpiry != null) this.dateExpiry = new Date(data.DateExpiry);
-    if (data.DateComplete != null) this.dateComplete = new Date(data.DateComplete);
+    if (data.PinNumber != null) this.pinNumber = (data.PinNumber != null ? parseInt(data.PinNumber, 10) : data.PinNumber);
+    if (data.DateExpiry != null) this.dateExpiry = (data.DateExpiry != null ? new Date(data.DateExpiry) : data.DateExpiry);
+    if (data.DateComplete != null) this.dateComplete = (data.DateComplete != null ? new Date(data.DateComplete) : data.DateComplete);
     if (data.CustomBit1 != null) this.customBit1 = data.CustomBit1 === 'true';
     if (data.CustomBit2 != null) this.customBit2 = data.CustomBit2 === 'true';
     if (data.CustomString1 != null) this.customString1 = data.CustomString1;
@@ -50,9 +50,9 @@ export class EntryApplicationProxy {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -33,26 +33,26 @@ export class RoomRateSession {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomRateSessionID != null) this.roomRateSessionID = parseInt(data.RoomRateSessionID, 10);
-    if (data.RoomRateID != null) this.roomRateID = parseInt(data.RoomRateID, 10);
+    if (data.RoomRateSessionID != null) this.roomRateSessionID = (data.RoomRateSessionID != null ? parseInt(data.RoomRateSessionID, 10) : data.RoomRateSessionID);
+    if (data.RoomRateID != null) this.roomRateID = (data.RoomRateID != null ? parseInt(data.RoomRateID, 10) : data.RoomRateID);
     if (data.Description != null) this.description = data.Description;
-    if (data.TermSessionID != null) this.termSessionID = parseInt(data.TermSessionID, 10);
-    if (data.SessionOrder != null) this.sessionOrder = parseInt(data.SessionOrder, 10);
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
+    if (data.TermSessionID != null) this.termSessionID = (data.TermSessionID != null ? parseInt(data.TermSessionID, 10) : data.TermSessionID);
+    if (data.SessionOrder != null) this.sessionOrder = (data.SessionOrder != null ? parseInt(data.SessionOrder, 10) : data.SessionOrder);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
     if (data.RoomRateDurationEnum != null) this.roomRateDurationEnum = data.RoomRateDurationEnum;
-    if (data.RoomRateDurationNumber != null) this.roomRateDurationNumber = parseInt(data.RoomRateDurationNumber, 10);
-    if (data.RoomRateDurationNights != null) this.roomRateDurationNights = parseInt(data.RoomRateDurationNights, 10);
-    if (data.MinimumNights != null) this.minimumNights = parseInt(data.MinimumNights, 10);
-    if (data.MaximumNights != null) this.maximumNights = parseInt(data.MaximumNights, 10);
+    if (data.RoomRateDurationNumber != null) this.roomRateDurationNumber = (data.RoomRateDurationNumber != null ? parseInt(data.RoomRateDurationNumber, 10) : data.RoomRateDurationNumber);
+    if (data.RoomRateDurationNights != null) this.roomRateDurationNights = (data.RoomRateDurationNights != null ? parseInt(data.RoomRateDurationNights, 10) : data.RoomRateDurationNights);
+    if (data.MinimumNights != null) this.minimumNights = (data.MinimumNights != null ? parseInt(data.MinimumNights, 10) : data.MinimumNights);
+    if (data.MaximumNights != null) this.maximumNights = (data.MaximumNights != null ? parseInt(data.MaximumNights, 10) : data.MaximumNights);
     if (data.RolloverDurationEnum != null) this.rolloverDurationEnum = data.RolloverDurationEnum;
-    if (data.RolloverDurationNumber != null) this.rolloverDurationNumber = parseInt(data.RolloverDurationNumber, 10);
+    if (data.RolloverDurationNumber != null) this.rolloverDurationNumber = (data.RolloverDurationNumber != null ? parseInt(data.RolloverDurationNumber, 10) : data.RolloverDurationNumber);
     if (data.PercentageCharges != null) this.percentageCharges = data.PercentageCharges === 'true';
-    if (data.TransactionDateDue != null) this.transactionDateDue = new Date(data.TransactionDateDue);
+    if (data.TransactionDateDue != null) this.transactionDateDue = (data.TransactionDateDue != null ? new Date(data.TransactionDateDue) : data.TransactionDateDue);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
     if (data.DayInWeekEnum != null) this.dayInWeekEnum = data.DayInWeekEnum;
-    if (data.StartOfMonth != null) this.startOfMonth = parseInt(data.StartOfMonth, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.StartOfMonth != null) this.startOfMonth = (data.StartOfMonth != null ? parseInt(data.StartOfMonth, 10) : data.StartOfMonth);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

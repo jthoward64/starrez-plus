@@ -17,10 +17,10 @@ export class Lookup {
       throw new Error('Invalid XML');
     }
 
-    if (data.LookupID != null) this.lookupID = parseInt(data.LookupID, 10);
+    if (data.LookupID != null) this.lookupID = (data.LookupID != null ? parseInt(data.LookupID, 10) : data.LookupID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

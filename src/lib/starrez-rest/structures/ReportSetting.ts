@@ -18,11 +18,11 @@ export class ReportSetting {
       throw new Error('Invalid XML');
     }
 
-    if (data.ReportSettingID != null) this.reportSettingID = parseInt(data.ReportSettingID, 10);
-    if (data.ReportID != null) this.reportID = parseInt(data.ReportID, 10);
+    if (data.ReportSettingID != null) this.reportSettingID = (data.ReportSettingID != null ? parseInt(data.ReportSettingID, 10) : data.ReportSettingID);
+    if (data.ReportID != null) this.reportID = (data.ReportID != null ? parseInt(data.ReportID, 10) : data.ReportID);
     if (data.ControlName != null) this.controlName = data.ControlName;
     if (data.SettingValue != null) this.settingValue = data.SettingValue;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

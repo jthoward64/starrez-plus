@@ -19,12 +19,12 @@ export class RoomSpaceInventoryStatus {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceInventoryStatusID != null) this.roomSpaceInventoryStatusID = parseInt(data.RoomSpaceInventoryStatusID, 10);
+    if (data.RoomSpaceInventoryStatusID != null) this.roomSpaceInventoryStatusID = (data.RoomSpaceInventoryStatusID != null ? parseInt(data.RoomSpaceInventoryStatusID, 10) : data.RoomSpaceInventoryStatusID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Active != null) this.active = data.Active === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

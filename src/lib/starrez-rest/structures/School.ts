@@ -32,7 +32,7 @@ export class School {
       throw new Error('Invalid XML');
     }
 
-    if (data.SchoolID != null) this.schoolID = parseInt(data.SchoolID, 10);
+    if (data.SchoolID != null) this.schoolID = (data.SchoolID != null ? parseInt(data.SchoolID, 10) : data.SchoolID);
     if (data.Description != null) this.description = data.Description;
     if (data.SchoolType != null) this.schoolType = data.SchoolType;
     if (data.Location != null) this.location = data.Location;
@@ -42,7 +42,7 @@ export class School {
     if (data.Street != null) this.street = data.Street;
     if (data.Street2 != null) this.street2 = data.Street2;
     if (data.City != null) this.city = data.City;
-    if (data.CountryID != null) this.countryID = parseInt(data.CountryID, 10);
+    if (data.CountryID != null) this.countryID = (data.CountryID != null ? parseInt(data.CountryID, 10) : data.CountryID);
     if (data.StateProvince != null) this.stateProvince = data.StateProvince;
     if (data.ZipPostcode != null) this.zipPostcode = data.ZipPostcode;
     if (data.Phone != null) this.phone = data.Phone;
@@ -50,7 +50,7 @@ export class School {
     if (data.PhoneOther != null) this.phoneOther = data.PhoneOther;
     if (data.PhoneOther2 != null) this.phoneOther2 = data.PhoneOther2;
     if (data.Email != null) this.email = data.Email;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -20,13 +20,13 @@ export class EntryProfile {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryProfileID != null) this.entryProfileID = parseInt(data.EntryProfileID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.ProfileTypeID != null) this.profileTypeID = parseInt(data.ProfileTypeID, 10);
-    if (data.ProfileItemID != null) this.profileItemID = parseInt(data.ProfileItemID, 10);
+    if (data.EntryProfileID != null) this.entryProfileID = (data.EntryProfileID != null ? parseInt(data.EntryProfileID, 10) : data.EntryProfileID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.ProfileTypeID != null) this.profileTypeID = (data.ProfileTypeID != null ? parseInt(data.ProfileTypeID, 10) : data.ProfileTypeID);
+    if (data.ProfileItemID != null) this.profileItemID = (data.ProfileItemID != null ? parseInt(data.ProfileItemID, 10) : data.ProfileItemID);
     if (data.ProfileWeightEnum != null) this.profileWeightEnum = data.ProfileWeightEnum;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

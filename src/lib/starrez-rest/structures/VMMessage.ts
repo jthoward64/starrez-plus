@@ -25,18 +25,18 @@ export class VMMessage {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMMessageID != null) this.vMMessageID = parseInt(data.VMMessageID, 10);
-    if (data.VMMailBoxID != null) this.vMMailBoxID = parseInt(data.VMMailBoxID, 10);
-    if (data.VMMessageDate != null) this.vMMessageDate = new Date(data.VMMessageDate);
-    if (data.Duration != null) this.duration = parseInt(data.Duration, 10);
-    if (data.VMGroupMessageID != null) this.vMGroupMessageID = parseInt(data.VMGroupMessageID, 10);
+    if (data.VMMessageID != null) this.vMMessageID = (data.VMMessageID != null ? parseInt(data.VMMessageID, 10) : data.VMMessageID);
+    if (data.VMMailBoxID != null) this.vMMailBoxID = (data.VMMailBoxID != null ? parseInt(data.VMMailBoxID, 10) : data.VMMailBoxID);
+    if (data.VMMessageDate != null) this.vMMessageDate = (data.VMMessageDate != null ? new Date(data.VMMessageDate) : data.VMMessageDate);
+    if (data.Duration != null) this.duration = (data.Duration != null ? parseInt(data.Duration, 10) : data.Duration);
+    if (data.VMGroupMessageID != null) this.vMGroupMessageID = (data.VMGroupMessageID != null ? parseInt(data.VMGroupMessageID, 10) : data.VMGroupMessageID);
     if (data.Filename != null) this.filename = data.Filename;
     if (data.Subject != null) this.subject = data.Subject;
     if (data.Sender != null) this.sender = data.Sender;
     if (data.SenderNumber != null) this.senderNumber = data.SenderNumber;
-    if (data.Priority != null) this.priority = parseInt(data.Priority, 10);
-    if (data.Status != null) this.status = parseInt(data.Status, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.Priority != null) this.priority = (data.Priority != null ? parseInt(data.Priority, 10) : data.Priority);
+    if (data.Status != null) this.status = (data.Status != null ? parseInt(data.Status, 10) : data.Status);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

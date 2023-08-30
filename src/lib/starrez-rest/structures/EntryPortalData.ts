@@ -22,15 +22,15 @@ export class EntryPortalData {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryPortalDataID != null) this.entryPortalDataID = parseInt(data.EntryPortalDataID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
+    if (data.EntryPortalDataID != null) this.entryPortalDataID = (data.EntryPortalDataID != null ? parseInt(data.EntryPortalDataID, 10) : data.EntryPortalDataID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
     if (data.Description != null) this.description = data.Description;
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
     if (data.Value != null) this.value = data.Value;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

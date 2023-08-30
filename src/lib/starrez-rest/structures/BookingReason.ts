@@ -19,12 +19,12 @@ export class BookingReason {
       throw new Error('Invalid XML');
     }
 
-    if (data.BookingReasonID != null) this.bookingReasonID = parseInt(data.BookingReasonID, 10);
+    if (data.BookingReasonID != null) this.bookingReasonID = (data.BookingReasonID != null ? parseInt(data.BookingReasonID, 10) : data.BookingReasonID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.RoomCloseApply != null) this.roomCloseApply = data.RoomCloseApply === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

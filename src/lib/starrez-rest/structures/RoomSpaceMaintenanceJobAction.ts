@@ -23,16 +23,16 @@ export class RoomSpaceMaintenanceJobAction {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceMaintenanceJobActionID != null) this.roomSpaceMaintenanceJobActionID = parseInt(data.RoomSpaceMaintenanceJobActionID, 10);
-    if (data.RoomSpaceMaintenanceID != null) this.roomSpaceMaintenanceID = parseInt(data.RoomSpaceMaintenanceID, 10);
-    if (data.RoomSpaceMaintenanceJobActionDate != null) this.roomSpaceMaintenanceJobActionDate = new Date(data.RoomSpaceMaintenanceJobActionDate);
+    if (data.RoomSpaceMaintenanceJobActionID != null) this.roomSpaceMaintenanceJobActionID = (data.RoomSpaceMaintenanceJobActionID != null ? parseInt(data.RoomSpaceMaintenanceJobActionID, 10) : data.RoomSpaceMaintenanceJobActionID);
+    if (data.RoomSpaceMaintenanceID != null) this.roomSpaceMaintenanceID = (data.RoomSpaceMaintenanceID != null ? parseInt(data.RoomSpaceMaintenanceID, 10) : data.RoomSpaceMaintenanceID);
+    if (data.RoomSpaceMaintenanceJobActionDate != null) this.roomSpaceMaintenanceJobActionDate = (data.RoomSpaceMaintenanceJobActionDate != null ? new Date(data.RoomSpaceMaintenanceJobActionDate) : data.RoomSpaceMaintenanceJobActionDate);
     if (data.Type != null) this.type = data.Type;
     if (data.Description != null) this.description = data.Description;
     if (data.Technician != null) this.technician = data.Technician;
-    if (data.HourlyRate != null) this.hourlyRate = parseFloat(data.HourlyRate);
-    if (data.MaterialCost != null) this.materialCost = parseFloat(data.MaterialCost);
-    if (data.Hours != null) this.hours = parseFloat(data.Hours);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.HourlyRate != null) this.hourlyRate = (data.HourlyRate != null ? parseFloat(data.HourlyRate) : data.HourlyRate);
+    if (data.MaterialCost != null) this.materialCost = (data.MaterialCost != null ? parseFloat(data.MaterialCost) : data.MaterialCost);
+    if (data.Hours != null) this.hours = (data.Hours != null ? parseFloat(data.Hours) : data.Hours);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

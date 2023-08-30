@@ -22,15 +22,15 @@ export class Document {
       throw new Error('Invalid XML');
     }
 
-    if (data.DocumentID != null) this.documentID = parseInt(data.DocumentID, 10);
+    if (data.DocumentID != null) this.documentID = (data.DocumentID != null ? parseInt(data.DocumentID, 10) : data.DocumentID);
     if (data.Description != null) this.description = data.Description;
     if (data.DocumentTypeDescription != null) this.documentTypeDescription = data.DocumentTypeDescription;
-    if (data.DateExpiry != null) this.dateExpiry = new Date(data.DateExpiry);
+    if (data.DateExpiry != null) this.dateExpiry = (data.DateExpiry != null ? new Date(data.DateExpiry) : data.DateExpiry);
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Tag != null) this.tag = data.Tag;
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

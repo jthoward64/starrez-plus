@@ -31,10 +31,10 @@ export class Housekeeping {
       throw new Error('Invalid XML');
     }
 
-    if (data.HousekeepingID != null) this.housekeepingID = parseInt(data.HousekeepingID, 10);
+    if (data.HousekeepingID != null) this.housekeepingID = (data.HousekeepingID != null ? parseInt(data.HousekeepingID, 10) : data.HousekeepingID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
-    if (data.TransactionTemplateID != null) this.transactionTemplateID = parseInt(data.TransactionTemplateID, 10);
+    if (data.TransactionTemplateID != null) this.transactionTemplateID = (data.TransactionTemplateID != null ? parseInt(data.TransactionTemplateID, 10) : data.TransactionTemplateID);
     if (data.RoomService1CheckIn_TriStateEnum != null) this.roomService1CheckIn_TriStateEnum = data.RoomService1CheckIn_TriStateEnum;
     if (data.RoomService1CheckOut_TriStateEnum != null) this.roomService1CheckOut_TriStateEnum = data.RoomService1CheckOut_TriStateEnum;
     if (data.RoomService2CheckIn_TriStateEnum != null) this.roomService2CheckIn_TriStateEnum = data.RoomService2CheckIn_TriStateEnum;
@@ -48,7 +48,7 @@ export class Housekeeping {
     if (data.RoomService2CheckOutClearComment != null) this.roomService2CheckOutClearComment = data.RoomService2CheckOutClearComment === 'true';
     if (data.RoomService3CheckInClearComment != null) this.roomService3CheckInClearComment = data.RoomService3CheckInClearComment === 'true';
     if (data.RoomService3CheckOutClearComment != null) this.roomService3CheckOutClearComment = data.RoomService3CheckOutClearComment === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

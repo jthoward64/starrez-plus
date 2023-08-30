@@ -16,9 +16,9 @@ export class Calendar {
       throw new Error('Invalid XML');
     }
 
-    if (data.CalendarID != null) this.calendarID = parseInt(data.CalendarID, 10);
-    if (data.CalendarDate != null) this.calendarDate = new Date(data.CalendarDate);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CalendarID != null) this.calendarID = (data.CalendarID != null ? parseInt(data.CalendarID, 10) : data.CalendarID);
+    if (data.CalendarDate != null) this.calendarDate = (data.CalendarDate != null ? new Date(data.CalendarDate) : data.CalendarDate);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

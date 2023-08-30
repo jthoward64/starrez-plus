@@ -17,10 +17,10 @@ export class Priority {
       throw new Error('Invalid XML');
     }
 
-    if (data.PriorityID != null) this.priorityID = parseInt(data.PriorityID, 10);
+    if (data.PriorityID != null) this.priorityID = (data.PriorityID != null ? parseInt(data.PriorityID, 10) : data.PriorityID);
     if (data.Description != null) this.description = data.Description;
-    if (data.SortOrder != null) this.sortOrder = parseInt(data.SortOrder, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SortOrder != null) this.sortOrder = (data.SortOrder != null ? parseInt(data.SortOrder, 10) : data.SortOrder);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

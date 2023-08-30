@@ -21,14 +21,14 @@ export class EndOfSession {
       throw new Error('Invalid XML');
     }
 
-    if (data.EndOfSessionID != null) this.endOfSessionID = parseInt(data.EndOfSessionID, 10);
+    if (data.EndOfSessionID != null) this.endOfSessionID = (data.EndOfSessionID != null ? parseInt(data.EndOfSessionID, 10) : data.EndOfSessionID);
     if (data.EndOfSessionTypeEnum != null) this.endOfSessionTypeEnum = data.EndOfSessionTypeEnum;
-    if (data.DateSession != null) this.dateSession = new Date(data.DateSession);
+    if (data.DateSession != null) this.dateSession = (data.DateSession != null ? new Date(data.DateSession) : data.DateSession);
     if (data.Comments != null) this.comments = data.Comments;
     if (data.MachineName != null) this.machineName = data.MachineName;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -24,9 +24,9 @@ export class ReportDetail {
       throw new Error('Invalid XML');
     }
 
-    if (data.ReportDetailID != null) this.reportDetailID = parseInt(data.ReportDetailID, 10);
-    if (data.ReportID != null) this.reportID = parseInt(data.ReportID, 10);
-    if (data.ParentID != null) this.parentID = parseInt(data.ParentID, 10);
+    if (data.ReportDetailID != null) this.reportDetailID = (data.ReportDetailID != null ? parseInt(data.ReportDetailID, 10) : data.ReportDetailID);
+    if (data.ReportID != null) this.reportID = (data.ReportID != null ? parseInt(data.ReportID, 10) : data.ReportID);
+    if (data.ParentID != null) this.parentID = (data.ParentID != null ? parseInt(data.ParentID, 10) : data.ParentID);
     if (data.ReportName != null) this.reportName = data.ReportName;
     if (data.ReportNameExtra != null) this.reportNameExtra = data.ReportNameExtra;
     if (data.SubReportLinkField != null) this.subReportLinkField = data.SubReportLinkField;
@@ -34,7 +34,7 @@ export class ReportDetail {
     if (data.ReportLayoutObject != null) this.reportLayoutObject = data.ReportLayoutObject;
     if (data.ReportDataSourceObject != null) this.reportDataSourceObject = data.ReportDataSourceObject;
     if (data.DevExpressLayoutXml != null) this.devExpressLayoutXml = data.DevExpressLayoutXml;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

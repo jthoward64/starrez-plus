@@ -18,11 +18,11 @@ export class ShippingType {
       throw new Error('Invalid XML');
     }
 
-    if (data.ShippingTypeID != null) this.shippingTypeID = parseInt(data.ShippingTypeID, 10);
+    if (data.ShippingTypeID != null) this.shippingTypeID = (data.ShippingTypeID != null ? parseInt(data.ShippingTypeID, 10) : data.ShippingTypeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

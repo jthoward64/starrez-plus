@@ -19,12 +19,12 @@ export class FunctionBookingAttendee {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionBookingAttendeeID != null) this.functionBookingAttendeeID = parseInt(data.FunctionBookingAttendeeID, 10);
-    if (data.FunctionBookingID != null) this.functionBookingID = parseInt(data.FunctionBookingID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.Quantity != null) this.quantity = parseInt(data.Quantity, 10);
+    if (data.FunctionBookingAttendeeID != null) this.functionBookingAttendeeID = (data.FunctionBookingAttendeeID != null ? parseInt(data.FunctionBookingAttendeeID, 10) : data.FunctionBookingAttendeeID);
+    if (data.FunctionBookingID != null) this.functionBookingID = (data.FunctionBookingID != null ? parseInt(data.FunctionBookingID, 10) : data.FunctionBookingID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.Quantity != null) this.quantity = (data.Quantity != null ? parseInt(data.Quantity, 10) : data.Quantity);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

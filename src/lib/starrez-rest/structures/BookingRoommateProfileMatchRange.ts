@@ -28,21 +28,21 @@ export class BookingRoommateProfileMatchRange {
       throw new Error('Invalid XML');
     }
 
-    if (data.BookingRoommateProfileMatchRangeID != null) this.bookingRoommateProfileMatchRangeID = parseInt(data.BookingRoommateProfileMatchRangeID, 10);
+    if (data.BookingRoommateProfileMatchRangeID != null) this.bookingRoommateProfileMatchRangeID = (data.BookingRoommateProfileMatchRangeID != null ? parseInt(data.BookingRoommateProfileMatchRangeID, 10) : data.BookingRoommateProfileMatchRangeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.BookingRoommateProfileMatchCategoryID != null) this.bookingRoommateProfileMatchCategoryID = parseInt(data.BookingRoommateProfileMatchCategoryID, 10);
+    if (data.BookingRoommateProfileMatchCategoryID != null) this.bookingRoommateProfileMatchCategoryID = (data.BookingRoommateProfileMatchCategoryID != null ? parseInt(data.BookingRoommateProfileMatchCategoryID, 10) : data.BookingRoommateProfileMatchCategoryID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.MinimumMatchPercentage != null) this.minimumMatchPercentage = parseInt(data.MinimumMatchPercentage, 10);
-    if (data.MaximumMatchPercentage != null) this.maximumMatchPercentage = parseInt(data.MaximumMatchPercentage, 10);
+    if (data.MinimumMatchPercentage != null) this.minimumMatchPercentage = (data.MinimumMatchPercentage != null ? parseInt(data.MinimumMatchPercentage, 10) : data.MinimumMatchPercentage);
+    if (data.MaximumMatchPercentage != null) this.maximumMatchPercentage = (data.MaximumMatchPercentage != null ? parseInt(data.MaximumMatchPercentage, 10) : data.MaximumMatchPercentage);
     if (data.MatchColour != null) this.matchColour = data.MatchColour;
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
     if (data.WebComments != null) this.webComments = data.WebComments;
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

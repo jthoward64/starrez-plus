@@ -17,10 +17,10 @@ export class InterfaceSubscribe {
       throw new Error('Invalid XML');
     }
 
-    if (data.InterfaceSubscribeID != null) this.interfaceSubscribeID = parseInt(data.InterfaceSubscribeID, 10);
-    if (data.InterfaceApplicationID != null) this.interfaceApplicationID = parseInt(data.InterfaceApplicationID, 10);
+    if (data.InterfaceSubscribeID != null) this.interfaceSubscribeID = (data.InterfaceSubscribeID != null ? parseInt(data.InterfaceSubscribeID, 10) : data.InterfaceSubscribeID);
+    if (data.InterfaceApplicationID != null) this.interfaceApplicationID = (data.InterfaceApplicationID != null ? parseInt(data.InterfaceApplicationID, 10) : data.InterfaceApplicationID);
     if (data.InterfaceActionEnum != null) this.interfaceActionEnum = data.InterfaceActionEnum;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

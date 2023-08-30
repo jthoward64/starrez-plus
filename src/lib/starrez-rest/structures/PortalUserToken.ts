@@ -23,16 +23,16 @@ export class PortalUserToken {
       throw new Error('Invalid XML');
     }
 
-    if (data.PortalUserTokenID != null) this.portalUserTokenID = parseInt(data.PortalUserTokenID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.PortalSiteID != null) this.portalSiteID = parseInt(data.PortalSiteID, 10);
+    if (data.PortalUserTokenID != null) this.portalUserTokenID = (data.PortalUserTokenID != null ? parseInt(data.PortalUserTokenID, 10) : data.PortalUserTokenID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.PortalSiteID != null) this.portalSiteID = (data.PortalSiteID != null ? parseInt(data.PortalSiteID, 10) : data.PortalSiteID);
     if (data.IPAddress != null) this.iPAddress = data.IPAddress;
     if (data.Token != null) this.token = data.Token;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.ExpiryDate != null) this.expiryDate = new Date(data.ExpiryDate);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.ExpiryDate != null) this.expiryDate = (data.ExpiryDate != null ? new Date(data.ExpiryDate) : data.ExpiryDate);
     if (data.AuthProviderKey != null) this.authProviderKey = data.AuthProviderKey;
     if (data.MachineName != null) this.machineName = data.MachineName;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

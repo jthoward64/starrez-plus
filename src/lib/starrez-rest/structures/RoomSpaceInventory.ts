@@ -33,18 +33,18 @@ export class RoomSpaceInventory {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceInventoryID != null) this.roomSpaceInventoryID = parseInt(data.RoomSpaceInventoryID, 10);
+    if (data.RoomSpaceInventoryID != null) this.roomSpaceInventoryID = (data.RoomSpaceInventoryID != null ? parseInt(data.RoomSpaceInventoryID, 10) : data.RoomSpaceInventoryID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.RoomSpaceInventoryTypeID != null) this.roomSpaceInventoryTypeID = parseInt(data.RoomSpaceInventoryTypeID, 10);
-    if (data.RoomSpaceID != null) this.roomSpaceID = parseInt(data.RoomSpaceID, 10);
-    if (data.RoomSpaceInventoryConditionID != null) this.roomSpaceInventoryConditionID = parseInt(data.RoomSpaceInventoryConditionID, 10);
-    if (data.RoomSpaceInventoryStatusID != null) this.roomSpaceInventoryStatusID = parseInt(data.RoomSpaceInventoryStatusID, 10);
+    if (data.RoomSpaceInventoryTypeID != null) this.roomSpaceInventoryTypeID = (data.RoomSpaceInventoryTypeID != null ? parseInt(data.RoomSpaceInventoryTypeID, 10) : data.RoomSpaceInventoryTypeID);
+    if (data.RoomSpaceID != null) this.roomSpaceID = (data.RoomSpaceID != null ? parseInt(data.RoomSpaceID, 10) : data.RoomSpaceID);
+    if (data.RoomSpaceInventoryConditionID != null) this.roomSpaceInventoryConditionID = (data.RoomSpaceInventoryConditionID != null ? parseInt(data.RoomSpaceInventoryConditionID, 10) : data.RoomSpaceInventoryConditionID);
+    if (data.RoomSpaceInventoryStatusID != null) this.roomSpaceInventoryStatusID = (data.RoomSpaceInventoryStatusID != null ? parseInt(data.RoomSpaceInventoryStatusID, 10) : data.RoomSpaceInventoryStatusID);
     if (data.Code != null) this.code = data.Code;
     if (data.Description != null) this.description = data.Description;
     if (data.Colour != null) this.colour = data.Colour;
-    if (data.ExpiryDate != null) this.expiryDate = new Date(data.ExpiryDate);
-    if (data.WarrantyDate != null) this.warrantyDate = new Date(data.WarrantyDate);
-    if (data.PurchaseDate != null) this.purchaseDate = new Date(data.PurchaseDate);
+    if (data.ExpiryDate != null) this.expiryDate = (data.ExpiryDate != null ? new Date(data.ExpiryDate) : data.ExpiryDate);
+    if (data.WarrantyDate != null) this.warrantyDate = (data.WarrantyDate != null ? new Date(data.WarrantyDate) : data.WarrantyDate);
+    if (data.PurchaseDate != null) this.purchaseDate = (data.PurchaseDate != null ? new Date(data.PurchaseDate) : data.PurchaseDate);
     if (data.PurchasePrice != null) this.purchasePrice = data.PurchasePrice;
     if (data.PurchasePlace != null) this.purchasePlace = data.PurchasePlace;
     if (data.PurchaseDetails != null) this.purchaseDetails = data.PurchaseDetails;
@@ -52,7 +52,7 @@ export class RoomSpaceInventory {
     if (data.Location != null) this.location = data.Location;
     if (data.HideFromResidents != null) this.hideFromResidents = data.HideFromResidents === 'true';
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

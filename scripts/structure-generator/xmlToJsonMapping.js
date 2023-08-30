@@ -1,7 +1,7 @@
 export const xmlToJson = {
   'Integer': {
     tsType: 'number',
-    mapper: (xmlName) => `parseInt(data.${xmlName}, 10)`
+    mapper: (xmlName) => `(data.${xmlName} != null ? parseInt(data.${xmlName}, 10) : data.${xmlName})`
   },
   'String': {
     tsType: 'string',
@@ -13,11 +13,11 @@ export const xmlToJson = {
   },
   'DateTimeSeconds': {
     tsType: 'Date',
-    mapper: (xmlName) => `new Date(data.${xmlName})`
+    mapper: (xmlName) => `(data.${xmlName} != null ? new Date(data.${xmlName}) : data.${xmlName})`
   },
   'DateTime': {
     tsType: 'Date',
-    mapper: (xmlName) => `new Date(data.${xmlName})`
+    mapper: (xmlName) => `(data.${xmlName} != null ? new Date(data.${xmlName}) : data.${xmlName})`
   },
   'Boolean': {
     tsType: 'boolean',
@@ -37,27 +37,27 @@ export const xmlToJson = {
   },
   'Byte': {
     tsType: 'number',
-    mapper: (xmlName) => `parseInt(data.${xmlName}, 10)`
+    mapper: (xmlName) => `(data.${xmlName} != null ? parseInt(data.${xmlName}, 10) : data.${xmlName})`
   },
   'Short': {
     tsType: 'number',
-    mapper: (xmlName) => `parseInt(data.${xmlName}, 10)`
+    mapper: (xmlName) => `(data.${xmlName} != null ? parseInt(data.${xmlName}, 10) : data.${xmlName})`
   },
   'Date': {
     tsType: 'Date',
-    mapper: (xmlName) => `new Date(data.${xmlName})`
+    mapper: (xmlName) => `(data.${xmlName} != null ? new Date(data.${xmlName}) : data.${xmlName})`
   },
   'MinutesSinceMidnight': {
     tsType: 'number',
-    mapper: (xmlName) => `parseInt(data.${xmlName}, 10)`
+    mapper: (xmlName) => `(data.${xmlName} != null ? parseInt(data.${xmlName}, 10) : data.${xmlName})`
   },
   'Timestamp': {
     tsType: 'Date',
-    mapper: (xmlName) => `new Date(data.${xmlName})`
+    mapper: (xmlName) => `(data.${xmlName} != null ? new Date(data.${xmlName}) : data.${xmlName})`
   },
   'BigDecimal': {
     tsType: 'number',
-    mapper: (xmlName) => `parseFloat(data.${xmlName})`
+    mapper: (xmlName) => `(data.${xmlName} != null ? parseFloat(data.${xmlName}) : data.${xmlName})`
   },
   'Guid': {
     tsType: 'string',
@@ -65,10 +65,10 @@ export const xmlToJson = {
   },
   'Decimal': {
     tsType: 'number',
-    mapper: (xmlName) => `parseFloat(data.${xmlName})`
+    mapper: (xmlName) => `(data.${xmlName} != null ? parseFloat(data.${xmlName}) : data.${xmlName})`
   },
   'Duration': {
-    tsType: 'number',
-    mapper: (xmlName) => `parseFloat(data.${xmlName})`
+    tsType: 'string',
+    mapper: (xmlName) => `data.${xmlName}`
   }
 };

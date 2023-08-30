@@ -17,10 +17,10 @@ export class VMGroupMailBox {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMGroupMailBoxID != null) this.vMGroupMailBoxID = parseInt(data.VMGroupMailBoxID, 10);
-    if (data.VMGroupID != null) this.vMGroupID = parseInt(data.VMGroupID, 10);
-    if (data.VMMailBoxID != null) this.vMMailBoxID = parseInt(data.VMMailBoxID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.VMGroupMailBoxID != null) this.vMGroupMailBoxID = (data.VMGroupMailBoxID != null ? parseInt(data.VMGroupMailBoxID, 10) : data.VMGroupMailBoxID);
+    if (data.VMGroupID != null) this.vMGroupID = (data.VMGroupID != null ? parseInt(data.VMGroupID, 10) : data.VMGroupID);
+    if (data.VMMailBoxID != null) this.vMMailBoxID = (data.VMMailBoxID != null ? parseInt(data.VMMailBoxID, 10) : data.VMMailBoxID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

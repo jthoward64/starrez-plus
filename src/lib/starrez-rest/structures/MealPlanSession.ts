@@ -19,12 +19,12 @@ export class MealPlanSession {
       throw new Error('Invalid XML');
     }
 
-    if (data.MealPlanSessionID != null) this.mealPlanSessionID = parseInt(data.MealPlanSessionID, 10);
-    if (data.MealPlanID != null) this.mealPlanID = parseInt(data.MealPlanID, 10);
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
-    if (data.TransactionDateDue != null) this.transactionDateDue = new Date(data.TransactionDateDue);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.MealPlanSessionID != null) this.mealPlanSessionID = (data.MealPlanSessionID != null ? parseInt(data.MealPlanSessionID, 10) : data.MealPlanSessionID);
+    if (data.MealPlanID != null) this.mealPlanID = (data.MealPlanID != null ? parseInt(data.MealPlanID, 10) : data.MealPlanID);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
+    if (data.TransactionDateDue != null) this.transactionDateDue = (data.TransactionDateDue != null ? new Date(data.TransactionDateDue) : data.TransactionDateDue);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

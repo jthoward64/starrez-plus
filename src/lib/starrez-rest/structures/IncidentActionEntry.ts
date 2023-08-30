@@ -17,10 +17,10 @@ export class IncidentActionEntry {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentActionEntryID != null) this.incidentActionEntryID = parseInt(data.IncidentActionEntryID, 10);
-    if (data.IncidentActionID != null) this.incidentActionID = parseInt(data.IncidentActionID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.IncidentActionEntryID != null) this.incidentActionEntryID = (data.IncidentActionEntryID != null ? parseInt(data.IncidentActionEntryID, 10) : data.IncidentActionEntryID);
+    if (data.IncidentActionID != null) this.incidentActionID = (data.IncidentActionID != null ? parseInt(data.IncidentActionID, 10) : data.IncidentActionID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

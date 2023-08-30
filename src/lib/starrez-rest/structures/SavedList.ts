@@ -23,16 +23,16 @@ export class SavedList {
       throw new Error('Invalid XML');
     }
 
-    if (data.SavedListID != null) this.savedListID = parseInt(data.SavedListID, 10);
+    if (data.SavedListID != null) this.savedListID = (data.SavedListID != null ? parseInt(data.SavedListID, 10) : data.SavedListID);
     if (data.Description != null) this.description = data.Description;
-    if (data.ParentID != null) this.parentID = parseInt(data.ParentID, 10);
+    if (data.ParentID != null) this.parentID = (data.ParentID != null ? parseInt(data.ParentID, 10) : data.ParentID);
     if (data.Folder != null) this.folder = data.Folder === 'true';
     if (data.Comments != null) this.comments = data.Comments;
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

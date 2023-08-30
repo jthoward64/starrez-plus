@@ -23,16 +23,16 @@ export class PortalSite {
       throw new Error('Invalid XML');
     }
 
-    if (data.PortalSiteID != null) this.portalSiteID = parseInt(data.PortalSiteID, 10);
+    if (data.PortalSiteID != null) this.portalSiteID = (data.PortalSiteID != null ? parseInt(data.PortalSiteID, 10) : data.PortalSiteID);
     if (data.Description != null) this.description = data.Description;
     if (data.Title != null) this.title = data.Title;
     if (data.Url != null) this.url = data.Url;
-    if (data.PortalThemeID != null) this.portalThemeID = parseInt(data.PortalThemeID, 10);
-    if (data.EventID != null) this.eventID = parseInt(data.EventID, 10);
+    if (data.PortalThemeID != null) this.portalThemeID = (data.PortalThemeID != null ? parseInt(data.PortalThemeID, 10) : data.PortalThemeID);
+    if (data.EventID != null) this.eventID = (data.EventID != null ? parseInt(data.EventID, 10) : data.EventID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

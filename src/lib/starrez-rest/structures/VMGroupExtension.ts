@@ -17,10 +17,10 @@ export class VMGroupExtension {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMGroupExtensionID != null) this.vMGroupExtensionID = parseInt(data.VMGroupExtensionID, 10);
-    if (data.VMGroupID != null) this.vMGroupID = parseInt(data.VMGroupID, 10);
-    if (data.ExtensionID != null) this.extensionID = parseInt(data.ExtensionID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.VMGroupExtensionID != null) this.vMGroupExtensionID = (data.VMGroupExtensionID != null ? parseInt(data.VMGroupExtensionID, 10) : data.VMGroupExtensionID);
+    if (data.VMGroupID != null) this.vMGroupID = (data.VMGroupID != null ? parseInt(data.VMGroupID, 10) : data.VMGroupID);
+    if (data.ExtensionID != null) this.extensionID = (data.ExtensionID != null ? parseInt(data.ExtensionID, 10) : data.ExtensionID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

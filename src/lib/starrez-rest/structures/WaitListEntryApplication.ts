@@ -23,16 +23,16 @@ export class WaitListEntryApplication {
       throw new Error('Invalid XML');
     }
 
-    if (data.WaitListEntryApplicationID != null) this.waitListEntryApplicationID = parseInt(data.WaitListEntryApplicationID, 10);
-    if (data.WaitListID != null) this.waitListID = parseInt(data.WaitListID, 10);
-    if (data.EntryApplicationID != null) this.entryApplicationID = parseInt(data.EntryApplicationID, 10);
-    if (data.WaitListOrder != null) this.waitListOrder = parseInt(data.WaitListOrder, 10);
-    if (data.NumberOfBedrooms != null) this.numberOfBedrooms = parseInt(data.NumberOfBedrooms, 10);
-    if (data.NumberOfBathrooms != null) this.numberOfBathrooms = parseInt(data.NumberOfBathrooms, 10);
+    if (data.WaitListEntryApplicationID != null) this.waitListEntryApplicationID = (data.WaitListEntryApplicationID != null ? parseInt(data.WaitListEntryApplicationID, 10) : data.WaitListEntryApplicationID);
+    if (data.WaitListID != null) this.waitListID = (data.WaitListID != null ? parseInt(data.WaitListID, 10) : data.WaitListID);
+    if (data.EntryApplicationID != null) this.entryApplicationID = (data.EntryApplicationID != null ? parseInt(data.EntryApplicationID, 10) : data.EntryApplicationID);
+    if (data.WaitListOrder != null) this.waitListOrder = (data.WaitListOrder != null ? parseInt(data.WaitListOrder, 10) : data.WaitListOrder);
+    if (data.NumberOfBedrooms != null) this.numberOfBedrooms = (data.NumberOfBedrooms != null ? parseInt(data.NumberOfBedrooms, 10) : data.NumberOfBedrooms);
+    if (data.NumberOfBathrooms != null) this.numberOfBathrooms = (data.NumberOfBathrooms != null ? parseInt(data.NumberOfBathrooms, 10) : data.NumberOfBathrooms);
     if (data.RentAmount != null) this.rentAmount = data.RentAmount;
     if (data.Active != null) this.active = data.Active === 'true';
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

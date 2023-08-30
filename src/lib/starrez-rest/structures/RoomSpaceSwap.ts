@@ -26,19 +26,19 @@ export class RoomSpaceSwap {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceSwapID != null) this.roomSpaceSwapID = parseInt(data.RoomSpaceSwapID, 10);
-    if (data.InitiatedBy_BookingID != null) this.initiatedBy_BookingID = parseInt(data.InitiatedBy_BookingID, 10);
-    if (data.Offered_BookingID != null) this.offered_BookingID = parseInt(data.Offered_BookingID, 10);
-    if (data.Requested_BookingID != null) this.requested_BookingID = parseInt(data.Requested_BookingID, 10);
+    if (data.RoomSpaceSwapID != null) this.roomSpaceSwapID = (data.RoomSpaceSwapID != null ? parseInt(data.RoomSpaceSwapID, 10) : data.RoomSpaceSwapID);
+    if (data.InitiatedBy_BookingID != null) this.initiatedBy_BookingID = (data.InitiatedBy_BookingID != null ? parseInt(data.InitiatedBy_BookingID, 10) : data.InitiatedBy_BookingID);
+    if (data.Offered_BookingID != null) this.offered_BookingID = (data.Offered_BookingID != null ? parseInt(data.Offered_BookingID, 10) : data.Offered_BookingID);
+    if (data.Requested_BookingID != null) this.requested_BookingID = (data.Requested_BookingID != null ? parseInt(data.Requested_BookingID, 10) : data.Requested_BookingID);
     if (data.RoomSpaceSwapStatusEnum != null) this.roomSpaceSwapStatusEnum = data.RoomSpaceSwapStatusEnum;
-    if (data.AcceptedDate != null) this.acceptedDate = new Date(data.AcceptedDate);
-    if (data.ConfirmedDate != null) this.confirmedDate = new Date(data.ConfirmedDate);
+    if (data.AcceptedDate != null) this.acceptedDate = (data.AcceptedDate != null ? new Date(data.AcceptedDate) : data.AcceptedDate);
+    if (data.ConfirmedDate != null) this.confirmedDate = (data.ConfirmedDate != null ? new Date(data.ConfirmedDate) : data.ConfirmedDate);
     if (data.WebComments != null) this.webComments = data.WebComments;
     if (data.Interim != null) this.interim = data.Interim === 'true';
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

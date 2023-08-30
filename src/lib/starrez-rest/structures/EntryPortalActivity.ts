@@ -23,16 +23,16 @@ export class EntryPortalActivity {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryPortalActivityID != null) this.entryPortalActivityID = parseInt(data.EntryPortalActivityID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.PortalPageID != null) this.portalPageID = parseInt(data.PortalPageID, 10);
-    if (data.FirstVisitDate != null) this.firstVisitDate = new Date(data.FirstVisitDate);
-    if (data.LastVisitDate != null) this.lastVisitDate = new Date(data.LastVisitDate);
-    if (data.CompleteDate != null) this.completeDate = new Date(data.CompleteDate);
+    if (data.EntryPortalActivityID != null) this.entryPortalActivityID = (data.EntryPortalActivityID != null ? parseInt(data.EntryPortalActivityID, 10) : data.EntryPortalActivityID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.PortalPageID != null) this.portalPageID = (data.PortalPageID != null ? parseInt(data.PortalPageID, 10) : data.PortalPageID);
+    if (data.FirstVisitDate != null) this.firstVisitDate = (data.FirstVisitDate != null ? new Date(data.FirstVisitDate) : data.FirstVisitDate);
+    if (data.LastVisitDate != null) this.lastVisitDate = (data.LastVisitDate != null ? new Date(data.LastVisitDate) : data.LastVisitDate);
+    if (data.CompleteDate != null) this.completeDate = (data.CompleteDate != null ? new Date(data.CompleteDate) : data.CompleteDate);
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

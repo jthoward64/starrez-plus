@@ -30,23 +30,23 @@ export class IncidentAction {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentActionID != null) this.incidentActionID = parseInt(data.IncidentActionID, 10);
-    if (data.IncidentID != null) this.incidentID = parseInt(data.IncidentID, 10);
-    if (data.IncidentActionTypeID != null) this.incidentActionTypeID = parseInt(data.IncidentActionTypeID, 10);
-    if (data.IncidentActionDate != null) this.incidentActionDate = new Date(data.IncidentActionDate);
+    if (data.IncidentActionID != null) this.incidentActionID = (data.IncidentActionID != null ? parseInt(data.IncidentActionID, 10) : data.IncidentActionID);
+    if (data.IncidentID != null) this.incidentID = (data.IncidentID != null ? parseInt(data.IncidentID, 10) : data.IncidentID);
+    if (data.IncidentActionTypeID != null) this.incidentActionTypeID = (data.IncidentActionTypeID != null ? parseInt(data.IncidentActionTypeID, 10) : data.IncidentActionTypeID);
+    if (data.IncidentActionDate != null) this.incidentActionDate = (data.IncidentActionDate != null ? new Date(data.IncidentActionDate) : data.IncidentActionDate);
     if (data.ActionTitle != null) this.actionTitle = data.ActionTitle;
-    if (data.ActionManager_EntryID != null) this.actionManager_EntryID = parseInt(data.ActionManager_EntryID, 10);
+    if (data.ActionManager_EntryID != null) this.actionManager_EntryID = (data.ActionManager_EntryID != null ? parseInt(data.ActionManager_EntryID, 10) : data.ActionManager_EntryID);
     if (data.Attendees != null) this.attendees = data.Attendees;
     if (data.Location != null) this.location = data.Location;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateDue != null) this.dateDue = new Date(data.DateDue);
-    if (data.DateComplete != null) this.dateComplete = new Date(data.DateComplete);
+    if (data.DateDue != null) this.dateDue = (data.DateDue != null ? new Date(data.DateDue) : data.DateDue);
+    if (data.DateComplete != null) this.dateComplete = (data.DateComplete != null ? new Date(data.DateComplete) : data.DateComplete);
     if (data.Outcome != null) this.outcome = data.Outcome;
     if (data.IncidentActionGUID != null) this.incidentActionGUID = data.IncidentActionGUID;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

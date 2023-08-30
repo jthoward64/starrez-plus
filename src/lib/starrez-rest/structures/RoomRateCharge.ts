@@ -25,18 +25,18 @@ export class RoomRateCharge {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomRateChargeID != null) this.roomRateChargeID = parseInt(data.RoomRateChargeID, 10);
-    if (data.RoomRateSessionID != null) this.roomRateSessionID = parseInt(data.RoomRateSessionID, 10);
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
-    if (data.RoomTypeID != null) this.roomTypeID = parseInt(data.RoomTypeID, 10);
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
+    if (data.RoomRateChargeID != null) this.roomRateChargeID = (data.RoomRateChargeID != null ? parseInt(data.RoomRateChargeID, 10) : data.RoomRateChargeID);
+    if (data.RoomRateSessionID != null) this.roomRateSessionID = (data.RoomRateSessionID != null ? parseInt(data.RoomRateSessionID, 10) : data.RoomRateSessionID);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
+    if (data.RoomTypeID != null) this.roomTypeID = (data.RoomTypeID != null ? parseInt(data.RoomTypeID, 10) : data.RoomTypeID);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
     if (data.Description != null) this.description = data.Description;
     if (data.Amount != null) this.amount = data.Amount;
     if (data.AmountDouble != null) this.amountDouble = data.AmountDouble;
     if (data.AmountExtra != null) this.amountExtra = data.AmountExtra;
     if (data.AmountChildren != null) this.amountChildren = data.AmountChildren;
     if (data.AmountCost != null) this.amountCost = data.AmountCost;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

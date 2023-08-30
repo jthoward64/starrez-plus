@@ -26,19 +26,19 @@ export class AutoAllocateRun {
       throw new Error('Invalid XML');
     }
 
-    if (data.AutoAllocateRunID != null) this.autoAllocateRunID = parseInt(data.AutoAllocateRunID, 10);
+    if (data.AutoAllocateRunID != null) this.autoAllocateRunID = (data.AutoAllocateRunID != null ? parseInt(data.AutoAllocateRunID, 10) : data.AutoAllocateRunID);
     if (data.Description != null) this.description = data.Description;
     if (data.AutoAllocateObject != null) this.autoAllocateObject = data.AutoAllocateObject;
     if (data.AutoAllocateResults != null) this.autoAllocateResults = data.AutoAllocateResults;
-    if (data.LastRan_SecurityUserID != null) this.lastRan_SecurityUserID = parseInt(data.LastRan_SecurityUserID, 10);
-    if (data.LastRanDate != null) this.lastRanDate = new Date(data.LastRanDate);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
+    if (data.LastRan_SecurityUserID != null) this.lastRan_SecurityUserID = (data.LastRan_SecurityUserID != null ? parseInt(data.LastRan_SecurityUserID, 10) : data.LastRan_SecurityUserID);
+    if (data.LastRanDate != null) this.lastRanDate = (data.LastRanDate != null ? new Date(data.LastRanDate) : data.LastRanDate);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
     if (data.Enabled != null) this.enabled = data.Enabled === 'true';
     if (data.OverrideEntryIDs != null) this.overrideEntryIDs = data.OverrideEntryIDs;
     if (data.IsCommitted != null) this.isCommitted = data.IsCommitted === 'true';
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

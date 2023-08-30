@@ -46,21 +46,21 @@ export class Incident {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentID != null) this.incidentID = parseInt(data.IncidentID, 10);
-    if (data.IncidentStatusID != null) this.incidentStatusID = parseInt(data.IncidentStatusID, 10);
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
-    if (data.IncidentDate != null) this.incidentDate = new Date(data.IncidentDate);
+    if (data.IncidentID != null) this.incidentID = (data.IncidentID != null ? parseInt(data.IncidentID, 10) : data.IncidentID);
+    if (data.IncidentStatusID != null) this.incidentStatusID = (data.IncidentStatusID != null ? parseInt(data.IncidentStatusID, 10) : data.IncidentStatusID);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
+    if (data.IncidentDate != null) this.incidentDate = (data.IncidentDate != null ? new Date(data.IncidentDate) : data.IncidentDate);
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
     if (data.Title != null) this.title = data.Title;
     if (data.Description != null) this.description = data.Description;
     if (data.ReportNumber != null) this.reportNumber = data.ReportNumber;
-    if (data.IncidentManager_EntryID != null) this.incidentManager_EntryID = parseInt(data.IncidentManager_EntryID, 10);
+    if (data.IncidentManager_EntryID != null) this.incidentManager_EntryID = (data.IncidentManager_EntryID != null ? parseInt(data.IncidentManager_EntryID, 10) : data.IncidentManager_EntryID);
     if (data.ActionRequired != null) this.actionRequired = data.ActionRequired;
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
-    if (data.RoomLocationFloorSuiteID != null) this.roomLocationFloorSuiteID = parseInt(data.RoomLocationFloorSuiteID, 10);
-    if (data.RoomBaseID != null) this.roomBaseID = parseInt(data.RoomBaseID, 10);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
+    if (data.RoomLocationFloorSuiteID != null) this.roomLocationFloorSuiteID = (data.RoomLocationFloorSuiteID != null ? parseInt(data.RoomLocationFloorSuiteID, 10) : data.RoomLocationFloorSuiteID);
+    if (data.RoomBaseID != null) this.roomBaseID = (data.RoomBaseID != null ? parseInt(data.RoomBaseID, 10) : data.RoomBaseID);
     if (data.LocationComments != null) this.locationComments = data.LocationComments;
-    if (data.IncidentCleryGeographyID != null) this.incidentCleryGeographyID = parseInt(data.IncidentCleryGeographyID, 10);
+    if (data.IncidentCleryGeographyID != null) this.incidentCleryGeographyID = (data.IncidentCleryGeographyID != null ? parseInt(data.IncidentCleryGeographyID, 10) : data.IncidentCleryGeographyID);
     if (data.LocationLocked != null) this.locationLocked = data.LocationLocked === 'true';
     if (data.PropertyDamaged != null) this.propertyDamaged = data.PropertyDamaged === 'true';
     if (data.PropertyStolen != null) this.propertyStolen = data.PropertyStolen === 'true';
@@ -69,16 +69,16 @@ export class Incident {
     if (data.VictimInjured != null) this.victimInjured = data.VictimInjured === 'true';
     if (data.VictimComments != null) this.victimComments = data.VictimComments;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
     if (data.IncidentGUID != null) this.incidentGUID = data.IncidentGUID;
-    if (data.timestamp != null) this.timestamp = new Date(data.timestamp);
-    if (data.WorkflowStepID != null) this.workflowStepID = parseInt(data.WorkflowStepID, 10);
-    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = parseInt(data.AssignedTo_SecurityUserID, 10);
-    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = parseInt(data.Current_WorkflowHistoryID, 10);
-    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = parseInt(data.Previous_WorkflowHistoryID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.timestamp != null) this.timestamp = (data.timestamp != null ? new Date(data.timestamp) : data.timestamp);
+    if (data.WorkflowStepID != null) this.workflowStepID = (data.WorkflowStepID != null ? parseInt(data.WorkflowStepID, 10) : data.WorkflowStepID);
+    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = (data.AssignedTo_SecurityUserID != null ? parseInt(data.AssignedTo_SecurityUserID, 10) : data.AssignedTo_SecurityUserID);
+    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = (data.Current_WorkflowHistoryID != null ? parseInt(data.Current_WorkflowHistoryID, 10) : data.Current_WorkflowHistoryID);
+    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = (data.Previous_WorkflowHistoryID != null ? parseInt(data.Previous_WorkflowHistoryID, 10) : data.Previous_WorkflowHistoryID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

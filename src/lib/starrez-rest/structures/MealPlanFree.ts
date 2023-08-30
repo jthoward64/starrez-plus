@@ -19,12 +19,12 @@ export class MealPlanFree {
       throw new Error('Invalid XML');
     }
 
-    if (data.MealPlanFreeID != null) this.mealPlanFreeID = parseInt(data.MealPlanFreeID, 10);
+    if (data.MealPlanFreeID != null) this.mealPlanFreeID = (data.MealPlanFreeID != null ? parseInt(data.MealPlanFreeID, 10) : data.MealPlanFreeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.MealPlanID != null) this.mealPlanID = parseInt(data.MealPlanID, 10);
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.MealPlanID != null) this.mealPlanID = (data.MealPlanID != null ? parseInt(data.MealPlanID, 10) : data.MealPlanID);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

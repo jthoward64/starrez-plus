@@ -27,11 +27,11 @@ export class RoomRateRoomTypeLocation {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomRateRoomTypeLocationID != null) this.roomRateRoomTypeLocationID = parseInt(data.RoomRateRoomTypeLocationID, 10);
-    if (data.RoomRateSessionID != null) this.roomRateSessionID = parseInt(data.RoomRateSessionID, 10);
-    if (data.RoomTypeID != null) this.roomTypeID = parseInt(data.RoomTypeID, 10);
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
+    if (data.RoomRateRoomTypeLocationID != null) this.roomRateRoomTypeLocationID = (data.RoomRateRoomTypeLocationID != null ? parseInt(data.RoomRateRoomTypeLocationID, 10) : data.RoomRateRoomTypeLocationID);
+    if (data.RoomRateSessionID != null) this.roomRateSessionID = (data.RoomRateSessionID != null ? parseInt(data.RoomRateSessionID, 10) : data.RoomRateSessionID);
+    if (data.RoomTypeID != null) this.roomTypeID = (data.RoomTypeID != null ? parseInt(data.RoomTypeID, 10) : data.RoomTypeID);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
     if (data.Amount != null) this.amount = data.Amount;
     if (data.AmountDouble != null) this.amountDouble = data.AmountDouble;
     if (data.AmountExtra != null) this.amountExtra = data.AmountExtra;
@@ -40,7 +40,7 @@ export class RoomRateRoomTypeLocation {
     if (data.AmountDoubleCost != null) this.amountDoubleCost = data.AmountDoubleCost;
     if (data.AmountExtraCost != null) this.amountExtraCost = data.AmountExtraCost;
     if (data.AmountChildrenCost != null) this.amountChildrenCost = data.AmountChildrenCost;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

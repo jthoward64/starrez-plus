@@ -26,19 +26,19 @@ export class CateringItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.CateringItemID != null) this.cateringItemID = parseInt(data.CateringItemID, 10);
-    if (data.CateringID != null) this.cateringID = parseInt(data.CateringID, 10);
+    if (data.CateringItemID != null) this.cateringItemID = (data.CateringItemID != null ? parseInt(data.CateringItemID, 10) : data.CateringItemID);
+    if (data.CateringID != null) this.cateringID = (data.CateringID != null ? parseInt(data.CateringID, 10) : data.CateringID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
-    if (data.ServingOrder != null) this.servingOrder = parseInt(data.ServingOrder, 10);
+    if (data.ServingOrder != null) this.servingOrder = (data.ServingOrder != null ? parseInt(data.ServingOrder, 10) : data.ServingOrder);
     if (data.Optional != null) this.optional = data.Optional === 'true';
     if (data.QuantityDefaultIsPercentage != null) this.quantityDefaultIsPercentage = data.QuantityDefaultIsPercentage === 'true';
-    if (data.QuantityDefault != null) this.quantityDefault = parseInt(data.QuantityDefault, 10);
+    if (data.QuantityDefault != null) this.quantityDefault = (data.QuantityDefault != null ? parseInt(data.QuantityDefault, 10) : data.QuantityDefault);
     if (data.ChargeFixed != null) this.chargeFixed = data.ChargeFixed === 'true';
     if (data.AmountCost != null) this.amountCost = data.AmountCost;
     if (data.Amount != null) this.amount = data.Amount;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

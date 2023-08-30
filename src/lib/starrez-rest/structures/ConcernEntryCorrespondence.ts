@@ -29,22 +29,22 @@ export class ConcernEntryCorrespondence {
       throw new Error('Invalid XML');
     }
 
-    if (data.ConcernEntryID != null) this.concernEntryID = parseInt(data.ConcernEntryID, 10);
-    if (data.ConcernEntryCorrespondenceID != null) this.concernEntryCorrespondenceID = parseInt(data.ConcernEntryCorrespondenceID, 10);
-    if (data.CorrespondenceSourceID != null) this.correspondenceSourceID = parseInt(data.CorrespondenceSourceID, 10);
-    if (data.CorrespondenceDate != null) this.correspondenceDate = new Date(data.CorrespondenceDate);
+    if (data.ConcernEntryID != null) this.concernEntryID = (data.ConcernEntryID != null ? parseInt(data.ConcernEntryID, 10) : data.ConcernEntryID);
+    if (data.ConcernEntryCorrespondenceID != null) this.concernEntryCorrespondenceID = (data.ConcernEntryCorrespondenceID != null ? parseInt(data.ConcernEntryCorrespondenceID, 10) : data.ConcernEntryCorrespondenceID);
+    if (data.CorrespondenceSourceID != null) this.correspondenceSourceID = (data.CorrespondenceSourceID != null ? parseInt(data.CorrespondenceSourceID, 10) : data.CorrespondenceSourceID);
+    if (data.CorrespondenceDate != null) this.correspondenceDate = (data.CorrespondenceDate != null ? new Date(data.CorrespondenceDate) : data.CorrespondenceDate);
     if (data.CorrespondenceName != null) this.correspondenceName = data.CorrespondenceName;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.DocumentPath != null) this.documentPath = data.DocumentPath;
     if (data.FromEmail != null) this.fromEmail = data.FromEmail;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
-    if (data.ViewedDate != null) this.viewedDate = new Date(data.ViewedDate);
+    if (data.ViewedDate != null) this.viewedDate = (data.ViewedDate != null ? new Date(data.ViewedDate) : data.ViewedDate);
     if (data.CorrespondenceStatusEnum != null) this.correspondenceStatusEnum = data.CorrespondenceStatusEnum;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

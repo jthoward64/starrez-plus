@@ -19,12 +19,12 @@ export class BookingTag {
       throw new Error('Invalid XML');
     }
 
-    if (data.BookingTagID != null) this.bookingTagID = parseInt(data.BookingTagID, 10);
-    if (data.BookingID != null) this.bookingID = parseInt(data.BookingID, 10);
+    if (data.BookingTagID != null) this.bookingTagID = (data.BookingTagID != null ? parseInt(data.BookingTagID, 10) : data.BookingTagID);
+    if (data.BookingID != null) this.bookingID = (data.BookingID != null ? parseInt(data.BookingID, 10) : data.BookingID);
     if (data.TagType != null) this.tagType = data.TagType;
     if (data.Tag != null) this.tag = data.Tag;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

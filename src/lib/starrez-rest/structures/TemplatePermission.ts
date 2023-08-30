@@ -18,11 +18,11 @@ export class TemplatePermission {
       throw new Error('Invalid XML');
     }
 
-    if (data.TemplatePermissionID != null) this.templatePermissionID = parseInt(data.TemplatePermissionID, 10);
-    if (data.TemplateID != null) this.templateID = parseInt(data.TemplateID, 10);
+    if (data.TemplatePermissionID != null) this.templatePermissionID = (data.TemplatePermissionID != null ? parseInt(data.TemplatePermissionID, 10) : data.TemplatePermissionID);
+    if (data.TemplateID != null) this.templateID = (data.TemplateID != null ? parseInt(data.TemplateID, 10) : data.TemplateID);
     if (data.AccessTypeEnum != null) this.accessTypeEnum = data.AccessTypeEnum;
-    if (data.SecurityGroupID != null) this.securityGroupID = parseInt(data.SecurityGroupID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityGroupID != null) this.securityGroupID = (data.SecurityGroupID != null ? parseInt(data.SecurityGroupID, 10) : data.SecurityGroupID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

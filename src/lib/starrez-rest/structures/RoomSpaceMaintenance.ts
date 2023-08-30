@@ -67,17 +67,17 @@ export class RoomSpaceMaintenance {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceMaintenanceID != null) this.roomSpaceMaintenanceID = parseInt(data.RoomSpaceMaintenanceID, 10);
-    if (data.RoomSpaceID != null) this.roomSpaceID = parseInt(data.RoomSpaceID, 10);
-    if (data.DateReported != null) this.dateReported = new Date(data.DateReported);
-    if (data.DateDue != null) this.dateDue = new Date(data.DateDue);
+    if (data.RoomSpaceMaintenanceID != null) this.roomSpaceMaintenanceID = (data.RoomSpaceMaintenanceID != null ? parseInt(data.RoomSpaceMaintenanceID, 10) : data.RoomSpaceMaintenanceID);
+    if (data.RoomSpaceID != null) this.roomSpaceID = (data.RoomSpaceID != null ? parseInt(data.RoomSpaceID, 10) : data.RoomSpaceID);
+    if (data.DateReported != null) this.dateReported = (data.DateReported != null ? new Date(data.DateReported) : data.DateReported);
+    if (data.DateDue != null) this.dateDue = (data.DateDue != null ? new Date(data.DateDue) : data.DateDue);
     if (data.JobStatus != null) this.jobStatus = data.JobStatus;
     if (data.OtherServiceNumber != null) this.otherServiceNumber = data.OtherServiceNumber;
-    if (data.RoomSpaceMaintenanceCategoryID != null) this.roomSpaceMaintenanceCategoryID = parseInt(data.RoomSpaceMaintenanceCategoryID, 10);
-    if (data.RoomSpaceMaintenanceItemID != null) this.roomSpaceMaintenanceItemID = parseInt(data.RoomSpaceMaintenanceItemID, 10);
+    if (data.RoomSpaceMaintenanceCategoryID != null) this.roomSpaceMaintenanceCategoryID = (data.RoomSpaceMaintenanceCategoryID != null ? parseInt(data.RoomSpaceMaintenanceCategoryID, 10) : data.RoomSpaceMaintenanceCategoryID);
+    if (data.RoomSpaceMaintenanceItemID != null) this.roomSpaceMaintenanceItemID = (data.RoomSpaceMaintenanceItemID != null ? parseInt(data.RoomSpaceMaintenanceItemID, 10) : data.RoomSpaceMaintenanceItemID);
     if (data.ReportedByName != null) this.reportedByName = data.ReportedByName;
     if (data.ReportedByPhone != null) this.reportedByPhone = data.ReportedByPhone;
-    if (data.Occupant_EntryID != null) this.occupant_EntryID = parseInt(data.Occupant_EntryID, 10);
+    if (data.Occupant_EntryID != null) this.occupant_EntryID = (data.Occupant_EntryID != null ? parseInt(data.Occupant_EntryID, 10) : data.Occupant_EntryID);
     if (data.OccupantEntryName != null) this.occupantEntryName = data.OccupantEntryName;
     if (data.OccupantPresent != null) this.occupantPresent = data.OccupantPresent === 'true';
     if (data.OccupantPresentReason != null) this.occupantPresentReason = data.OccupantPresentReason;
@@ -85,14 +85,14 @@ export class RoomSpaceMaintenance {
     if (data.Status != null) this.status = data.Status;
     if (data.Location != null) this.location = data.Location;
     if (data.Description != null) this.description = data.Description;
-    if (data.PriorityID != null) this.priorityID = parseInt(data.PriorityID, 10);
+    if (data.PriorityID != null) this.priorityID = (data.PriorityID != null ? parseInt(data.PriorityID, 10) : data.PriorityID);
     if (data.Technician != null) this.technician = data.Technician;
-    if (data.StartDate != null) this.startDate = new Date(data.StartDate);
-    if (data.CompleteDate != null) this.completeDate = new Date(data.CompleteDate);
-    if (data.RoomSpaceClosedID != null) this.roomSpaceClosedID = parseInt(data.RoomSpaceClosedID, 10);
+    if (data.StartDate != null) this.startDate = (data.StartDate != null ? new Date(data.StartDate) : data.StartDate);
+    if (data.CompleteDate != null) this.completeDate = (data.CompleteDate != null ? new Date(data.CompleteDate) : data.CompleteDate);
+    if (data.RoomSpaceClosedID != null) this.roomSpaceClosedID = (data.RoomSpaceClosedID != null ? parseInt(data.RoomSpaceClosedID, 10) : data.RoomSpaceClosedID);
     if (data.RepairDescription != null) this.repairDescription = data.RepairDescription;
-    if (data.ContactID != null) this.contactID = parseInt(data.ContactID, 10);
-    if (data.ContractorDate != null) this.contractorDate = new Date(data.ContractorDate);
+    if (data.ContactID != null) this.contactID = (data.ContactID != null ? parseInt(data.ContactID, 10) : data.ContactID);
+    if (data.ContractorDate != null) this.contractorDate = (data.ContractorDate != null ? new Date(data.ContractorDate) : data.ContractorDate);
     if (data.ContractorETA != null) this.contractorETA = data.ContractorETA;
     if (data.ContractorOrderNumber != null) this.contractorOrderNumber = data.ContractorOrderNumber;
     if (data.ContractorCostEstimate != null) this.contractorCostEstimate = data.ContractorCostEstimate;
@@ -101,8 +101,8 @@ export class RoomSpaceMaintenance {
     if (data.ChargeType != null) this.chargeType = data.ChargeType;
     if (data.AccountCode != null) this.accountCode = data.AccountCode;
     if (data.Charge != null) this.charge = data.Charge === 'true';
-    if (data.ContractDate != null) this.contractDate = new Date(data.ContractDate);
-    if (data.Charge_EntryID != null) this.charge_EntryID = parseInt(data.Charge_EntryID, 10);
+    if (data.ContractDate != null) this.contractDate = (data.ContractDate != null ? new Date(data.ContractDate) : data.ContractDate);
+    if (data.Charge_EntryID != null) this.charge_EntryID = (data.Charge_EntryID != null ? parseInt(data.Charge_EntryID, 10) : data.Charge_EntryID);
     if (data.ChargeAmount != null) this.chargeAmount = data.ChargeAmount;
     if (data.ChargeInvoiced != null) this.chargeInvoiced = data.ChargeInvoiced === 'true';
     if (data.ChargeInvoiceNumber != null) this.chargeInvoiceNumber = data.ChargeInvoiceNumber;
@@ -115,12 +115,12 @@ export class RoomSpaceMaintenance {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

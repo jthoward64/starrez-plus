@@ -31,8 +31,8 @@ export class ProfileItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.ProfileItemID != null) this.profileItemID = parseInt(data.ProfileItemID, 10);
-    if (data.ProfileTypeID != null) this.profileTypeID = parseInt(data.ProfileTypeID, 10);
+    if (data.ProfileItemID != null) this.profileItemID = (data.ProfileItemID != null ? parseInt(data.ProfileItemID, 10) : data.ProfileItemID);
+    if (data.ProfileTypeID != null) this.profileTypeID = (data.ProfileTypeID != null ? parseInt(data.ProfileTypeID, 10) : data.ProfileTypeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.ProfileItemTypeEnum != null) this.profileItemTypeEnum = data.ProfileItemTypeEnum;
@@ -46,9 +46,9 @@ export class ProfileItem {
     if (data.WebIconClass != null) this.webIconClass = data.WebIconClass;
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
-    if (data.WebOrder != null) this.webOrder = parseInt(data.WebOrder, 10);
+    if (data.WebOrder != null) this.webOrder = (data.WebOrder != null ? parseInt(data.WebOrder, 10) : data.WebOrder);
     if (data.WebComments != null) this.webComments = data.WebComments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

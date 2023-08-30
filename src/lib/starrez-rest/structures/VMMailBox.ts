@@ -38,31 +38,31 @@ export class VMMailBox {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMMailBoxID != null) this.vMMailBoxID = parseInt(data.VMMailBoxID, 10);
-    if (data.VMMailBoxTypeID != null) this.vMMailBoxTypeID = parseInt(data.VMMailBoxTypeID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.ExtensionID != null) this.extensionID = parseInt(data.ExtensionID, 10);
+    if (data.VMMailBoxID != null) this.vMMailBoxID = (data.VMMailBoxID != null ? parseInt(data.VMMailBoxID, 10) : data.VMMailBoxID);
+    if (data.VMMailBoxTypeID != null) this.vMMailBoxTypeID = (data.VMMailBoxTypeID != null ? parseInt(data.VMMailBoxTypeID, 10) : data.VMMailBoxTypeID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.ExtensionID != null) this.extensionID = (data.ExtensionID != null ? parseInt(data.ExtensionID, 10) : data.ExtensionID);
     if (data.Enabled != null) this.enabled = data.Enabled === 'true';
-    if (data.PinNumber != null) this.pinNumber = parseInt(data.PinNumber, 10);
+    if (data.PinNumber != null) this.pinNumber = (data.PinNumber != null ? parseInt(data.PinNumber, 10) : data.PinNumber);
     if (data.AutoPlay != null) this.autoPlay = data.AutoPlay === 'true';
     if (data.AlternateGreeting != null) this.alternateGreeting = data.AlternateGreeting === 'true';
-    if (data.AlternateGreetingStartMinute != null) this.alternateGreetingStartMinute = parseInt(data.AlternateGreetingStartMinute, 10);
-    if (data.AlternateGreetingEndMinute != null) this.alternateGreetingEndMinute = parseInt(data.AlternateGreetingEndMinute, 10);
+    if (data.AlternateGreetingStartMinute != null) this.alternateGreetingStartMinute = (data.AlternateGreetingStartMinute != null ? parseInt(data.AlternateGreetingStartMinute, 10) : data.AlternateGreetingStartMinute);
+    if (data.AlternateGreetingEndMinute != null) this.alternateGreetingEndMinute = (data.AlternateGreetingEndMinute != null ? parseInt(data.AlternateGreetingEndMinute, 10) : data.AlternateGreetingEndMinute);
     if (data.AlternateGreetingDays != null) this.alternateGreetingDays = data.AlternateGreetingDays;
     if (data.AlternateDivertNumber != null) this.alternateDivertNumber = data.AlternateDivertNumber;
-    if (data.AlternateDivertType != null) this.alternateDivertType = parseInt(data.AlternateDivertType, 10);
-    if (data.MailBoxAction != null) this.mailBoxAction = parseInt(data.MailBoxAction, 10);
+    if (data.AlternateDivertType != null) this.alternateDivertType = (data.AlternateDivertType != null ? parseInt(data.AlternateDivertType, 10) : data.AlternateDivertType);
+    if (data.MailBoxAction != null) this.mailBoxAction = (data.MailBoxAction != null ? parseInt(data.MailBoxAction, 10) : data.MailBoxAction);
     if (data.DivertNumber != null) this.divertNumber = data.DivertNumber;
-    if (data.DivertType != null) this.divertType = parseInt(data.DivertType, 10);
+    if (data.DivertType != null) this.divertType = (data.DivertType != null ? parseInt(data.DivertType, 10) : data.DivertType);
     if (data.MessageTimeStamp != null) this.messageTimeStamp = data.MessageTimeStamp === 'true';
     if (data.MessageAutoDelete != null) this.messageAutoDelete = data.MessageAutoDelete === 'true';
     if (data.VMMailBoxName != null) this.vMMailBoxName = data.VMMailBoxName;
-    if (data.MessageDelivery != null) this.messageDelivery = parseInt(data.MessageDelivery, 10);
+    if (data.MessageDelivery != null) this.messageDelivery = (data.MessageDelivery != null ? parseInt(data.MessageDelivery, 10) : data.MessageDelivery);
     if (data.Emailaddress != null) this.emailaddress = data.Emailaddress;
-    if (data.SecondsBeforeAnswer != null) this.secondsBeforeAnswer = parseInt(data.SecondsBeforeAnswer, 10);
+    if (data.SecondsBeforeAnswer != null) this.secondsBeforeAnswer = (data.SecondsBeforeAnswer != null ? parseInt(data.SecondsBeforeAnswer, 10) : data.SecondsBeforeAnswer);
     if (data.CLINumberOverride != null) this.cLINumberOverride = data.CLINumberOverride;
     if (data.FixedSharedGreeting != null) this.fixedSharedGreeting = data.FixedSharedGreeting === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

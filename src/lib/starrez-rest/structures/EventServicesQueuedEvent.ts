@@ -19,12 +19,12 @@ export class EventServicesQueuedEvent {
       throw new Error('Invalid XML');
     }
 
-    if (data.EventServicesQueuedEventID != null) this.eventServicesQueuedEventID = parseInt(data.EventServicesQueuedEventID, 10);
+    if (data.EventServicesQueuedEventID != null) this.eventServicesQueuedEventID = (data.EventServicesQueuedEventID != null ? parseInt(data.EventServicesQueuedEventID, 10) : data.EventServicesQueuedEventID);
     if (data.StatefulItemName != null) this.statefulItemName = data.StatefulItemName;
-    if (data.StatefulItemID != null) this.statefulItemID = parseInt(data.StatefulItemID, 10);
-    if (data.Type != null) this.type = parseInt(data.Type, 10);
+    if (data.StatefulItemID != null) this.statefulItemID = (data.StatefulItemID != null ? parseInt(data.StatefulItemID, 10) : data.StatefulItemID);
+    if (data.Type != null) this.type = (data.Type != null ? parseInt(data.Type, 10) : data.Type);
     if (data.Data != null) this.data = data.Data;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

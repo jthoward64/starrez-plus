@@ -28,21 +28,21 @@ export class Interface {
       throw new Error('Invalid XML');
     }
 
-    if (data.InterfaceID != null) this.interfaceID = parseInt(data.InterfaceID, 10);
-    if (data.InterfaceApplicationID != null) this.interfaceApplicationID = parseInt(data.InterfaceApplicationID, 10);
+    if (data.InterfaceID != null) this.interfaceID = (data.InterfaceID != null ? parseInt(data.InterfaceID, 10) : data.InterfaceID);
+    if (data.InterfaceApplicationID != null) this.interfaceApplicationID = (data.InterfaceApplicationID != null ? parseInt(data.InterfaceApplicationID, 10) : data.InterfaceApplicationID);
     if (data.InterfaceActionEnum != null) this.interfaceActionEnum = data.InterfaceActionEnum;
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.PinNumber != null) this.pinNumber = parseInt(data.PinNumber, 10);
-    if (data.RoomSpaceID != null) this.roomSpaceID = parseInt(data.RoomSpaceID, 10);
-    if (data.ExtensionID != null) this.extensionID = parseInt(data.ExtensionID, 10);
-    if (data.Old_RoomSpaceID != null) this.old_RoomSpaceID = parseInt(data.Old_RoomSpaceID, 10);
-    if (data.Old_ExtensionID != null) this.old_ExtensionID = parseInt(data.Old_ExtensionID, 10);
-    if (data.LogDate != null) this.logDate = new Date(data.LogDate);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.PinNumber != null) this.pinNumber = (data.PinNumber != null ? parseInt(data.PinNumber, 10) : data.PinNumber);
+    if (data.RoomSpaceID != null) this.roomSpaceID = (data.RoomSpaceID != null ? parseInt(data.RoomSpaceID, 10) : data.RoomSpaceID);
+    if (data.ExtensionID != null) this.extensionID = (data.ExtensionID != null ? parseInt(data.ExtensionID, 10) : data.ExtensionID);
+    if (data.Old_RoomSpaceID != null) this.old_RoomSpaceID = (data.Old_RoomSpaceID != null ? parseInt(data.Old_RoomSpaceID, 10) : data.Old_RoomSpaceID);
+    if (data.Old_ExtensionID != null) this.old_ExtensionID = (data.Old_ExtensionID != null ? parseInt(data.Old_ExtensionID, 10) : data.Old_ExtensionID);
+    if (data.LogDate != null) this.logDate = (data.LogDate != null ? new Date(data.LogDate) : data.LogDate);
     if (data.EntryName != null) this.entryName = data.EntryName;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.MachineName != null) this.machineName = data.MachineName;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

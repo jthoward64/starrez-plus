@@ -24,17 +24,17 @@ export class LogActivity {
       throw new Error('Invalid XML');
     }
 
-    if (data.LogActivityID != null) this.logActivityID = parseInt(data.LogActivityID, 10);
-    if (data.ParentID != null) this.parentID = parseInt(data.ParentID, 10);
-    if (data.LogDate != null) this.logDate = new Date(data.LogDate);
+    if (data.LogActivityID != null) this.logActivityID = (data.LogActivityID != null ? parseInt(data.LogActivityID, 10) : data.LogActivityID);
+    if (data.ParentID != null) this.parentID = (data.ParentID != null ? parseInt(data.ParentID, 10) : data.ParentID);
+    if (data.LogDate != null) this.logDate = (data.LogDate != null ? new Date(data.LogDate) : data.LogDate);
     if (data.Machine != null) this.machine = data.Machine;
     if (data.UserName != null) this.userName = data.UserName;
     if (data.LogActivityEnum != null) this.logActivityEnum = data.LogActivityEnum;
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.Description != null) this.description = data.Description;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

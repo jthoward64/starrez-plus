@@ -19,12 +19,12 @@ export class PortalChoice {
       throw new Error('Invalid XML');
     }
 
-    if (data.PortalChoiceID != null) this.portalChoiceID = parseInt(data.PortalChoiceID, 10);
-    if (data.PortalProcessID != null) this.portalProcessID = parseInt(data.PortalProcessID, 10);
+    if (data.PortalChoiceID != null) this.portalChoiceID = (data.PortalChoiceID != null ? parseInt(data.PortalChoiceID, 10) : data.PortalChoiceID);
+    if (data.PortalProcessID != null) this.portalProcessID = (data.PortalProcessID != null ? parseInt(data.PortalProcessID, 10) : data.PortalProcessID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.ClassName != null) this.className = data.ClassName;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -23,16 +23,16 @@ export class TermRule {
       throw new Error('Invalid XML');
     }
 
-    if (data.TermRuleID != null) this.termRuleID = parseInt(data.TermRuleID, 10);
-    if (data.TermID != null) this.termID = parseInt(data.TermID, 10);
-    if (data.WebSectionID != null) this.webSectionID = parseInt(data.WebSectionID, 10);
+    if (data.TermRuleID != null) this.termRuleID = (data.TermRuleID != null ? parseInt(data.TermRuleID, 10) : data.TermRuleID);
+    if (data.TermID != null) this.termID = (data.TermID != null ? parseInt(data.TermID, 10) : data.TermID);
+    if (data.WebSectionID != null) this.webSectionID = (data.WebSectionID != null ? parseInt(data.WebSectionID, 10) : data.WebSectionID);
     if (data.Active != null) this.active = data.Active === 'true';
-    if (data.ActiveDateOpen != null) this.activeDateOpen = new Date(data.ActiveDateOpen);
-    if (data.ActiveDateClose != null) this.activeDateClose = new Date(data.ActiveDateClose);
+    if (data.ActiveDateOpen != null) this.activeDateOpen = (data.ActiveDateOpen != null ? new Date(data.ActiveDateOpen) : data.ActiveDateOpen);
+    if (data.ActiveDateClose != null) this.activeDateClose = (data.ActiveDateClose != null ? new Date(data.ActiveDateClose) : data.ActiveDateClose);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -35,14 +35,14 @@ export class EntryVisitor {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryVisitorID != null) this.entryVisitorID = parseInt(data.EntryVisitorID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.VisitorID != null) this.visitorID = parseInt(data.VisitorID, 10);
+    if (data.EntryVisitorID != null) this.entryVisitorID = (data.EntryVisitorID != null ? parseInt(data.EntryVisitorID, 10) : data.EntryVisitorID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.VisitorID != null) this.visitorID = (data.VisitorID != null ? parseInt(data.VisitorID, 10) : data.VisitorID);
     if (data.VisitorStatusEnum != null) this.visitorStatusEnum = data.VisitorStatusEnum;
-    if (data.TermSessionID != null) this.termSessionID = parseInt(data.TermSessionID, 10);
-    if (data.ArrivalDate != null) this.arrivalDate = new Date(data.ArrivalDate);
-    if (data.DepartureDate != null) this.departureDate = new Date(data.DepartureDate);
-    if (data.VisitorTypeID != null) this.visitorTypeID = parseInt(data.VisitorTypeID, 10);
+    if (data.TermSessionID != null) this.termSessionID = (data.TermSessionID != null ? parseInt(data.TermSessionID, 10) : data.TermSessionID);
+    if (data.ArrivalDate != null) this.arrivalDate = (data.ArrivalDate != null ? new Date(data.ArrivalDate) : data.ArrivalDate);
+    if (data.DepartureDate != null) this.departureDate = (data.DepartureDate != null ? new Date(data.DepartureDate) : data.DepartureDate);
+    if (data.VisitorTypeID != null) this.visitorTypeID = (data.VisitorTypeID != null ? parseInt(data.VisitorTypeID, 10) : data.VisitorTypeID);
     if (data.CustomBit1 != null) this.customBit1 = data.CustomBit1 === 'true';
     if (data.CustomBit2 != null) this.customBit2 = data.CustomBit2 === 'true';
     if (data.CustomString1 != null) this.customString1 = data.CustomString1;
@@ -51,12 +51,12 @@ export class EntryVisitor {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -22,15 +22,15 @@ export class EntryScholarship {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryScholarshipID != null) this.entryScholarshipID = parseInt(data.EntryScholarshipID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntryScholarshipID != null) this.entryScholarshipID = (data.EntryScholarshipID != null ? parseInt(data.EntryScholarshipID, 10) : data.EntryScholarshipID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.ScholarshipType != null) this.scholarshipType = data.ScholarshipType;
-    if (data.ScholarshipDateStart != null) this.scholarshipDateStart = new Date(data.ScholarshipDateStart);
-    if (data.ScholarshipDateEnd != null) this.scholarshipDateEnd = new Date(data.ScholarshipDateEnd);
+    if (data.ScholarshipDateStart != null) this.scholarshipDateStart = (data.ScholarshipDateStart != null ? new Date(data.ScholarshipDateStart) : data.ScholarshipDateStart);
+    if (data.ScholarshipDateEnd != null) this.scholarshipDateEnd = (data.ScholarshipDateEnd != null ? new Date(data.ScholarshipDateEnd) : data.ScholarshipDateEnd);
     if (data.ScholarshipName != null) this.scholarshipName = data.ScholarshipName;
     if (data.Description != null) this.description = data.Description;
     if (data.Amount != null) this.amount = data.Amount;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

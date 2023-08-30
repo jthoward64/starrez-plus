@@ -21,14 +21,14 @@ export class PortalActivity {
       throw new Error('Invalid XML');
     }
 
-    if (data.PortalActivityID != null) this.portalActivityID = parseInt(data.PortalActivityID, 10);
-    if (data.PortalSiteID != null) this.portalSiteID = parseInt(data.PortalSiteID, 10);
+    if (data.PortalActivityID != null) this.portalActivityID = (data.PortalActivityID != null ? parseInt(data.PortalActivityID, 10) : data.PortalActivityID);
+    if (data.PortalSiteID != null) this.portalSiteID = (data.PortalSiteID != null ? parseInt(data.PortalSiteID, 10) : data.PortalSiteID);
     if (data.WebServerName != null) this.webServerName = data.WebServerName;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.LoggedInUsers != null) this.loggedInUsers = parseInt(data.LoggedInUsers, 10);
-    if (data.ActiveUsers != null) this.activeUsers = parseInt(data.ActiveUsers, 10);
-    if (data.Total_PortalActivityID != null) this.total_PortalActivityID = parseInt(data.Total_PortalActivityID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.LoggedInUsers != null) this.loggedInUsers = (data.LoggedInUsers != null ? parseInt(data.LoggedInUsers, 10) : data.LoggedInUsers);
+    if (data.ActiveUsers != null) this.activeUsers = (data.ActiveUsers != null ? parseInt(data.ActiveUsers, 10) : data.ActiveUsers);
+    if (data.Total_PortalActivityID != null) this.total_PortalActivityID = (data.Total_PortalActivityID != null ? parseInt(data.Total_PortalActivityID, 10) : data.Total_PortalActivityID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

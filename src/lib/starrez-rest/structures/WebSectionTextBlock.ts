@@ -21,14 +21,14 @@ export class WebSectionTextBlock {
       throw new Error('Invalid XML');
     }
 
-    if (data.WebSectionTextBlockID != null) this.webSectionTextBlockID = parseInt(data.WebSectionTextBlockID, 10);
-    if (data.WebSectionID != null) this.webSectionID = parseInt(data.WebSectionID, 10);
+    if (data.WebSectionTextBlockID != null) this.webSectionTextBlockID = (data.WebSectionTextBlockID != null ? parseInt(data.WebSectionTextBlockID, 10) : data.WebSectionTextBlockID);
+    if (data.WebSectionID != null) this.webSectionID = (data.WebSectionID != null ? parseInt(data.WebSectionID, 10) : data.WebSectionID);
     if (data.BlockName != null) this.blockName = data.BlockName;
     if (data.BlockText != null) this.blockText = data.BlockText;
     if (data.SQL != null) this.sQL = data.SQL;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

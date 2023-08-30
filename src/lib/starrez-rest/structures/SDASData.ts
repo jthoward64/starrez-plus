@@ -23,16 +23,16 @@ export class SDASData {
       throw new Error('Invalid XML');
     }
 
-    if (data.SDASDataID != null) this.sDASDataID = parseInt(data.SDASDataID, 10);
-    if (data.SDASDataDate != null) this.sDASDataDate = new Date(data.SDASDataDate);
+    if (data.SDASDataID != null) this.sDASDataID = (data.SDASDataID != null ? parseInt(data.SDASDataID, 10) : data.SDASDataID);
+    if (data.SDASDataDate != null) this.sDASDataDate = (data.SDASDataDate != null ? new Date(data.SDASDataDate) : data.SDASDataDate);
     if (data.IPAddress != null) this.iPAddress = data.IPAddress;
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.Duration != null) this.duration = parseInt(data.Duration, 10);
-    if (data.Megabyte != null) this.megabyte = parseFloat(data.Megabyte);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.Duration != null) this.duration = (data.Duration != null ? parseInt(data.Duration, 10) : data.Duration);
+    if (data.Megabyte != null) this.megabyte = (data.Megabyte != null ? parseFloat(data.Megabyte) : data.Megabyte);
     if (data.Charge != null) this.charge = data.Charge;
     if (data.Allowance != null) this.allowance = data.Allowance;
-    if (data.PlanAllowance != null) this.planAllowance = parseFloat(data.PlanAllowance);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.PlanAllowance != null) this.planAllowance = (data.PlanAllowance != null ? parseFloat(data.PlanAllowance) : data.PlanAllowance);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

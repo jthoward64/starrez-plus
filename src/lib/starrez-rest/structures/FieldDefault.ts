@@ -27,7 +27,7 @@ export class FieldDefault {
       throw new Error('Invalid XML');
     }
 
-    if (data.FieldDefaultID != null) this.fieldDefaultID = parseInt(data.FieldDefaultID, 10);
+    if (data.FieldDefaultID != null) this.fieldDefaultID = (data.FieldDefaultID != null ? parseInt(data.FieldDefaultID, 10) : data.FieldDefaultID);
     if (data.TableName != null) this.tableName = data.TableName;
     if (data.FieldName != null) this.fieldName = data.FieldName;
     if (data.Required != null) this.required = data.Required === 'true';
@@ -40,7 +40,7 @@ export class FieldDefault {
     if (data.ConditionalFieldName != null) this.conditionalFieldName = data.ConditionalFieldName;
     if (data.ConditionalValue != null) this.conditionalValue = data.ConditionalValue;
     if (data.Important != null) this.important = data.Important === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

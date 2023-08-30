@@ -43,17 +43,17 @@ export class RoomLocation {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.RoomLocationAreaID != null) this.roomLocationAreaID = parseInt(data.RoomLocationAreaID, 10);
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
+    if (data.RoomLocationAreaID != null) this.roomLocationAreaID = (data.RoomLocationAreaID != null ? parseInt(data.RoomLocationAreaID, 10) : data.RoomLocationAreaID);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
     if (data.NonResidential != null) this.nonResidential = data.NonResidential === 'true';
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Lease != null) this.lease = data.Lease === 'true';
-    if (data.AllocateSortOrder != null) this.allocateSortOrder = parseInt(data.AllocateSortOrder, 10);
+    if (data.AllocateSortOrder != null) this.allocateSortOrder = (data.AllocateSortOrder != null ? parseInt(data.AllocateSortOrder, 10) : data.AllocateSortOrder);
     if (data.City != null) this.city = data.City;
-    if (data.CountryID != null) this.countryID = parseInt(data.CountryID, 10);
+    if (data.CountryID != null) this.countryID = (data.CountryID != null ? parseInt(data.CountryID, 10) : data.CountryID);
     if (data.StateProvince != null) this.stateProvince = data.StateProvince;
     if (data.ZipPostcode != null) this.zipPostcode = data.ZipPostcode;
     if (data.GenderTypeEnum != null) this.genderTypeEnum = data.GenderTypeEnum;
@@ -66,13 +66,13 @@ export class RoomLocation {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
     if (data.WebImageLocation != null) this.webImageLocation = data.WebImageLocation;
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
     if (data.WebComments != null) this.webComments = data.WebComments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

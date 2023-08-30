@@ -17,10 +17,10 @@ export class RoomConfigurationTermType {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomConfigurationTermTypeID != null) this.roomConfigurationTermTypeID = parseInt(data.RoomConfigurationTermTypeID, 10);
-    if (data.RoomConfigurationID != null) this.roomConfigurationID = parseInt(data.RoomConfigurationID, 10);
-    if (data.TermTypeID != null) this.termTypeID = parseInt(data.TermTypeID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.RoomConfigurationTermTypeID != null) this.roomConfigurationTermTypeID = (data.RoomConfigurationTermTypeID != null ? parseInt(data.RoomConfigurationTermTypeID, 10) : data.RoomConfigurationTermTypeID);
+    if (data.RoomConfigurationID != null) this.roomConfigurationID = (data.RoomConfigurationID != null ? parseInt(data.RoomConfigurationID, 10) : data.RoomConfigurationID);
+    if (data.TermTypeID != null) this.termTypeID = (data.TermTypeID != null ? parseInt(data.TermTypeID, 10) : data.TermTypeID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

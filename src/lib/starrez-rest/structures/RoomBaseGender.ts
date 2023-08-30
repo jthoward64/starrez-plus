@@ -19,12 +19,12 @@ export class RoomBaseGender {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomBaseGenderID != null) this.roomBaseGenderID = parseInt(data.RoomBaseGenderID, 10);
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
-    if (data.RoomBaseID != null) this.roomBaseID = parseInt(data.RoomBaseID, 10);
+    if (data.RoomBaseGenderID != null) this.roomBaseGenderID = (data.RoomBaseGenderID != null ? parseInt(data.RoomBaseGenderID, 10) : data.RoomBaseGenderID);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
+    if (data.RoomBaseID != null) this.roomBaseID = (data.RoomBaseID != null ? parseInt(data.RoomBaseID, 10) : data.RoomBaseID);
     if (data.GenderTypeEnum != null) this.genderTypeEnum = data.GenderTypeEnum;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -19,12 +19,12 @@ export class EntryApplicationPreference {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryApplicationPreferenceID != null) this.entryApplicationPreferenceID = parseInt(data.EntryApplicationPreferenceID, 10);
-    if (data.EntryApplicationID != null) this.entryApplicationID = parseInt(data.EntryApplicationID, 10);
-    if (data.PreferenceID != null) this.preferenceID = parseInt(data.PreferenceID, 10);
-    if (data.Preference != null) this.preference = parseInt(data.Preference, 10);
+    if (data.EntryApplicationPreferenceID != null) this.entryApplicationPreferenceID = (data.EntryApplicationPreferenceID != null ? parseInt(data.EntryApplicationPreferenceID, 10) : data.EntryApplicationPreferenceID);
+    if (data.EntryApplicationID != null) this.entryApplicationID = (data.EntryApplicationID != null ? parseInt(data.EntryApplicationID, 10) : data.EntryApplicationID);
+    if (data.PreferenceID != null) this.preferenceID = (data.PreferenceID != null ? parseInt(data.PreferenceID, 10) : data.PreferenceID);
+    if (data.Preference != null) this.preference = (data.Preference != null ? parseInt(data.Preference, 10) : data.Preference);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

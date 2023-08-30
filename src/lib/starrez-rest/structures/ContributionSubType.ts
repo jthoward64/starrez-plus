@@ -18,11 +18,11 @@ export class ContributionSubType {
       throw new Error('Invalid XML');
     }
 
-    if (data.ContributionSubTypeID != null) this.contributionSubTypeID = parseInt(data.ContributionSubTypeID, 10);
-    if (data.ContributionTypeID != null) this.contributionTypeID = parseInt(data.ContributionTypeID, 10);
+    if (data.ContributionSubTypeID != null) this.contributionSubTypeID = (data.ContributionSubTypeID != null ? parseInt(data.ContributionSubTypeID, 10) : data.ContributionSubTypeID);
+    if (data.ContributionTypeID != null) this.contributionTypeID = (data.ContributionTypeID != null ? parseInt(data.ContributionTypeID, 10) : data.ContributionTypeID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

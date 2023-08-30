@@ -31,12 +31,12 @@ export class EventQuote {
       throw new Error('Invalid XML');
     }
 
-    if (data.EventQuoteID != null) this.eventQuoteID = parseInt(data.EventQuoteID, 10);
-    if (data.EventID != null) this.eventID = parseInt(data.EventID, 10);
+    if (data.EventQuoteID != null) this.eventQuoteID = (data.EventQuoteID != null ? parseInt(data.EventQuoteID, 10) : data.EventQuoteID);
+    if (data.EventID != null) this.eventID = (data.EventID != null ? parseInt(data.EventID, 10) : data.EventID);
     if (data.Description != null) this.description = data.Description;
     if (data.RateDescription != null) this.rateDescription = data.RateDescription;
     if (data.QuoteGroup != null) this.quoteGroup = data.QuoteGroup;
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
     if (data.TransactionTypeEnum != null) this.transactionTypeEnum = data.TransactionTypeEnum;
     if (data.Amount != null) this.amount = data.Amount;
     if (data.AmountCost != null) this.amountCost = data.AmountCost;
@@ -45,10 +45,10 @@ export class EventQuote {
     if (data.TaxAmount3 != null) this.taxAmount3 = data.TaxAmount3;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
     if (data.PerEntry != null) this.perEntry = data.PerEntry === 'true';
     if (data.ChargeToEntry != null) this.chargeToEntry = data.ChargeToEntry === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

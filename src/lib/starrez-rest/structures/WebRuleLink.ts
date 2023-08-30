@@ -22,15 +22,15 @@ export class WebRuleLink {
       throw new Error('Invalid XML');
     }
 
-    if (data.WebRuleLinkID != null) this.webRuleLinkID = parseInt(data.WebRuleLinkID, 10);
-    if (data.WebRuleID != null) this.webRuleID = parseInt(data.WebRuleID, 10);
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
+    if (data.WebRuleLinkID != null) this.webRuleLinkID = (data.WebRuleLinkID != null ? parseInt(data.WebRuleLinkID, 10) : data.WebRuleLinkID);
+    if (data.WebRuleID != null) this.webRuleID = (data.WebRuleID != null ? parseInt(data.WebRuleID, 10) : data.WebRuleID);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
     if (data.TableName != null) this.tableName = data.TableName;
     if (data.Active != null) this.active = data.Active === 'true';
-    if (data.RuleLinkOrder != null) this.ruleLinkOrder = parseInt(data.RuleLinkOrder, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.RuleLinkOrder != null) this.ruleLinkOrder = (data.RuleLinkOrder != null ? parseInt(data.RuleLinkOrder, 10) : data.RuleLinkOrder);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

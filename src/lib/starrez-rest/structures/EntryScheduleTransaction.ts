@@ -32,25 +32,25 @@ export class EntryScheduleTransaction {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryScheduleTransactionID != null) this.entryScheduleTransactionID = parseInt(data.EntryScheduleTransactionID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntryScheduleTransactionID != null) this.entryScheduleTransactionID = (data.EntryScheduleTransactionID != null ? parseInt(data.EntryScheduleTransactionID, 10) : data.EntryScheduleTransactionID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.TransactionTemplateID != null) this.transactionTemplateID = parseInt(data.TransactionTemplateID, 10);
+    if (data.TransactionTemplateID != null) this.transactionTemplateID = (data.TransactionTemplateID != null ? parseInt(data.TransactionTemplateID, 10) : data.TransactionTemplateID);
     if (data.ScheduleEnabledBetweenEnum != null) this.scheduleEnabledBetweenEnum = data.ScheduleEnabledBetweenEnum;
     if (data.ScheduleEnum != null) this.scheduleEnum = data.ScheduleEnum;
-    if (data.ScheduleInterval != null) this.scheduleInterval = parseInt(data.ScheduleInterval, 10);
-    if (data.ScheduleTimeOfDay != null) this.scheduleTimeOfDay = parseInt(data.ScheduleTimeOfDay, 10);
+    if (data.ScheduleInterval != null) this.scheduleInterval = (data.ScheduleInterval != null ? parseInt(data.ScheduleInterval, 10) : data.ScheduleInterval);
+    if (data.ScheduleTimeOfDay != null) this.scheduleTimeOfDay = (data.ScheduleTimeOfDay != null ? parseInt(data.ScheduleTimeOfDay, 10) : data.ScheduleTimeOfDay);
     if (data.Schedule_DayInWeekEnum != null) this.schedule_DayInWeekEnum = data.Schedule_DayInWeekEnum;
-    if (data.ScheduleDateStart != null) this.scheduleDateStart = new Date(data.ScheduleDateStart);
-    if (data.ScheduleDateEnd != null) this.scheduleDateEnd = new Date(data.ScheduleDateEnd);
-    if (data.ScheduleDateLastStart != null) this.scheduleDateLastStart = new Date(data.ScheduleDateLastStart);
-    if (data.ScheduleDateLastEnd != null) this.scheduleDateLastEnd = new Date(data.ScheduleDateLastEnd);
+    if (data.ScheduleDateStart != null) this.scheduleDateStart = (data.ScheduleDateStart != null ? new Date(data.ScheduleDateStart) : data.ScheduleDateStart);
+    if (data.ScheduleDateEnd != null) this.scheduleDateEnd = (data.ScheduleDateEnd != null ? new Date(data.ScheduleDateEnd) : data.ScheduleDateEnd);
+    if (data.ScheduleDateLastStart != null) this.scheduleDateLastStart = (data.ScheduleDateLastStart != null ? new Date(data.ScheduleDateLastStart) : data.ScheduleDateLastStart);
+    if (data.ScheduleDateLastEnd != null) this.scheduleDateLastEnd = (data.ScheduleDateLastEnd != null ? new Date(data.ScheduleDateLastEnd) : data.ScheduleDateLastEnd);
     if (data.ScheduleRangeStartObject != null) this.scheduleRangeStartObject = data.ScheduleRangeStartObject;
-    if (data.FirstRunDate != null) this.firstRunDate = new Date(data.FirstRunDate);
+    if (data.FirstRunDate != null) this.firstRunDate = (data.FirstRunDate != null ? new Date(data.FirstRunDate) : data.FirstRunDate);
     if (data.ScheduleResultEnum != null) this.scheduleResultEnum = data.ScheduleResultEnum;
     if (data.TransactionAmount != null) this.transactionAmount = data.TransactionAmount;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

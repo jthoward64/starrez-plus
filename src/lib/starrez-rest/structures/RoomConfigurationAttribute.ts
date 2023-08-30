@@ -20,13 +20,13 @@ export class RoomConfigurationAttribute {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomConfigurationAttributeID != null) this.roomConfigurationAttributeID = parseInt(data.RoomConfigurationAttributeID, 10);
-    if (data.RoomConfigurationID != null) this.roomConfigurationID = parseInt(data.RoomConfigurationID, 10);
+    if (data.RoomConfigurationAttributeID != null) this.roomConfigurationAttributeID = (data.RoomConfigurationAttributeID != null ? parseInt(data.RoomConfigurationAttributeID, 10) : data.RoomConfigurationAttributeID);
+    if (data.RoomConfigurationID != null) this.roomConfigurationID = (data.RoomConfigurationID != null ? parseInt(data.RoomConfigurationID, 10) : data.RoomConfigurationID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.FieldName != null) this.fieldName = data.FieldName;
     if (data.FieldValue != null) this.fieldValue = data.FieldValue;
-    if (data.Weighting != null) this.weighting = parseInt(data.Weighting, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.Weighting != null) this.weighting = (data.Weighting != null ? parseInt(data.Weighting, 10) : data.Weighting);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

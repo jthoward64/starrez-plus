@@ -21,14 +21,14 @@ export class MealPricing {
       throw new Error('Invalid XML');
     }
 
-    if (data.MealPricingID != null) this.mealPricingID = parseInt(data.MealPricingID, 10);
+    if (data.MealPricingID != null) this.mealPricingID = (data.MealPricingID != null ? parseInt(data.MealPricingID, 10) : data.MealPricingID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.AllowanceARate != null) this.allowanceARate = data.AllowanceARate;
     if (data.AllowanceBRate != null) this.allowanceBRate = data.AllowanceBRate;
     if (data.AllowanceCRate != null) this.allowanceCRate = data.AllowanceCRate;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -54,28 +54,28 @@ export class MealPlan {
       throw new Error('Invalid XML');
     }
 
-    if (data.MealPlanID != null) this.mealPlanID = parseInt(data.MealPlanID, 10);
+    if (data.MealPlanID != null) this.mealPlanID = (data.MealPlanID != null ? parseInt(data.MealPlanID, 10) : data.MealPlanID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.TermSessionID != null) this.termSessionID = parseInt(data.TermSessionID, 10);
-    if (data.MealPlanDiningHallID != null) this.mealPlanDiningHallID = parseInt(data.MealPlanDiningHallID, 10);
+    if (data.TermSessionID != null) this.termSessionID = (data.TermSessionID != null ? parseInt(data.TermSessionID, 10) : data.TermSessionID);
+    if (data.MealPlanDiningHallID != null) this.mealPlanDiningHallID = (data.MealPlanDiningHallID != null ? parseInt(data.MealPlanDiningHallID, 10) : data.MealPlanDiningHallID);
     if (data.Description != null) this.description = data.Description;
     if (data.Code != null) this.code = data.Code;
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
     if (data.Active != null) this.active = data.Active === 'true';
     if (data.MealSetupEnum != null) this.mealSetupEnum = data.MealSetupEnum;
     if (data.ChargesNotAllowed != null) this.chargesNotAllowed = data.ChargesNotAllowed === 'true';
-    if (data.MealPricingID != null) this.mealPricingID = parseInt(data.MealPricingID, 10);
-    if (data.NumberOfMeals != null) this.numberOfMeals = parseInt(data.NumberOfMeals, 10);
-    if (data.NumberOfServings != null) this.numberOfServings = parseInt(data.NumberOfServings, 10);
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
-    if (data.AllowanceA != null) this.allowanceA = parseFloat(data.AllowanceA);
+    if (data.MealPricingID != null) this.mealPricingID = (data.MealPricingID != null ? parseInt(data.MealPricingID, 10) : data.MealPricingID);
+    if (data.NumberOfMeals != null) this.numberOfMeals = (data.NumberOfMeals != null ? parseInt(data.NumberOfMeals, 10) : data.NumberOfMeals);
+    if (data.NumberOfServings != null) this.numberOfServings = (data.NumberOfServings != null ? parseInt(data.NumberOfServings, 10) : data.NumberOfServings);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
+    if (data.AllowanceA != null) this.allowanceA = (data.AllowanceA != null ? parseFloat(data.AllowanceA) : data.AllowanceA);
     if (data.AllowanceARate != null) this.allowanceARate = data.AllowanceARate;
-    if (data.AllowanceB != null) this.allowanceB = parseFloat(data.AllowanceB);
+    if (data.AllowanceB != null) this.allowanceB = (data.AllowanceB != null ? parseFloat(data.AllowanceB) : data.AllowanceB);
     if (data.AllowanceBRate != null) this.allowanceBRate = data.AllowanceBRate;
-    if (data.AllowanceC != null) this.allowanceC = parseFloat(data.AllowanceC);
+    if (data.AllowanceC != null) this.allowanceC = (data.AllowanceC != null ? parseFloat(data.AllowanceC) : data.AllowanceC);
     if (data.AllowanceCRate != null) this.allowanceCRate = data.AllowanceCRate;
-    if (data.TransactionDateDue != null) this.transactionDateDue = new Date(data.TransactionDateDue);
+    if (data.TransactionDateDue != null) this.transactionDateDue = (data.TransactionDateDue != null ? new Date(data.TransactionDateDue) : data.TransactionDateDue);
     if (data.UpdateContractDatesWhenDatesChange != null) this.updateContractDatesWhenDatesChange = data.UpdateContractDatesWhenDatesChange === 'true';
     if (data.Comments != null) this.comments = data.Comments;
     if (data.CustomBit1 != null) this.customBit1 = data.CustomBit1 === 'true';
@@ -86,15 +86,15 @@ export class MealPlan {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
-    if (data.WebOrder != null) this.webOrder = parseInt(data.WebOrder, 10);
+    if (data.WebOrder != null) this.webOrder = (data.WebOrder != null ? parseInt(data.WebOrder, 10) : data.WebOrder);
     if (data.WebComments != null) this.webComments = data.WebComments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

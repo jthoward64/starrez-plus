@@ -23,16 +23,16 @@ export class PromoCode {
       throw new Error('Invalid XML');
     }
 
-    if (data.PromoCodeID != null) this.promoCodeID = parseInt(data.PromoCodeID, 10);
+    if (data.PromoCodeID != null) this.promoCodeID = (data.PromoCodeID != null ? parseInt(data.PromoCodeID, 10) : data.PromoCodeID);
     if (data.Description != null) this.description = data.Description;
     if (data.Code != null) this.code = data.Code;
     if (data.Type != null) this.type = data.Type;
-    if (data.ActiveDateStart != null) this.activeDateStart = new Date(data.ActiveDateStart);
-    if (data.ActiveDateEnd != null) this.activeDateEnd = new Date(data.ActiveDateEnd);
-    if (data.UsageMaximum != null) this.usageMaximum = parseInt(data.UsageMaximum, 10);
+    if (data.ActiveDateStart != null) this.activeDateStart = (data.ActiveDateStart != null ? new Date(data.ActiveDateStart) : data.ActiveDateStart);
+    if (data.ActiveDateEnd != null) this.activeDateEnd = (data.ActiveDateEnd != null ? new Date(data.ActiveDateEnd) : data.ActiveDateEnd);
+    if (data.UsageMaximum != null) this.usageMaximum = (data.UsageMaximum != null ? parseInt(data.UsageMaximum, 10) : data.UsageMaximum);
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

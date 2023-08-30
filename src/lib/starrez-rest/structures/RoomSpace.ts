@@ -34,27 +34,27 @@ export class RoomSpace {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceID != null) this.roomSpaceID = parseInt(data.RoomSpaceID, 10);
-    if (data.RoomBaseID != null) this.roomBaseID = parseInt(data.RoomBaseID, 10);
+    if (data.RoomSpaceID != null) this.roomSpaceID = (data.RoomSpaceID != null ? parseInt(data.RoomSpaceID, 10) : data.RoomSpaceID);
+    if (data.RoomBaseID != null) this.roomBaseID = (data.RoomBaseID != null ? parseInt(data.RoomBaseID, 10) : data.RoomBaseID);
     if (data.RoomSpaceTypeEnum != null) this.roomSpaceTypeEnum = data.RoomSpaceTypeEnum;
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.RoomID != null) this.roomID = parseInt(data.RoomID, 10);
+    if (data.RoomID != null) this.roomID = (data.RoomID != null ? parseInt(data.RoomID, 10) : data.RoomID);
     if (data.Description != null) this.description = data.Description;
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
-    if (data.ExtensionID != null) this.extensionID = parseInt(data.ExtensionID, 10);
-    if (data.SortOrder != null) this.sortOrder = parseInt(data.SortOrder, 10);
-    if (data.RoomRateID != null) this.roomRateID = parseInt(data.RoomRateID, 10);
-    if (data.AllocateSortOrder != null) this.allocateSortOrder = parseInt(data.AllocateSortOrder, 10);
+    if (data.ExtensionID != null) this.extensionID = (data.ExtensionID != null ? parseInt(data.ExtensionID, 10) : data.ExtensionID);
+    if (data.SortOrder != null) this.sortOrder = (data.SortOrder != null ? parseInt(data.SortOrder, 10) : data.SortOrder);
+    if (data.RoomRateID != null) this.roomRateID = (data.RoomRateID != null ? parseInt(data.RoomRateID, 10) : data.RoomRateID);
+    if (data.AllocateSortOrder != null) this.allocateSortOrder = (data.AllocateSortOrder != null ? parseInt(data.AllocateSortOrder, 10) : data.AllocateSortOrder);
     if (data.AllocateExclude != null) this.allocateExclude = data.AllocateExclude === 'true';
     if (data.Hold != null) this.hold = data.Hold === 'true';
     if (data.Networked != null) this.networked = data.Networked === 'true';
-    if (data.BedCapacity != null) this.bedCapacity = parseInt(data.BedCapacity, 10);
-    if (data.Bathrooms != null) this.bathrooms = parseInt(data.Bathrooms, 10);
+    if (data.BedCapacity != null) this.bedCapacity = (data.BedCapacity != null ? parseInt(data.BedCapacity, 10) : data.BedCapacity);
+    if (data.Bathrooms != null) this.bathrooms = (data.Bathrooms != null ? parseInt(data.Bathrooms, 10) : data.Bathrooms);
     if (data.Street != null) this.street = data.Street;
     if (data.Street2 != null) this.street2 = data.Street2;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

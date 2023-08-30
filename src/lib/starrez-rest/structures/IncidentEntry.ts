@@ -38,12 +38,12 @@ export class IncidentEntry {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentEntryID != null) this.incidentEntryID = parseInt(data.IncidentEntryID, 10);
-    if (data.IncidentID != null) this.incidentID = parseInt(data.IncidentID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.IncidentInvolvementID != null) this.incidentInvolvementID = parseInt(data.IncidentInvolvementID, 10);
+    if (data.IncidentEntryID != null) this.incidentEntryID = (data.IncidentEntryID != null ? parseInt(data.IncidentEntryID, 10) : data.IncidentEntryID);
+    if (data.IncidentID != null) this.incidentID = (data.IncidentID != null ? parseInt(data.IncidentID, 10) : data.IncidentID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.IncidentInvolvementID != null) this.incidentInvolvementID = (data.IncidentInvolvementID != null ? parseInt(data.IncidentInvolvementID, 10) : data.IncidentInvolvementID);
     if (data.Reported != null) this.reported = data.Reported === 'true';
-    if (data.Link_IncidentEntryID != null) this.link_IncidentEntryID = parseInt(data.Link_IncidentEntryID, 10);
+    if (data.Link_IncidentEntryID != null) this.link_IncidentEntryID = (data.Link_IncidentEntryID != null ? parseInt(data.Link_IncidentEntryID, 10) : data.Link_IncidentEntryID);
     if (data.LinkRelationship != null) this.linkRelationship = data.LinkRelationship;
     if (data.IdentityKnown != null) this.identityKnown = data.IdentityKnown === 'true';
     if (data.Name != null) this.name = data.Name;
@@ -58,11 +58,11 @@ export class IncidentEntry {
     if (data.EyeColour != null) this.eyeColour = data.EyeColour;
     if (data.Age != null) this.age = data.Age;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.WorkflowStepID != null) this.workflowStepID = parseInt(data.WorkflowStepID, 10);
-    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = parseInt(data.AssignedTo_SecurityUserID, 10);
-    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = parseInt(data.Current_WorkflowHistoryID, 10);
-    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = parseInt(data.Previous_WorkflowHistoryID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.WorkflowStepID != null) this.workflowStepID = (data.WorkflowStepID != null ? parseInt(data.WorkflowStepID, 10) : data.WorkflowStepID);
+    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = (data.AssignedTo_SecurityUserID != null ? parseInt(data.AssignedTo_SecurityUserID, 10) : data.AssignedTo_SecurityUserID);
+    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = (data.Current_WorkflowHistoryID != null ? parseInt(data.Current_WorkflowHistoryID, 10) : data.Current_WorkflowHistoryID);
+    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = (data.Previous_WorkflowHistoryID != null ? parseInt(data.Previous_WorkflowHistoryID, 10) : data.Previous_WorkflowHistoryID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

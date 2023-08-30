@@ -22,15 +22,15 @@ export class HousekeepingScheduleSkip {
       throw new Error('Invalid XML');
     }
 
-    if (data.HousekeepingScheduleSkipID != null) this.housekeepingScheduleSkipID = parseInt(data.HousekeepingScheduleSkipID, 10);
-    if (data.HousekeepingID != null) this.housekeepingID = parseInt(data.HousekeepingID, 10);
-    if (data.RoomServiceLevel != null) this.roomServiceLevel = parseInt(data.RoomServiceLevel, 10);
+    if (data.HousekeepingScheduleSkipID != null) this.housekeepingScheduleSkipID = (data.HousekeepingScheduleSkipID != null ? parseInt(data.HousekeepingScheduleSkipID, 10) : data.HousekeepingScheduleSkipID);
+    if (data.HousekeepingID != null) this.housekeepingID = (data.HousekeepingID != null ? parseInt(data.HousekeepingID, 10) : data.HousekeepingID);
+    if (data.RoomServiceLevel != null) this.roomServiceLevel = (data.RoomServiceLevel != null ? parseInt(data.RoomServiceLevel, 10) : data.RoomServiceLevel);
     if (data.ScheduleEnum != null) this.scheduleEnum = data.ScheduleEnum;
-    if (data.ScheduleInterval != null) this.scheduleInterval = parseInt(data.ScheduleInterval, 10);
+    if (data.ScheduleInterval != null) this.scheduleInterval = (data.ScheduleInterval != null ? parseInt(data.ScheduleInterval, 10) : data.ScheduleInterval);
     if (data.Schedule_DayInWeekEnum != null) this.schedule_DayInWeekEnum = data.Schedule_DayInWeekEnum;
-    if (data.SkipDays != null) this.skipDays = parseInt(data.SkipDays, 10);
+    if (data.SkipDays != null) this.skipDays = (data.SkipDays != null ? parseInt(data.SkipDays, 10) : data.SkipDays);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

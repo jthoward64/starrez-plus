@@ -18,11 +18,11 @@ export class CurrencyConversion {
       throw new Error('Invalid XML');
     }
 
-    if (data.CurrencyConversionID != null) this.currencyConversionID = parseInt(data.CurrencyConversionID, 10);
+    if (data.CurrencyConversionID != null) this.currencyConversionID = (data.CurrencyConversionID != null ? parseInt(data.CurrencyConversionID, 10) : data.CurrencyConversionID);
     if (data.Description != null) this.description = data.Description;
     if (data.ConversionRate != null) this.conversionRate = data.ConversionRate;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

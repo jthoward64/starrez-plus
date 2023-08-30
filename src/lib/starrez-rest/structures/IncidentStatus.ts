@@ -18,11 +18,11 @@ export class IncidentStatus {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentStatusID != null) this.incidentStatusID = parseInt(data.IncidentStatusID, 10);
+    if (data.IncidentStatusID != null) this.incidentStatusID = (data.IncidentStatusID != null ? parseInt(data.IncidentStatusID, 10) : data.IncidentStatusID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

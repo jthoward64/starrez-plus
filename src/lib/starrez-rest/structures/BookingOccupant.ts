@@ -21,14 +21,14 @@ export class BookingOccupant {
       throw new Error('Invalid XML');
     }
 
-    if (data.BookingOccupantID != null) this.bookingOccupantID = parseInt(data.BookingOccupantID, 10);
-    if (data.BookingID != null) this.bookingID = parseInt(data.BookingID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.BookingOccupantID != null) this.bookingOccupantID = (data.BookingOccupantID != null ? parseInt(data.BookingOccupantID, 10) : data.BookingOccupantID);
+    if (data.BookingID != null) this.bookingID = (data.BookingID != null ? parseInt(data.BookingID, 10) : data.BookingID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.AnimalTypeEnum != null) this.animalTypeEnum = data.AnimalTypeEnum;
     if (data.AnimalSpecies != null) this.animalSpecies = data.AnimalSpecies;
-    if (data.CheckInDate != null) this.checkInDate = new Date(data.CheckInDate);
-    if (data.CheckOutDate != null) this.checkOutDate = new Date(data.CheckOutDate);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CheckInDate != null) this.checkInDate = (data.CheckInDate != null ? new Date(data.CheckInDate) : data.CheckInDate);
+    if (data.CheckOutDate != null) this.checkOutDate = (data.CheckOutDate != null ? new Date(data.CheckOutDate) : data.CheckOutDate);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

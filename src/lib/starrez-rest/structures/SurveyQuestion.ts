@@ -24,17 +24,17 @@ export class SurveyQuestion {
       throw new Error('Invalid XML');
     }
 
-    if (data.SurveyQuestionID != null) this.surveyQuestionID = parseInt(data.SurveyQuestionID, 10);
-    if (data.SurveyID != null) this.surveyID = parseInt(data.SurveyID, 10);
+    if (data.SurveyQuestionID != null) this.surveyQuestionID = (data.SurveyQuestionID != null ? parseInt(data.SurveyQuestionID, 10) : data.SurveyQuestionID);
+    if (data.SurveyID != null) this.surveyID = (data.SurveyID != null ? parseInt(data.SurveyID, 10) : data.SurveyID);
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.QuestionGroup != null) this.questionGroup = data.QuestionGroup;
     if (data.FieldControlTypeEnum != null) this.fieldControlTypeEnum = data.FieldControlTypeEnum;
-    if (data.QuestionOrder != null) this.questionOrder = parseInt(data.QuestionOrder, 10);
+    if (data.QuestionOrder != null) this.questionOrder = (data.QuestionOrder != null ? parseInt(data.QuestionOrder, 10) : data.QuestionOrder);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

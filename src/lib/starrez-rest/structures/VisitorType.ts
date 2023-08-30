@@ -26,19 +26,19 @@ export class VisitorType {
       throw new Error('Invalid XML');
     }
 
-    if (data.VisitorTypeID != null) this.visitorTypeID = parseInt(data.VisitorTypeID, 10);
+    if (data.VisitorTypeID != null) this.visitorTypeID = (data.VisitorTypeID != null ? parseInt(data.VisitorTypeID, 10) : data.VisitorTypeID);
     if (data.Description != null) this.description = data.Description;
-    if (data.MaxGuestPerTermSession != null) this.maxGuestPerTermSession = parseInt(data.MaxGuestPerTermSession, 10);
-    if (data.MaxGuestsPerMonth != null) this.maxGuestsPerMonth = parseInt(data.MaxGuestsPerMonth, 10);
-    if (data.MaxVisitationNights != null) this.maxVisitationNights = parseInt(data.MaxVisitationNights, 10);
-    if (data.MaxConsecutiveNights != null) this.maxConsecutiveNights = parseInt(data.MaxConsecutiveNights, 10);
-    if (data.MaxNightsPerTermSession != null) this.maxNightsPerTermSession = parseInt(data.MaxNightsPerTermSession, 10);
-    if (data.MinAge != null) this.minAge = parseInt(data.MinAge, 10);
+    if (data.MaxGuestPerTermSession != null) this.maxGuestPerTermSession = (data.MaxGuestPerTermSession != null ? parseInt(data.MaxGuestPerTermSession, 10) : data.MaxGuestPerTermSession);
+    if (data.MaxGuestsPerMonth != null) this.maxGuestsPerMonth = (data.MaxGuestsPerMonth != null ? parseInt(data.MaxGuestsPerMonth, 10) : data.MaxGuestsPerMonth);
+    if (data.MaxVisitationNights != null) this.maxVisitationNights = (data.MaxVisitationNights != null ? parseInt(data.MaxVisitationNights, 10) : data.MaxVisitationNights);
+    if (data.MaxConsecutiveNights != null) this.maxConsecutiveNights = (data.MaxConsecutiveNights != null ? parseInt(data.MaxConsecutiveNights, 10) : data.MaxConsecutiveNights);
+    if (data.MaxNightsPerTermSession != null) this.maxNightsPerTermSession = (data.MaxNightsPerTermSession != null ? parseInt(data.MaxNightsPerTermSession, 10) : data.MaxNightsPerTermSession);
+    if (data.MinAge != null) this.minAge = (data.MinAge != null ? parseInt(data.MinAge, 10) : data.MinAge);
     if (data.VisitDatesMustOverlapBookingDates != null) this.visitDatesMustOverlapBookingDates = data.VisitDatesMustOverlapBookingDates === 'true';
     if (data.SameDayVisitsOnly != null) this.sameDayVisitsOnly = data.SameDayVisitsOnly === 'true';
     if (data.Comments != null) this.comments = data.Comments;
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

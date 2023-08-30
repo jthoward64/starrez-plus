@@ -28,21 +28,21 @@ export class EntryResult {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryResultID != null) this.entryResultID = parseInt(data.EntryResultID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntryResultID != null) this.entryResultID = (data.EntryResultID != null ? parseInt(data.EntryResultID, 10) : data.EntryResultID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.ResultType != null) this.resultType = data.ResultType;
-    if (data.Year != null) this.year = parseInt(data.Year, 10);
-    if (data.TermID != null) this.termID = parseInt(data.TermID, 10);
-    if (data.TermNumber != null) this.termNumber = parseInt(data.TermNumber, 10);
+    if (data.Year != null) this.year = (data.Year != null ? parseInt(data.Year, 10) : data.Year);
+    if (data.TermID != null) this.termID = (data.TermID != null ? parseInt(data.TermID, 10) : data.TermID);
+    if (data.TermNumber != null) this.termNumber = (data.TermNumber != null ? parseInt(data.TermNumber, 10) : data.TermNumber);
     if (data.SubjectLevel != null) this.subjectLevel = data.SubjectLevel;
     if (data.Subject != null) this.subject = data.Subject;
     if (data.Result != null) this.result = data.Result;
-    if (data.Rating != null) this.rating = parseFloat(data.Rating);
-    if (data.HoursEnrolled != null) this.hoursEnrolled = parseFloat(data.HoursEnrolled);
-    if (data.HoursCompleted != null) this.hoursCompleted = parseFloat(data.HoursCompleted);
-    if (data.HoursGraded != null) this.hoursGraded = parseFloat(data.HoursGraded);
+    if (data.Rating != null) this.rating = (data.Rating != null ? parseFloat(data.Rating) : data.Rating);
+    if (data.HoursEnrolled != null) this.hoursEnrolled = (data.HoursEnrolled != null ? parseFloat(data.HoursEnrolled) : data.HoursEnrolled);
+    if (data.HoursCompleted != null) this.hoursCompleted = (data.HoursCompleted != null ? parseFloat(data.HoursCompleted) : data.HoursCompleted);
+    if (data.HoursGraded != null) this.hoursGraded = (data.HoursGraded != null ? parseFloat(data.HoursGraded) : data.HoursGraded);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

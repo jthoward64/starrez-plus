@@ -17,10 +17,10 @@ export class WaitListClassification {
       throw new Error('Invalid XML');
     }
 
-    if (data.WaitListClassificationID != null) this.waitListClassificationID = parseInt(data.WaitListClassificationID, 10);
-    if (data.WaitListID != null) this.waitListID = parseInt(data.WaitListID, 10);
-    if (data.ClassificationID != null) this.classificationID = parseInt(data.ClassificationID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.WaitListClassificationID != null) this.waitListClassificationID = (data.WaitListClassificationID != null ? parseInt(data.WaitListClassificationID, 10) : data.WaitListClassificationID);
+    if (data.WaitListID != null) this.waitListID = (data.WaitListID != null ? parseInt(data.WaitListID, 10) : data.WaitListID);
+    if (data.ClassificationID != null) this.classificationID = (data.ClassificationID != null ? parseInt(data.ClassificationID, 10) : data.ClassificationID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

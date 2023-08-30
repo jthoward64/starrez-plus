@@ -17,10 +17,10 @@ export class BookingLinked {
       throw new Error('Invalid XML');
     }
 
-    if (data.BookingLinkedID != null) this.bookingLinkedID = parseInt(data.BookingLinkedID, 10);
-    if (data.BookingID != null) this.bookingID = parseInt(data.BookingID, 10);
-    if (data.Linked_BookingID != null) this.linked_BookingID = parseInt(data.Linked_BookingID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.BookingLinkedID != null) this.bookingLinkedID = (data.BookingLinkedID != null ? parseInt(data.BookingLinkedID, 10) : data.BookingLinkedID);
+    if (data.BookingID != null) this.bookingID = (data.BookingID != null ? parseInt(data.BookingID, 10) : data.BookingID);
+    if (data.Linked_BookingID != null) this.linked_BookingID = (data.Linked_BookingID != null ? parseInt(data.Linked_BookingID, 10) : data.Linked_BookingID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -25,18 +25,18 @@ export class FunctionRoomRate {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionRoomRateID != null) this.functionRoomRateID = parseInt(data.FunctionRoomRateID, 10);
+    if (data.FunctionRoomRateID != null) this.functionRoomRateID = (data.FunctionRoomRateID != null ? parseInt(data.FunctionRoomRateID, 10) : data.FunctionRoomRateID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.FunctionChargeTypeEnum != null) this.functionChargeTypeEnum = data.FunctionChargeTypeEnum;
     if (data.ChargeToEntry != null) this.chargeToEntry = data.ChargeToEntry === 'true';
     if (data.PerEntry != null) this.perEntry = data.PerEntry === 'true';
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
-    if (data.FunctionRoomTypeID != null) this.functionRoomTypeID = parseInt(data.FunctionRoomTypeID, 10);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
+    if (data.FunctionRoomTypeID != null) this.functionRoomTypeID = (data.FunctionRoomTypeID != null ? parseInt(data.FunctionRoomTypeID, 10) : data.FunctionRoomTypeID);
     if (data.Description != null) this.description = data.Description;
     if (data.Amount != null) this.amount = data.Amount;
     if (data.AmountCost != null) this.amountCost = data.AmountCost;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

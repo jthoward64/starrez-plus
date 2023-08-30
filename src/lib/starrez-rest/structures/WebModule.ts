@@ -25,18 +25,18 @@ export class WebModule {
       throw new Error('Invalid XML');
     }
 
-    if (data.WebModuleID != null) this.webModuleID = parseInt(data.WebModuleID, 10);
-    if (data.WebSiteID != null) this.webSiteID = parseInt(data.WebSiteID, 10);
+    if (data.WebModuleID != null) this.webModuleID = (data.WebModuleID != null ? parseInt(data.WebModuleID, 10) : data.WebModuleID);
+    if (data.WebSiteID != null) this.webSiteID = (data.WebSiteID != null ? parseInt(data.WebSiteID, 10) : data.WebSiteID);
     if (data.ModuleName != null) this.moduleName = data.ModuleName;
     if (data.Description != null) this.description = data.Description;
-    if (data.ModuleOrder != null) this.moduleOrder = parseInt(data.ModuleOrder, 10);
+    if (data.ModuleOrder != null) this.moduleOrder = (data.ModuleOrder != null ? parseInt(data.ModuleOrder, 10) : data.ModuleOrder);
     if (data.Manager != null) this.manager = data.Manager;
     if (data.Visible != null) this.visible = data.Visible === 'true';
     if (data.AccessRoles != null) this.accessRoles = data.AccessRoles;
     if (data.GlobalModule != null) this.globalModule = data.GlobalModule === 'true';
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

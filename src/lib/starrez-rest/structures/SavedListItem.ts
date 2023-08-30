@@ -17,10 +17,10 @@ export class SavedListItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.SavedListItemID != null) this.savedListItemID = parseInt(data.SavedListItemID, 10);
-    if (data.SavedListID != null) this.savedListID = parseInt(data.SavedListID, 10);
-    if (data.ItemID != null) this.itemID = parseInt(data.ItemID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SavedListItemID != null) this.savedListItemID = (data.SavedListItemID != null ? parseInt(data.SavedListItemID, 10) : data.SavedListItemID);
+    if (data.SavedListID != null) this.savedListID = (data.SavedListID != null ? parseInt(data.SavedListID, 10) : data.SavedListID);
+    if (data.ItemID != null) this.itemID = (data.ItemID != null ? parseInt(data.ItemID, 10) : data.ItemID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

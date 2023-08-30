@@ -23,16 +23,16 @@ export class CustomFieldDefinition {
       throw new Error('Invalid XML');
     }
 
-    if (data.CustomFieldDefinitionID != null) this.customFieldDefinitionID = parseInt(data.CustomFieldDefinitionID, 10);
+    if (data.CustomFieldDefinitionID != null) this.customFieldDefinitionID = (data.CustomFieldDefinitionID != null ? parseInt(data.CustomFieldDefinitionID, 10) : data.CustomFieldDefinitionID);
     if (data.TableName != null) this.tableName = data.TableName;
     if (data.FieldDataTypeEnum != null) this.fieldDataTypeEnum = data.FieldDataTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Code != null) this.code = data.Code;
-    if (data.CustomFieldOrder != null) this.customFieldOrder = parseInt(data.CustomFieldOrder, 10);
+    if (data.CustomFieldOrder != null) this.customFieldOrder = (data.CustomFieldOrder != null ? parseInt(data.CustomFieldOrder, 10) : data.CustomFieldOrder);
     if (data.CustomFieldGroup != null) this.customFieldGroup = data.CustomFieldGroup;
     if (data.CustomFieldSection != null) this.customFieldSection = data.CustomFieldSection;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

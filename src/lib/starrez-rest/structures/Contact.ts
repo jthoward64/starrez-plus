@@ -47,20 +47,20 @@ export class Contact {
       throw new Error('Invalid XML');
     }
 
-    if (data.ContactID != null) this.contactID = parseInt(data.ContactID, 10);
+    if (data.ContactID != null) this.contactID = (data.ContactID != null ? parseInt(data.ContactID, 10) : data.ContactID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.ContactTypeEnum != null) this.contactTypeEnum = data.ContactTypeEnum;
-    if (data.ContactStatusID != null) this.contactStatusID = parseInt(data.ContactStatusID, 10);
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
+    if (data.ContactStatusID != null) this.contactStatusID = (data.ContactStatusID != null ? parseInt(data.ContactStatusID, 10) : data.ContactStatusID);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
     if (data.TaxExemptionEnum != null) this.taxExemptionEnum = data.TaxExemptionEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Street != null) this.street = data.Street;
     if (data.Street2 != null) this.street2 = data.Street2;
     if (data.City != null) this.city = data.City;
-    if (data.CountryID != null) this.countryID = parseInt(data.CountryID, 10);
+    if (data.CountryID != null) this.countryID = (data.CountryID != null ? parseInt(data.CountryID, 10) : data.CountryID);
     if (data.StateProvince != null) this.stateProvince = data.StateProvince;
     if (data.ZipPostcode != null) this.zipPostcode = data.ZipPostcode;
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.Phone != null) this.phone = data.Phone;
     if (data.PhoneMobileCell != null) this.phoneMobileCell = data.PhoneMobileCell;
     if (data.PhoneOther != null) this.phoneOther = data.PhoneOther;
@@ -69,7 +69,7 @@ export class Contact {
     if (data.Reference != null) this.reference = data.Reference;
     if (data.AccountCode != null) this.accountCode = data.AccountCode;
     if (data.AccountComments != null) this.accountComments = data.AccountComments;
-    if (data.Account_PaymentTypeID != null) this.account_PaymentTypeID = parseInt(data.Account_PaymentTypeID, 10);
+    if (data.Account_PaymentTypeID != null) this.account_PaymentTypeID = (data.Account_PaymentTypeID != null ? parseInt(data.Account_PaymentTypeID, 10) : data.Account_PaymentTypeID);
     if (data.AccountBankName != null) this.accountBankName = data.AccountBankName;
     if (data.AccountBankNumber != null) this.accountBankNumber = data.AccountBankNumber;
     if (data.AccountDetail1 != null) this.accountDetail1 = data.AccountDetail1;
@@ -77,10 +77,10 @@ export class Contact {
     if (data.AccountDetail3 != null) this.accountDetail3 = data.AccountDetail3;
     if (data.AccountDetail4 != null) this.accountDetail4 = data.AccountDetail4;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.timestamp != null) this.timestamp = new Date(data.timestamp);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.timestamp != null) this.timestamp = (data.timestamp != null ? new Date(data.timestamp) : data.timestamp);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

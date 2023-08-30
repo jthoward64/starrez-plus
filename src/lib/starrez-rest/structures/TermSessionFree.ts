@@ -19,12 +19,12 @@ export class TermSessionFree {
       throw new Error('Invalid XML');
     }
 
-    if (data.TermSessionFreeID != null) this.termSessionFreeID = parseInt(data.TermSessionFreeID, 10);
+    if (data.TermSessionFreeID != null) this.termSessionFreeID = (data.TermSessionFreeID != null ? parseInt(data.TermSessionFreeID, 10) : data.TermSessionFreeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.TermSessionID != null) this.termSessionID = parseInt(data.TermSessionID, 10);
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.TermSessionID != null) this.termSessionID = (data.TermSessionID != null ? parseInt(data.TermSessionID, 10) : data.TermSessionID);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

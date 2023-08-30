@@ -22,15 +22,15 @@ export class FunctionRoomSetup {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionRoomSetupID != null) this.functionRoomSetupID = parseInt(data.FunctionRoomSetupID, 10);
-    if (data.FunctionRoomID != null) this.functionRoomID = parseInt(data.FunctionRoomID, 10);
+    if (data.FunctionRoomSetupID != null) this.functionRoomSetupID = (data.FunctionRoomSetupID != null ? parseInt(data.FunctionRoomSetupID, 10) : data.FunctionRoomSetupID);
+    if (data.FunctionRoomID != null) this.functionRoomID = (data.FunctionRoomID != null ? parseInt(data.FunctionRoomID, 10) : data.FunctionRoomID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.Capacity != null) this.capacity = parseInt(data.Capacity, 10);
+    if (data.Capacity != null) this.capacity = (data.Capacity != null ? parseInt(data.Capacity, 10) : data.Capacity);
     if (data.DefaultSetup != null) this.defaultSetup = data.DefaultSetup === 'true';
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

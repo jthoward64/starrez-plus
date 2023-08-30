@@ -17,10 +17,10 @@ export class RoomConfigurationProfile {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomConfigurationProfileID != null) this.roomConfigurationProfileID = parseInt(data.RoomConfigurationProfileID, 10);
-    if (data.RoomConfigurationID != null) this.roomConfigurationID = parseInt(data.RoomConfigurationID, 10);
-    if (data.ProfileItemID != null) this.profileItemID = parseInt(data.ProfileItemID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.RoomConfigurationProfileID != null) this.roomConfigurationProfileID = (data.RoomConfigurationProfileID != null ? parseInt(data.RoomConfigurationProfileID, 10) : data.RoomConfigurationProfileID);
+    if (data.RoomConfigurationID != null) this.roomConfigurationID = (data.RoomConfigurationID != null ? parseInt(data.RoomConfigurationID, 10) : data.RoomConfigurationID);
+    if (data.ProfileItemID != null) this.profileItemID = (data.ProfileItemID != null ? parseInt(data.ProfileItemID, 10) : data.ProfileItemID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

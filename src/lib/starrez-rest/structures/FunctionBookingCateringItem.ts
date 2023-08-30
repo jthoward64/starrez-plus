@@ -24,17 +24,17 @@ export class FunctionBookingCateringItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionBookingCateringItemID != null) this.functionBookingCateringItemID = parseInt(data.FunctionBookingCateringItemID, 10);
-    if (data.FunctionBookingCateringID != null) this.functionBookingCateringID = parseInt(data.FunctionBookingCateringID, 10);
-    if (data.CateringItemID != null) this.cateringItemID = parseInt(data.CateringItemID, 10);
+    if (data.FunctionBookingCateringItemID != null) this.functionBookingCateringItemID = (data.FunctionBookingCateringItemID != null ? parseInt(data.FunctionBookingCateringItemID, 10) : data.FunctionBookingCateringItemID);
+    if (data.FunctionBookingCateringID != null) this.functionBookingCateringID = (data.FunctionBookingCateringID != null ? parseInt(data.FunctionBookingCateringID, 10) : data.FunctionBookingCateringID);
+    if (data.CateringItemID != null) this.cateringItemID = (data.CateringItemID != null ? parseInt(data.CateringItemID, 10) : data.CateringItemID);
     if (data.Description != null) this.description = data.Description;
-    if (data.ServingOrder != null) this.servingOrder = parseInt(data.ServingOrder, 10);
-    if (data.Quantity != null) this.quantity = parseInt(data.Quantity, 10);
+    if (data.ServingOrder != null) this.servingOrder = (data.ServingOrder != null ? parseInt(data.ServingOrder, 10) : data.ServingOrder);
+    if (data.Quantity != null) this.quantity = (data.Quantity != null ? parseInt(data.Quantity, 10) : data.Quantity);
     if (data.ChargeFixed != null) this.chargeFixed = data.ChargeFixed === 'true';
     if (data.AmountCost != null) this.amountCost = data.AmountCost;
     if (data.Amount != null) this.amount = data.Amount;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

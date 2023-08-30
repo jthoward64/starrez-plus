@@ -26,19 +26,19 @@ export class RoomSpaceInventoryInspection {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceInventoryInspectionID != null) this.roomSpaceInventoryInspectionID = parseInt(data.RoomSpaceInventoryInspectionID, 10);
-    if (data.RoomSpaceInventoryInspectionRunID != null) this.roomSpaceInventoryInspectionRunID = parseInt(data.RoomSpaceInventoryInspectionRunID, 10);
-    if (data.RoomSpaceID != null) this.roomSpaceID = parseInt(data.RoomSpaceID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.RoomSpaceInventoryInspectionID != null) this.roomSpaceInventoryInspectionID = (data.RoomSpaceInventoryInspectionID != null ? parseInt(data.RoomSpaceInventoryInspectionID, 10) : data.RoomSpaceInventoryInspectionID);
+    if (data.RoomSpaceInventoryInspectionRunID != null) this.roomSpaceInventoryInspectionRunID = (data.RoomSpaceInventoryInspectionRunID != null ? parseInt(data.RoomSpaceInventoryInspectionRunID, 10) : data.RoomSpaceInventoryInspectionRunID);
+    if (data.RoomSpaceID != null) this.roomSpaceID = (data.RoomSpaceID != null ? parseInt(data.RoomSpaceID, 10) : data.RoomSpaceID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.InspectionStatusEnum != null) this.inspectionStatusEnum = data.InspectionStatusEnum;
     if (data.Description != null) this.description = data.Description;
-    if (data.DateInspected != null) this.dateInspected = new Date(data.DateInspected);
-    if (data.DateReviewed != null) this.dateReviewed = new Date(data.DateReviewed);
+    if (data.DateInspected != null) this.dateInspected = (data.DateInspected != null ? new Date(data.DateInspected) : data.DateInspected);
+    if (data.DateReviewed != null) this.dateReviewed = (data.DateReviewed != null ? new Date(data.DateReviewed) : data.DateReviewed);
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Signature != null) this.signature = data.Signature;
     if (data.SignatureStaff != null) this.signatureStaff = data.SignatureStaff;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

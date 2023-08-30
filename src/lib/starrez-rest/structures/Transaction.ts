@@ -47,14 +47,14 @@ export class Transaction {
       throw new Error('Invalid XML');
     }
 
-    if (data.TransactionID != null) this.transactionID = parseInt(data.TransactionID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.ChargeGroupID != null) this.chargeGroupID = parseInt(data.ChargeGroupID, 10);
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
+    if (data.TransactionID != null) this.transactionID = (data.TransactionID != null ? parseInt(data.TransactionID, 10) : data.TransactionID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.ChargeGroupID != null) this.chargeGroupID = (data.ChargeGroupID != null ? parseInt(data.ChargeGroupID, 10) : data.ChargeGroupID);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
     if (data.TransactionTypeEnum != null) this.transactionTypeEnum = data.TransactionTypeEnum;
-    if (data.TransactionDate != null) this.transactionDate = new Date(data.TransactionDate);
-    if (data.ProcessedDate != null) this.processedDate = new Date(data.ProcessedDate);
-    if (data.DueDate != null) this.dueDate = new Date(data.DueDate);
+    if (data.TransactionDate != null) this.transactionDate = (data.TransactionDate != null ? new Date(data.TransactionDate) : data.TransactionDate);
+    if (data.ProcessedDate != null) this.processedDate = (data.ProcessedDate != null ? new Date(data.ProcessedDate) : data.ProcessedDate);
+    if (data.DueDate != null) this.dueDate = (data.DueDate != null ? new Date(data.DueDate) : data.DueDate);
     if (data.Description != null) this.description = data.Description;
     if (data.Amount != null) this.amount = data.Amount;
     if (data.TaxAmount != null) this.taxAmount = data.TaxAmount;
@@ -62,25 +62,25 @@ export class Transaction {
     if (data.TaxAmount3 != null) this.taxAmount3 = data.TaxAmount3;
     if (data.Tag != null) this.tag = data.Tag;
     if (data.TagFinance != null) this.tagFinance = data.TagFinance;
-    if (data.PaymentID != null) this.paymentID = parseInt(data.PaymentID, 10);
-    if (data.InvoiceID != null) this.invoiceID = parseInt(data.InvoiceID, 10);
-    if (data.EndOfSessionID != null) this.endOfSessionID = parseInt(data.EndOfSessionID, 10);
-    if (data.TermSessionID != null) this.termSessionID = parseInt(data.TermSessionID, 10);
-    if (data.ExternalID != null) this.externalID = parseInt(data.ExternalID, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
+    if (data.PaymentID != null) this.paymentID = (data.PaymentID != null ? parseInt(data.PaymentID, 10) : data.PaymentID);
+    if (data.InvoiceID != null) this.invoiceID = (data.InvoiceID != null ? parseInt(data.InvoiceID, 10) : data.InvoiceID);
+    if (data.EndOfSessionID != null) this.endOfSessionID = (data.EndOfSessionID != null ? parseInt(data.EndOfSessionID, 10) : data.EndOfSessionID);
+    if (data.TermSessionID != null) this.termSessionID = (data.TermSessionID != null ? parseInt(data.TermSessionID, 10) : data.TermSessionID);
+    if (data.ExternalID != null) this.externalID = (data.ExternalID != null ? parseInt(data.ExternalID, 10) : data.ExternalID);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.Extension != null) this.extension = parseInt(data.Extension, 10);
-    if (data.Duration != null) this.duration = parseInt(data.Duration, 10);
+    if (data.Extension != null) this.extension = (data.Extension != null ? parseInt(data.Extension, 10) : data.Extension);
+    if (data.Duration != null) this.duration = (data.Duration != null ? parseInt(data.Duration, 10) : data.Duration);
     if (data.CallTypeEnum != null) this.callTypeEnum = data.CallTypeEnum;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.Reference_BookingID != null) this.reference_BookingID = parseInt(data.Reference_BookingID, 10);
-    if (data.PaidFrom != null) this.paidFrom = new Date(data.PaidFrom);
-    if (data.PaidTo != null) this.paidTo = new Date(data.PaidTo);
+    if (data.Reference_BookingID != null) this.reference_BookingID = (data.Reference_BookingID != null ? parseInt(data.Reference_BookingID, 10) : data.Reference_BookingID);
+    if (data.PaidFrom != null) this.paidFrom = (data.PaidFrom != null ? new Date(data.PaidFrom) : data.PaidFrom);
+    if (data.PaidTo != null) this.paidTo = (data.PaidTo != null ? new Date(data.PaidTo) : data.PaidTo);
     if (data.Excess != null) this.excess = data.Excess;
     if (data.ExternalReceiptID != null) this.externalReceiptID = data.ExternalReceiptID;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

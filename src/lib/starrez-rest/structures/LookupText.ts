@@ -18,11 +18,11 @@ export class LookupText {
       throw new Error('Invalid XML');
     }
 
-    if (data.LookupTextID != null) this.lookupTextID = parseInt(data.LookupTextID, 10);
-    if (data.LookupID != null) this.lookupID = parseInt(data.LookupID, 10);
+    if (data.LookupTextID != null) this.lookupTextID = (data.LookupTextID != null ? parseInt(data.LookupTextID, 10) : data.LookupTextID);
+    if (data.LookupID != null) this.lookupID = (data.LookupID != null ? parseInt(data.LookupID, 10) : data.LookupID);
     if (data.LookupText != null) this.lookupText = data.LookupText;
     if (data.LookupValue != null) this.lookupValue = data.LookupValue;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -21,14 +21,14 @@ export class EntryEvent {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryEventID != null) this.entryEventID = parseInt(data.EntryEventID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.EventID != null) this.eventID = parseInt(data.EventID, 10);
-    if (data.EventRegistrationFeeID != null) this.eventRegistrationFeeID = parseInt(data.EventRegistrationFeeID, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.EntryEventID != null) this.entryEventID = (data.EntryEventID != null ? parseInt(data.EntryEventID, 10) : data.EntryEventID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.EventID != null) this.eventID = (data.EventID != null ? parseInt(data.EventID, 10) : data.EventID);
+    if (data.EventRegistrationFeeID != null) this.eventRegistrationFeeID = (data.EventRegistrationFeeID != null ? parseInt(data.EventRegistrationFeeID, 10) : data.EventRegistrationFeeID);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

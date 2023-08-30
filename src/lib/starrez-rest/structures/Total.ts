@@ -22,15 +22,15 @@ export class Total {
       throw new Error('Invalid XML');
     }
 
-    if (data.TotalID != null) this.totalID = parseInt(data.TotalID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.ChargeGroupID != null) this.chargeGroupID = parseInt(data.ChargeGroupID, 10);
-    if (data.TotalCount != null) this.totalCount = parseInt(data.TotalCount, 10);
+    if (data.TotalID != null) this.totalID = (data.TotalID != null ? parseInt(data.TotalID, 10) : data.TotalID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.ChargeGroupID != null) this.chargeGroupID = (data.ChargeGroupID != null ? parseInt(data.ChargeGroupID, 10) : data.ChargeGroupID);
+    if (data.TotalCount != null) this.totalCount = (data.TotalCount != null ? parseInt(data.TotalCount, 10) : data.TotalCount);
     if (data.TotalAmount != null) this.totalAmount = data.TotalAmount;
     if (data.TotalTaxAmount != null) this.totalTaxAmount = data.TotalTaxAmount;
     if (data.TotalTaxAmount2 != null) this.totalTaxAmount2 = data.TotalTaxAmount2;
     if (data.TotalTaxAmount3 != null) this.totalTaxAmount3 = data.TotalTaxAmount3;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

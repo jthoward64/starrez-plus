@@ -38,31 +38,31 @@ export class Concern {
       throw new Error('Invalid XML');
     }
 
-    if (data.ConcernID != null) this.concernID = parseInt(data.ConcernID, 10);
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
-    if (data.ConcernDate != null) this.concernDate = new Date(data.ConcernDate);
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
+    if (data.ConcernID != null) this.concernID = (data.ConcernID != null ? parseInt(data.ConcernID, 10) : data.ConcernID);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
+    if (data.ConcernDate != null) this.concernDate = (data.ConcernDate != null ? new Date(data.ConcernDate) : data.ConcernDate);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
     if (data.Title != null) this.title = data.Title;
     if (data.Description != null) this.description = data.Description;
     if (data.LocationComments != null) this.locationComments = data.LocationComments;
-    if (data.ConcernTypeID != null) this.concernTypeID = parseInt(data.ConcernTypeID, 10);
-    if (data.ConcernSubTypeID != null) this.concernSubTypeID = parseInt(data.ConcernSubTypeID, 10);
+    if (data.ConcernTypeID != null) this.concernTypeID = (data.ConcernTypeID != null ? parseInt(data.ConcernTypeID, 10) : data.ConcernTypeID);
+    if (data.ConcernSubTypeID != null) this.concernSubTypeID = (data.ConcernSubTypeID != null ? parseInt(data.ConcernSubTypeID, 10) : data.ConcernSubTypeID);
     if (data.ReportNumber != null) this.reportNumber = data.ReportNumber;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Resolution != null) this.resolution = data.Resolution;
-    if (data.WorkflowStepID != null) this.workflowStepID = parseInt(data.WorkflowStepID, 10);
-    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = parseInt(data.AssignedTo_SecurityUserID, 10);
-    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = parseInt(data.Current_WorkflowHistoryID, 10);
-    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = parseInt(data.Previous_WorkflowHistoryID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
+    if (data.WorkflowStepID != null) this.workflowStepID = (data.WorkflowStepID != null ? parseInt(data.WorkflowStepID, 10) : data.WorkflowStepID);
+    if (data.AssignedTo_SecurityUserID != null) this.assignedTo_SecurityUserID = (data.AssignedTo_SecurityUserID != null ? parseInt(data.AssignedTo_SecurityUserID, 10) : data.AssignedTo_SecurityUserID);
+    if (data.Current_WorkflowHistoryID != null) this.current_WorkflowHistoryID = (data.Current_WorkflowHistoryID != null ? parseInt(data.Current_WorkflowHistoryID, 10) : data.Current_WorkflowHistoryID);
+    if (data.Previous_WorkflowHistoryID != null) this.previous_WorkflowHistoryID = (data.Previous_WorkflowHistoryID != null ? parseInt(data.Previous_WorkflowHistoryID, 10) : data.Previous_WorkflowHistoryID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
     if (data.ReportedByName != null) this.reportedByName = data.ReportedByName;
     if (data.ReportedByEmail != null) this.reportedByEmail = data.ReportedByEmail;
     if (data.ReportedByPhone != null) this.reportedByPhone = data.ReportedByPhone;
     if (data.ReportedByRelationship != null) this.reportedByRelationship = data.ReportedByRelationship;
     if (data.ReportedByContact != null) this.reportedByContact = data.ReportedByContact === 'true';
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

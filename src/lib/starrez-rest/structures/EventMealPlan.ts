@@ -27,20 +27,20 @@ export class EventMealPlan {
       throw new Error('Invalid XML');
     }
 
-    if (data.EventMealPlanID != null) this.eventMealPlanID = parseInt(data.EventMealPlanID, 10);
-    if (data.EventID != null) this.eventID = parseInt(data.EventID, 10);
+    if (data.EventMealPlanID != null) this.eventMealPlanID = (data.EventMealPlanID != null ? parseInt(data.EventMealPlanID, 10) : data.EventMealPlanID);
+    if (data.EventID != null) this.eventID = (data.EventID != null ? parseInt(data.EventID, 10) : data.EventID);
     if (data.Description != null) this.description = data.Description;
-    if (data.MealPlanID != null) this.mealPlanID = parseInt(data.MealPlanID, 10);
-    if (data.GuestEstimate != null) this.guestEstimate = parseInt(data.GuestEstimate, 10);
-    if (data.GuestGuarantee != null) this.guestGuarantee = parseInt(data.GuestGuarantee, 10);
-    if (data.GuestMaximum != null) this.guestMaximum = parseInt(data.GuestMaximum, 10);
+    if (data.MealPlanID != null) this.mealPlanID = (data.MealPlanID != null ? parseInt(data.MealPlanID, 10) : data.MealPlanID);
+    if (data.GuestEstimate != null) this.guestEstimate = (data.GuestEstimate != null ? parseInt(data.GuestEstimate, 10) : data.GuestEstimate);
+    if (data.GuestGuarantee != null) this.guestGuarantee = (data.GuestGuarantee != null ? parseInt(data.GuestGuarantee, 10) : data.GuestGuarantee);
+    if (data.GuestMaximum != null) this.guestMaximum = (data.GuestMaximum != null ? parseInt(data.GuestMaximum, 10) : data.GuestMaximum);
     if (data.Amount != null) this.amount = data.Amount;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
-    if (data.WebOrder != null) this.webOrder = parseInt(data.WebOrder, 10);
+    if (data.WebOrder != null) this.webOrder = (data.WebOrder != null ? parseInt(data.WebOrder, 10) : data.WebOrder);
     if (data.WebComments != null) this.webComments = data.WebComments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -30,23 +30,23 @@ export class RefundRequestConfiguration {
       throw new Error('Invalid XML');
     }
 
-    if (data.RefundRequestConfigurationID != null) this.refundRequestConfigurationID = parseInt(data.RefundRequestConfigurationID, 10);
+    if (data.RefundRequestConfigurationID != null) this.refundRequestConfigurationID = (data.RefundRequestConfigurationID != null ? parseInt(data.RefundRequestConfigurationID, 10) : data.RefundRequestConfigurationID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
-    if (data.PaymentTypeID != null) this.paymentTypeID = parseInt(data.PaymentTypeID, 10);
-    if (data.ChargeGroupID != null) this.chargeGroupID = parseInt(data.ChargeGroupID, 10);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
+    if (data.PaymentTypeID != null) this.paymentTypeID = (data.PaymentTypeID != null ? parseInt(data.PaymentTypeID, 10) : data.PaymentTypeID);
+    if (data.ChargeGroupID != null) this.chargeGroupID = (data.ChargeGroupID != null ? parseInt(data.ChargeGroupID, 10) : data.ChargeGroupID);
     if (data.AmountMin != null) this.amountMin = data.AmountMin;
     if (data.AmountMax != null) this.amountMax = data.AmountMax;
-    if (data.WorkflowID != null) this.workflowID = parseInt(data.WorkflowID, 10);
-    if (data.EntryEmail_TemplateID != null) this.entryEmail_TemplateID = parseInt(data.EntryEmail_TemplateID, 10);
-    if (data.RequesterEmail_TemplateID != null) this.requesterEmail_TemplateID = parseInt(data.RequesterEmail_TemplateID, 10);
-    if (data.ApproverEmail_TemplateID != null) this.approverEmail_TemplateID = parseInt(data.ApproverEmail_TemplateID, 10);
+    if (data.WorkflowID != null) this.workflowID = (data.WorkflowID != null ? parseInt(data.WorkflowID, 10) : data.WorkflowID);
+    if (data.EntryEmail_TemplateID != null) this.entryEmail_TemplateID = (data.EntryEmail_TemplateID != null ? parseInt(data.EntryEmail_TemplateID, 10) : data.EntryEmail_TemplateID);
+    if (data.RequesterEmail_TemplateID != null) this.requesterEmail_TemplateID = (data.RequesterEmail_TemplateID != null ? parseInt(data.RequesterEmail_TemplateID, 10) : data.RequesterEmail_TemplateID);
+    if (data.ApproverEmail_TemplateID != null) this.approverEmail_TemplateID = (data.ApproverEmail_TemplateID != null ? parseInt(data.ApproverEmail_TemplateID, 10) : data.ApproverEmail_TemplateID);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

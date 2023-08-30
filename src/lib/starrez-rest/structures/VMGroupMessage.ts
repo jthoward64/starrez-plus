@@ -24,17 +24,17 @@ export class VMGroupMessage {
       throw new Error('Invalid XML');
     }
 
-    if (data.VMGroupMessageID != null) this.vMGroupMessageID = parseInt(data.VMGroupMessageID, 10);
-    if (data.VMGroupID != null) this.vMGroupID = parseInt(data.VMGroupID, 10);
-    if (data.VMGroupMessageDate != null) this.vMGroupMessageDate = new Date(data.VMGroupMessageDate);
-    if (data.Duration != null) this.duration = parseInt(data.Duration, 10);
+    if (data.VMGroupMessageID != null) this.vMGroupMessageID = (data.VMGroupMessageID != null ? parseInt(data.VMGroupMessageID, 10) : data.VMGroupMessageID);
+    if (data.VMGroupID != null) this.vMGroupID = (data.VMGroupID != null ? parseInt(data.VMGroupID, 10) : data.VMGroupID);
+    if (data.VMGroupMessageDate != null) this.vMGroupMessageDate = (data.VMGroupMessageDate != null ? new Date(data.VMGroupMessageDate) : data.VMGroupMessageDate);
+    if (data.Duration != null) this.duration = (data.Duration != null ? parseInt(data.Duration, 10) : data.Duration);
     if (data.Filename != null) this.filename = data.Filename;
     if (data.Subject != null) this.subject = data.Subject;
     if (data.SenderNumber != null) this.senderNumber = data.SenderNumber;
     if (data.Sender != null) this.sender = data.Sender;
-    if (data.Priority != null) this.priority = parseInt(data.Priority, 10);
-    if (data.Status != null) this.status = parseInt(data.Status, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.Priority != null) this.priority = (data.Priority != null ? parseInt(data.Priority, 10) : data.Priority);
+    if (data.Status != null) this.status = (data.Status != null ? parseInt(data.Status, 10) : data.Status);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

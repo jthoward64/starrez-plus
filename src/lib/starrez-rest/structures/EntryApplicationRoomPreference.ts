@@ -19,12 +19,12 @@ export class EntryApplicationRoomPreference {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryApplicationRoomPreferenceID != null) this.entryApplicationRoomPreferenceID = parseInt(data.EntryApplicationRoomPreferenceID, 10);
-    if (data.EntryApplicationID != null) this.entryApplicationID = parseInt(data.EntryApplicationID, 10);
-    if (data.RoomPreferenceID != null) this.roomPreferenceID = parseInt(data.RoomPreferenceID, 10);
-    if (data.Preference != null) this.preference = parseInt(data.Preference, 10);
+    if (data.EntryApplicationRoomPreferenceID != null) this.entryApplicationRoomPreferenceID = (data.EntryApplicationRoomPreferenceID != null ? parseInt(data.EntryApplicationRoomPreferenceID, 10) : data.EntryApplicationRoomPreferenceID);
+    if (data.EntryApplicationID != null) this.entryApplicationID = (data.EntryApplicationID != null ? parseInt(data.EntryApplicationID, 10) : data.EntryApplicationID);
+    if (data.RoomPreferenceID != null) this.roomPreferenceID = (data.RoomPreferenceID != null ? parseInt(data.RoomPreferenceID, 10) : data.RoomPreferenceID);
+    if (data.Preference != null) this.preference = (data.Preference != null ? parseInt(data.Preference, 10) : data.Preference);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -19,12 +19,12 @@ export class PortalPageAction {
       throw new Error('Invalid XML');
     }
 
-    if (data.PortalPageActionID != null) this.portalPageActionID = parseInt(data.PortalPageActionID, 10);
-    if (data.PortalPageID != null) this.portalPageID = parseInt(data.PortalPageID, 10);
-    if (data.PortalActionID != null) this.portalActionID = parseInt(data.PortalActionID, 10);
+    if (data.PortalPageActionID != null) this.portalPageActionID = (data.PortalPageActionID != null ? parseInt(data.PortalPageActionID, 10) : data.PortalPageActionID);
+    if (data.PortalPageID != null) this.portalPageID = (data.PortalPageID != null ? parseInt(data.PortalPageID, 10) : data.PortalPageID);
+    if (data.PortalActionID != null) this.portalActionID = (data.PortalActionID != null ? parseInt(data.PortalActionID, 10) : data.PortalActionID);
     if (data.EventName != null) this.eventName = data.EventName;
-    if (data.CheckOrder != null) this.checkOrder = parseInt(data.CheckOrder, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CheckOrder != null) this.checkOrder = (data.CheckOrder != null ? parseInt(data.CheckOrder, 10) : data.CheckOrder);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

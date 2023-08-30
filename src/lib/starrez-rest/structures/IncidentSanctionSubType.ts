@@ -19,12 +19,12 @@ export class IncidentSanctionSubType {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentSanctionSubTypeID != null) this.incidentSanctionSubTypeID = parseInt(data.IncidentSanctionSubTypeID, 10);
+    if (data.IncidentSanctionSubTypeID != null) this.incidentSanctionSubTypeID = (data.IncidentSanctionSubTypeID != null ? parseInt(data.IncidentSanctionSubTypeID, 10) : data.IncidentSanctionSubTypeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.IncidentSanctionTypeID != null) this.incidentSanctionTypeID = parseInt(data.IncidentSanctionTypeID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.IncidentSanctionTypeID != null) this.incidentSanctionTypeID = (data.IncidentSanctionTypeID != null ? parseInt(data.IncidentSanctionTypeID, 10) : data.IncidentSanctionTypeID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

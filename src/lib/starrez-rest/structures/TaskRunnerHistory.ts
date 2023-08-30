@@ -26,19 +26,19 @@ export class TaskRunnerHistory {
       throw new Error('Invalid XML');
     }
 
-    if (data.TaskRunnerHistoryID != null) this.taskRunnerHistoryID = parseInt(data.TaskRunnerHistoryID, 10);
+    if (data.TaskRunnerHistoryID != null) this.taskRunnerHistoryID = (data.TaskRunnerHistoryID != null ? parseInt(data.TaskRunnerHistoryID, 10) : data.TaskRunnerHistoryID);
     if (data.TaskRunnerHistoryStatusEnum != null) this.taskRunnerHistoryStatusEnum = data.TaskRunnerHistoryStatusEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.ClassName != null) this.className = data.ClassName;
     if (data.TableName != null) this.tableName = data.TableName;
-    if (data.TableID != null) this.tableID = parseInt(data.TableID, 10);
-    if (data.RunBy_SecurityUserID != null) this.runBy_SecurityUserID = parseInt(data.RunBy_SecurityUserID, 10);
+    if (data.TableID != null) this.tableID = (data.TableID != null ? parseInt(data.TableID, 10) : data.TableID);
+    if (data.RunBy_SecurityUserID != null) this.runBy_SecurityUserID = (data.RunBy_SecurityUserID != null ? parseInt(data.RunBy_SecurityUserID, 10) : data.RunBy_SecurityUserID);
     if (data.MachineName != null) this.machineName = data.MachineName;
     if (data.RunBy_MachineName != null) this.runBy_MachineName = data.RunBy_MachineName;
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateComplete != null) this.dateComplete = new Date(data.DateComplete);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateComplete != null) this.dateComplete = (data.DateComplete != null ? new Date(data.DateComplete) : data.DateComplete);
     if (data.LastStatusUpdate != null) this.lastStatusUpdate = data.LastStatusUpdate;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

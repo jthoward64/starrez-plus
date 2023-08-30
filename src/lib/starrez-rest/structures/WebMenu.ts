@@ -21,14 +21,14 @@ export class WebMenu {
       throw new Error('Invalid XML');
     }
 
-    if (data.WebMenuID != null) this.webMenuID = parseInt(data.WebMenuID, 10);
-    if (data.WebModuleID != null) this.webModuleID = parseInt(data.WebModuleID, 10);
+    if (data.WebMenuID != null) this.webMenuID = (data.WebMenuID != null ? parseInt(data.WebMenuID, 10) : data.WebMenuID);
+    if (data.WebModuleID != null) this.webModuleID = (data.WebModuleID != null ? parseInt(data.WebModuleID, 10) : data.WebModuleID);
     if (data.Description != null) this.description = data.Description;
-    if (data.MenuOrder != null) this.menuOrder = parseInt(data.MenuOrder, 10);
+    if (data.MenuOrder != null) this.menuOrder = (data.MenuOrder != null ? parseInt(data.MenuOrder, 10) : data.MenuOrder);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

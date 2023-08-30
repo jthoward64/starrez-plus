@@ -23,16 +23,16 @@ export class EntryCustomField {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryCustomFieldID != null) this.entryCustomFieldID = parseInt(data.EntryCustomFieldID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.CustomFieldDefinitionID != null) this.customFieldDefinitionID = parseInt(data.CustomFieldDefinitionID, 10);
+    if (data.EntryCustomFieldID != null) this.entryCustomFieldID = (data.EntryCustomFieldID != null ? parseInt(data.EntryCustomFieldID, 10) : data.EntryCustomFieldID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.CustomFieldDefinitionID != null) this.customFieldDefinitionID = (data.CustomFieldDefinitionID != null ? parseInt(data.CustomFieldDefinitionID, 10) : data.CustomFieldDefinitionID);
     if (data.FieldDataTypeEnum != null) this.fieldDataTypeEnum = data.FieldDataTypeEnum;
     if (data.ValueString != null) this.valueString = data.ValueString;
-    if (data.ValueDate != null) this.valueDate = new Date(data.ValueDate);
+    if (data.ValueDate != null) this.valueDate = (data.ValueDate != null ? new Date(data.ValueDate) : data.ValueDate);
     if (data.ValueBoolean != null) this.valueBoolean = data.ValueBoolean === 'true';
-    if (data.ValueInteger != null) this.valueInteger = parseInt(data.ValueInteger, 10);
+    if (data.ValueInteger != null) this.valueInteger = (data.ValueInteger != null ? parseInt(data.ValueInteger, 10) : data.ValueInteger);
     if (data.ValueMoney != null) this.valueMoney = data.ValueMoney;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -23,7 +23,7 @@ export class EmailFromAddress {
       throw new Error('Invalid XML');
     }
 
-    if (data.EmailFromAddressID != null) this.emailFromAddressID = parseInt(data.EmailFromAddressID, 10);
+    if (data.EmailFromAddressID != null) this.emailFromAddressID = (data.EmailFromAddressID != null ? parseInt(data.EmailFromAddressID, 10) : data.EmailFromAddressID);
     if (data.Description != null) this.description = data.Description;
     if (data.FromAddress != null) this.fromAddress = data.FromAddress;
     if (data.FromName != null) this.fromName = data.FromName;
@@ -32,7 +32,7 @@ export class EmailFromAddress {
     if (data.Module != null) this.module = data.Module;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

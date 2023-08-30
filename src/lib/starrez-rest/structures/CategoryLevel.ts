@@ -23,16 +23,16 @@ export class CategoryLevel {
       throw new Error('Invalid XML');
     }
 
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
     if (data.Level1 != null) this.level1 = data.Level1;
-    if (data.Level1ID != null) this.level1ID = parseInt(data.Level1ID, 10);
+    if (data.Level1ID != null) this.level1ID = (data.Level1ID != null ? parseInt(data.Level1ID, 10) : data.Level1ID);
     if (data.Level2 != null) this.level2 = data.Level2;
-    if (data.Level2ID != null) this.level2ID = parseInt(data.Level2ID, 10);
+    if (data.Level2ID != null) this.level2ID = (data.Level2ID != null ? parseInt(data.Level2ID, 10) : data.Level2ID);
     if (data.Level3 != null) this.level3 = data.Level3;
-    if (data.Level3ID != null) this.level3ID = parseInt(data.Level3ID, 10);
+    if (data.Level3ID != null) this.level3ID = (data.Level3ID != null ? parseInt(data.Level3ID, 10) : data.Level3ID);
     if (data.Level4 != null) this.level4 = data.Level4;
-    if (data.Level4ID != null) this.level4ID = parseInt(data.Level4ID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.Level4ID != null) this.level4ID = (data.Level4ID != null ? parseInt(data.Level4ID, 10) : data.Level4ID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

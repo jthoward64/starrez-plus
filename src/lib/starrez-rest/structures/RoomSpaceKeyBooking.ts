@@ -24,17 +24,17 @@ export class RoomSpaceKeyBooking {
       throw new Error('Invalid XML');
     }
 
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.RoomSpaceKeyBookingID != null) this.roomSpaceKeyBookingID = parseInt(data.RoomSpaceKeyBookingID, 10);
-    if (data.RoomSpaceKeyID != null) this.roomSpaceKeyID = parseInt(data.RoomSpaceKeyID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.RoomSpaceKeyBookingID != null) this.roomSpaceKeyBookingID = (data.RoomSpaceKeyBookingID != null ? parseInt(data.RoomSpaceKeyBookingID, 10) : data.RoomSpaceKeyBookingID);
+    if (data.RoomSpaceKeyID != null) this.roomSpaceKeyID = (data.RoomSpaceKeyID != null ? parseInt(data.RoomSpaceKeyID, 10) : data.RoomSpaceKeyID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.RoomSpaceKeyStatusEnum != null) this.roomSpaceKeyStatusEnum = data.RoomSpaceKeyStatusEnum;
     if (data.EntryName != null) this.entryName = data.EntryName;
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

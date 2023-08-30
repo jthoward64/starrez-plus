@@ -48,14 +48,14 @@ export class EntryEnrollment {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryEnrollmentID != null) this.entryEnrollmentID = parseInt(data.EntryEnrollmentID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
+    if (data.EntryEnrollmentID != null) this.entryEnrollmentID = (data.EntryEnrollmentID != null ? parseInt(data.EntryEnrollmentID, 10) : data.EntryEnrollmentID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
     if (data.EnrollmentTypeEnum != null) this.enrollmentTypeEnum = data.EnrollmentTypeEnum;
-    if (data.CourseID != null) this.courseID = parseInt(data.CourseID, 10);
-    if (data.TermID != null) this.termID = parseInt(data.TermID, 10);
-    if (data.EnrollmentOrder != null) this.enrollmentOrder = parseInt(data.EnrollmentOrder, 10);
+    if (data.CourseID != null) this.courseID = (data.CourseID != null ? parseInt(data.CourseID, 10) : data.CourseID);
+    if (data.TermID != null) this.termID = (data.TermID != null ? parseInt(data.TermID, 10) : data.TermID);
+    if (data.EnrollmentOrder != null) this.enrollmentOrder = (data.EnrollmentOrder != null ? parseInt(data.EnrollmentOrder, 10) : data.EnrollmentOrder);
     if (data.EnrollmentField != null) this.enrollmentField = data.EnrollmentField;
-    if (data.Sequence != null) this.sequence = parseInt(data.Sequence, 10);
+    if (data.Sequence != null) this.sequence = (data.Sequence != null ? parseInt(data.Sequence, 10) : data.Sequence);
     if (data.Institution != null) this.institution = data.Institution;
     if (data.Campus != null) this.campus = data.Campus;
     if (data.Faculty != null) this.faculty = data.Faculty;
@@ -66,12 +66,12 @@ export class EntryEnrollment {
     if (data.IsEnrolled != null) this.isEnrolled = data.IsEnrolled === 'true';
     if (data.FullTime != null) this.fullTime = data.FullTime === 'true';
     if (data.PostGrad != null) this.postGrad = data.PostGrad === 'true';
-    if (data.GraduationDate != null) this.graduationDate = new Date(data.GraduationDate);
+    if (data.GraduationDate != null) this.graduationDate = (data.GraduationDate != null ? new Date(data.GraduationDate) : data.GraduationDate);
     if (data.Subjects != null) this.subjects = data.Subjects;
     if (data.Years != null) this.years = data.Years;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
     if (data.CustomBit1 != null) this.customBit1 = data.CustomBit1 === 'true';
     if (data.CustomBit2 != null) this.customBit2 = data.CustomBit2 === 'true';
     if (data.CustomString1 != null) this.customString1 = data.CustomString1;
@@ -80,9 +80,9 @@ export class EntryEnrollment {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

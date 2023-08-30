@@ -21,14 +21,14 @@ export class TransactionDisputeItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.TransactionDisputeItemID != null) this.transactionDisputeItemID = parseInt(data.TransactionDisputeItemID, 10);
-    if (data.TransactionID != null) this.transactionID = parseInt(data.TransactionID, 10);
-    if (data.TransactionDisputeID != null) this.transactionDisputeID = parseInt(data.TransactionDisputeID, 10);
+    if (data.TransactionDisputeItemID != null) this.transactionDisputeItemID = (data.TransactionDisputeItemID != null ? parseInt(data.TransactionDisputeItemID, 10) : data.TransactionDisputeItemID);
+    if (data.TransactionID != null) this.transactionID = (data.TransactionID != null ? parseInt(data.TransactionID, 10) : data.TransactionID);
+    if (data.TransactionDisputeID != null) this.transactionDisputeID = (data.TransactionDisputeID != null ? parseInt(data.TransactionDisputeID, 10) : data.TransactionDisputeID);
     if (data.TransactionDisputeItemStatusEnum != null) this.transactionDisputeItemStatusEnum = data.TransactionDisputeItemStatusEnum;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

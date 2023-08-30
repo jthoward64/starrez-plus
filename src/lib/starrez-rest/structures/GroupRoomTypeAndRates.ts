@@ -32,15 +32,15 @@ export class GroupRoomTypeAndRates {
       throw new Error('Invalid XML');
     }
 
-    if (data.GroupRoomTypeAndRatesID != null) this.groupRoomTypeAndRatesID = parseInt(data.GroupRoomTypeAndRatesID, 10);
-    if (data.GroupID != null) this.groupID = parseInt(data.GroupID, 10);
+    if (data.GroupRoomTypeAndRatesID != null) this.groupRoomTypeAndRatesID = (data.GroupRoomTypeAndRatesID != null ? parseInt(data.GroupRoomTypeAndRatesID, 10) : data.GroupRoomTypeAndRatesID);
+    if (data.GroupID != null) this.groupID = (data.GroupID != null ? parseInt(data.GroupID, 10) : data.GroupID);
     if (data.Description != null) this.description = data.Description;
-    if (data.RoomTypeID != null) this.roomTypeID = parseInt(data.RoomTypeID, 10);
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
-    if (data.RoomRateID != null) this.roomRateID = parseInt(data.RoomRateID, 10);
-    if (data.GuestEstimate != null) this.guestEstimate = parseInt(data.GuestEstimate, 10);
-    if (data.GuestGuarantee != null) this.guestGuarantee = parseInt(data.GuestGuarantee, 10);
-    if (data.GuestMaximum != null) this.guestMaximum = parseInt(data.GuestMaximum, 10);
+    if (data.RoomTypeID != null) this.roomTypeID = (data.RoomTypeID != null ? parseInt(data.RoomTypeID, 10) : data.RoomTypeID);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
+    if (data.RoomRateID != null) this.roomRateID = (data.RoomRateID != null ? parseInt(data.RoomRateID, 10) : data.RoomRateID);
+    if (data.GuestEstimate != null) this.guestEstimate = (data.GuestEstimate != null ? parseInt(data.GuestEstimate, 10) : data.GuestEstimate);
+    if (data.GuestGuarantee != null) this.guestGuarantee = (data.GuestGuarantee != null ? parseInt(data.GuestGuarantee, 10) : data.GuestGuarantee);
+    if (data.GuestMaximum != null) this.guestMaximum = (data.GuestMaximum != null ? parseInt(data.GuestMaximum, 10) : data.GuestMaximum);
     if (data.Amount != null) this.amount = data.Amount;
     if (data.AmountDouble != null) this.amountDouble = data.AmountDouble;
     if (data.AmountExtra != null) this.amountExtra = data.AmountExtra;
@@ -48,9 +48,9 @@ export class GroupRoomTypeAndRates {
     if (data.Comments != null) this.comments = data.Comments;
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
     if (data.WebDescription != null) this.webDescription = data.WebDescription;
-    if (data.WebOrder != null) this.webOrder = parseInt(data.WebOrder, 10);
+    if (data.WebOrder != null) this.webOrder = (data.WebOrder != null ? parseInt(data.WebOrder, 10) : data.WebOrder);
     if (data.WebComments != null) this.webComments = data.WebComments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

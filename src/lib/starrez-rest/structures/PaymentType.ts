@@ -25,18 +25,18 @@ export class PaymentType {
       throw new Error('Invalid XML');
     }
 
-    if (data.PaymentTypeID != null) this.paymentTypeID = parseInt(data.PaymentTypeID, 10);
+    if (data.PaymentTypeID != null) this.paymentTypeID = (data.PaymentTypeID != null ? parseInt(data.PaymentTypeID, 10) : data.PaymentTypeID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
     if (data.Description != null) this.description = data.Description;
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
     if (data.PaymentMethodEnum != null) this.paymentMethodEnum = data.PaymentMethodEnum;
-    if (data.AccountReceivable_GLPostingID != null) this.accountReceivable_GLPostingID = parseInt(data.AccountReceivable_GLPostingID, 10);
-    if (data.Bank_GLPostingID != null) this.bank_GLPostingID = parseInt(data.Bank_GLPostingID, 10);
+    if (data.AccountReceivable_GLPostingID != null) this.accountReceivable_GLPostingID = (data.AccountReceivable_GLPostingID != null ? parseInt(data.AccountReceivable_GLPostingID, 10) : data.AccountReceivable_GLPostingID);
+    if (data.Bank_GLPostingID != null) this.bank_GLPostingID = (data.Bank_GLPostingID != null ? parseInt(data.Bank_GLPostingID, 10) : data.Bank_GLPostingID);
     if (data.RefundChq != null) this.refundChq = data.RefundChq === 'true';
     if (data.GroupBy != null) this.groupBy = data.GroupBy;
-    if (data.CreditCardSurcharge != null) this.creditCardSurcharge = parseFloat(data.CreditCardSurcharge);
-    if (data.CCS_ChargeItemID != null) this.cCS_ChargeItemID = parseInt(data.CCS_ChargeItemID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.CreditCardSurcharge != null) this.creditCardSurcharge = (data.CreditCardSurcharge != null ? parseFloat(data.CreditCardSurcharge) : data.CreditCardSurcharge);
+    if (data.CCS_ChargeItemID != null) this.cCS_ChargeItemID = (data.CCS_ChargeItemID != null ? parseInt(data.CCS_ChargeItemID, 10) : data.CCS_ChargeItemID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -21,14 +21,14 @@ export class RoomSortProfileItem {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSortProfileItemID != null) this.roomSortProfileItemID = parseInt(data.RoomSortProfileItemID, 10);
-    if (data.RoomSortProfileID != null) this.roomSortProfileID = parseInt(data.RoomSortProfileID, 10);
-    if (data.RoomSortConfigurationID != null) this.roomSortConfigurationID = parseInt(data.RoomSortConfigurationID, 10);
-    if (data.SortOrder != null) this.sortOrder = parseInt(data.SortOrder, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.RoomSortProfileItemID != null) this.roomSortProfileItemID = (data.RoomSortProfileItemID != null ? parseInt(data.RoomSortProfileItemID, 10) : data.RoomSortProfileItemID);
+    if (data.RoomSortProfileID != null) this.roomSortProfileID = (data.RoomSortProfileID != null ? parseInt(data.RoomSortProfileID, 10) : data.RoomSortProfileID);
+    if (data.RoomSortConfigurationID != null) this.roomSortConfigurationID = (data.RoomSortConfigurationID != null ? parseInt(data.RoomSortConfigurationID, 10) : data.RoomSortConfigurationID);
+    if (data.SortOrder != null) this.sortOrder = (data.SortOrder != null ? parseInt(data.SortOrder, 10) : data.SortOrder);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

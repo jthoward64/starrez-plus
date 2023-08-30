@@ -25,18 +25,18 @@ export class IncidentEntryAppeal {
       throw new Error('Invalid XML');
     }
 
-    if (data.IncidentEntryAppealID != null) this.incidentEntryAppealID = parseInt(data.IncidentEntryAppealID, 10);
-    if (data.IncidentEntryID != null) this.incidentEntryID = parseInt(data.IncidentEntryID, 10);
-    if (data.AppealDateCreated != null) this.appealDateCreated = new Date(data.AppealDateCreated);
-    if (data.AppealDate != null) this.appealDate = new Date(data.AppealDate);
-    if (data.AppealDateComplete != null) this.appealDateComplete = new Date(data.AppealDateComplete);
-    if (data.AppealManager_EntryID != null) this.appealManager_EntryID = parseInt(data.AppealManager_EntryID, 10);
-    if (data.IncidentAppealTypeID != null) this.incidentAppealTypeID = parseInt(data.IncidentAppealTypeID, 10);
-    if (data.IncidentAppealDecisionID != null) this.incidentAppealDecisionID = parseInt(data.IncidentAppealDecisionID, 10);
+    if (data.IncidentEntryAppealID != null) this.incidentEntryAppealID = (data.IncidentEntryAppealID != null ? parseInt(data.IncidentEntryAppealID, 10) : data.IncidentEntryAppealID);
+    if (data.IncidentEntryID != null) this.incidentEntryID = (data.IncidentEntryID != null ? parseInt(data.IncidentEntryID, 10) : data.IncidentEntryID);
+    if (data.AppealDateCreated != null) this.appealDateCreated = (data.AppealDateCreated != null ? new Date(data.AppealDateCreated) : data.AppealDateCreated);
+    if (data.AppealDate != null) this.appealDate = (data.AppealDate != null ? new Date(data.AppealDate) : data.AppealDate);
+    if (data.AppealDateComplete != null) this.appealDateComplete = (data.AppealDateComplete != null ? new Date(data.AppealDateComplete) : data.AppealDateComplete);
+    if (data.AppealManager_EntryID != null) this.appealManager_EntryID = (data.AppealManager_EntryID != null ? parseInt(data.AppealManager_EntryID, 10) : data.AppealManager_EntryID);
+    if (data.IncidentAppealTypeID != null) this.incidentAppealTypeID = (data.IncidentAppealTypeID != null ? parseInt(data.IncidentAppealTypeID, 10) : data.IncidentAppealTypeID);
+    if (data.IncidentAppealDecisionID != null) this.incidentAppealDecisionID = (data.IncidentAppealDecisionID != null ? parseInt(data.IncidentAppealDecisionID, 10) : data.IncidentAppealDecisionID);
     if (data.AppealDescription != null) this.appealDescription = data.AppealDescription;
     if (data.AppealComments != null) this.appealComments = data.AppealComments;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -30,23 +30,23 @@ export class FunctionBookingCatering {
       throw new Error('Invalid XML');
     }
 
-    if (data.FunctionBookingCateringID != null) this.functionBookingCateringID = parseInt(data.FunctionBookingCateringID, 10);
-    if (data.FunctionBookingID != null) this.functionBookingID = parseInt(data.FunctionBookingID, 10);
-    if (data.CateringID != null) this.cateringID = parseInt(data.CateringID, 10);
+    if (data.FunctionBookingCateringID != null) this.functionBookingCateringID = (data.FunctionBookingCateringID != null ? parseInt(data.FunctionBookingCateringID, 10) : data.FunctionBookingCateringID);
+    if (data.FunctionBookingID != null) this.functionBookingID = (data.FunctionBookingID != null ? parseInt(data.FunctionBookingID, 10) : data.FunctionBookingID);
+    if (data.CateringID != null) this.cateringID = (data.CateringID != null ? parseInt(data.CateringID, 10) : data.CateringID);
     if (data.FunctionChargeTypeEnum != null) this.functionChargeTypeEnum = data.FunctionChargeTypeEnum;
     if (data.ChargeToEntry != null) this.chargeToEntry = data.ChargeToEntry === 'true';
     if (data.PerEntry != null) this.perEntry = data.PerEntry === 'true';
     if (data.Description != null) this.description = data.Description;
     if (data.CateringDescription != null) this.cateringDescription = data.CateringDescription;
-    if (data.ServingTime != null) this.servingTime = new Date(data.ServingTime);
-    if (data.ServingDuration != null) this.servingDuration = parseInt(data.ServingDuration, 10);
+    if (data.ServingTime != null) this.servingTime = (data.ServingTime != null ? new Date(data.ServingTime) : data.ServingTime);
+    if (data.ServingDuration != null) this.servingDuration = (data.ServingDuration != null ? parseInt(data.ServingDuration, 10) : data.ServingDuration);
     if (data.Location != null) this.location = data.Location;
-    if (data.FunctionRoomID != null) this.functionRoomID = parseInt(data.FunctionRoomID, 10);
+    if (data.FunctionRoomID != null) this.functionRoomID = (data.FunctionRoomID != null ? parseInt(data.FunctionRoomID, 10) : data.FunctionRoomID);
     if (data.Amount != null) this.amount = data.Amount;
     if (data.AmountCost != null) this.amountCost = data.AmountCost;
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

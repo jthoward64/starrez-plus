@@ -20,13 +20,13 @@ export class MealPlanDiningHall {
       throw new Error('Invalid XML');
     }
 
-    if (data.MealPlanDiningHallID != null) this.mealPlanDiningHallID = parseInt(data.MealPlanDiningHallID, 10);
+    if (data.MealPlanDiningHallID != null) this.mealPlanDiningHallID = (data.MealPlanDiningHallID != null ? parseInt(data.MealPlanDiningHallID, 10) : data.MealPlanDiningHallID);
     if (data.Description != null) this.description = data.Description;
-    if (data.CapacityMin != null) this.capacityMin = parseInt(data.CapacityMin, 10);
-    if (data.CapacityMax != null) this.capacityMax = parseInt(data.CapacityMax, 10);
+    if (data.CapacityMin != null) this.capacityMin = (data.CapacityMin != null ? parseInt(data.CapacityMin, 10) : data.CapacityMin);
+    if (data.CapacityMax != null) this.capacityMax = (data.CapacityMax != null ? parseInt(data.CapacityMax, 10) : data.CapacityMax);
     if (data.ViewOnWeb != null) this.viewOnWeb = data.ViewOnWeb === 'true';
-    if (data.ChargeItemID != null) this.chargeItemID = parseInt(data.ChargeItemID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.ChargeItemID != null) this.chargeItemID = (data.ChargeItemID != null ? parseInt(data.ChargeItemID, 10) : data.ChargeItemID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

@@ -22,15 +22,15 @@ export class RoomTypeCapacity {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomTypeCapacityID != null) this.roomTypeCapacityID = parseInt(data.RoomTypeCapacityID, 10);
+    if (data.RoomTypeCapacityID != null) this.roomTypeCapacityID = (data.RoomTypeCapacityID != null ? parseInt(data.RoomTypeCapacityID, 10) : data.RoomTypeCapacityID);
     if (data.RecordTypeEnum != null) this.recordTypeEnum = data.RecordTypeEnum;
-    if (data.RoomTypeID != null) this.roomTypeID = parseInt(data.RoomTypeID, 10);
+    if (data.RoomTypeID != null) this.roomTypeID = (data.RoomTypeID != null ? parseInt(data.RoomTypeID, 10) : data.RoomTypeID);
     if (data.Description != null) this.description = data.Description;
-    if (data.Capacity != null) this.capacity = parseInt(data.Capacity, 10);
-    if (data.DateStart != null) this.dateStart = new Date(data.DateStart);
-    if (data.DateEnd != null) this.dateEnd = new Date(data.DateEnd);
+    if (data.Capacity != null) this.capacity = (data.Capacity != null ? parseInt(data.Capacity, 10) : data.Capacity);
+    if (data.DateStart != null) this.dateStart = (data.DateStart != null ? new Date(data.DateStart) : data.DateStart);
+    if (data.DateEnd != null) this.dateEnd = (data.DateEnd != null ? new Date(data.DateEnd) : data.DateEnd);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

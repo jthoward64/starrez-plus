@@ -23,16 +23,16 @@ export class WaitList {
       throw new Error('Invalid XML');
     }
 
-    if (data.WaitListID != null) this.waitListID = parseInt(data.WaitListID, 10);
-    if (data.TermID != null) this.termID = parseInt(data.TermID, 10);
+    if (data.WaitListID != null) this.waitListID = (data.WaitListID != null ? parseInt(data.WaitListID, 10) : data.WaitListID);
+    if (data.TermID != null) this.termID = (data.TermID != null ? parseInt(data.TermID, 10) : data.TermID);
     if (data.GenderTypeEnum != null) this.genderTypeEnum = data.GenderTypeEnum;
     if (data.Description != null) this.description = data.Description;
     if (data.Comments != null) this.comments = data.Comments;
     if (data.Lease != null) this.lease = data.Lease === 'true';
     if (data.RemoveEntriesWhenBooked != null) this.removeEntriesWhenBooked = data.RemoveEntriesWhenBooked === 'true';
-    if (data.RoomTypeID != null) this.roomTypeID = parseInt(data.RoomTypeID, 10);
-    if (data.RoomLocationID != null) this.roomLocationID = parseInt(data.RoomLocationID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.RoomTypeID != null) this.roomTypeID = (data.RoomTypeID != null ? parseInt(data.RoomTypeID, 10) : data.RoomTypeID);
+    if (data.RoomLocationID != null) this.roomLocationID = (data.RoomLocationID != null ? parseInt(data.RoomLocationID, 10) : data.RoomLocationID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

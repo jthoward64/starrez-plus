@@ -30,9 +30,9 @@ export class EntrySDAS {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntrySDASID != null) this.entrySDASID = parseInt(data.EntrySDASID, 10);
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.SDASChargeRateID != null) this.sDASChargeRateID = parseInt(data.SDASChargeRateID, 10);
+    if (data.EntrySDASID != null) this.entrySDASID = (data.EntrySDASID != null ? parseInt(data.EntrySDASID, 10) : data.EntrySDASID);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.SDASChargeRateID != null) this.sDASChargeRateID = (data.SDASChargeRateID != null ? parseInt(data.SDASChargeRateID, 10) : data.SDASChargeRateID);
     if (data.Enabled != null) this.enabled = data.Enabled === 'true';
     if (data.UserName != null) this.userName = data.UserName;
     if (data.Password != null) this.password = data.Password;
@@ -42,11 +42,11 @@ export class EntrySDAS {
     if (data.IPAddress != null) this.iPAddress = data.IPAddress;
     if (data.MACAddress != null) this.mACAddress = data.MACAddress;
     if (data.OperatingSystem != null) this.operatingSystem = data.OperatingSystem;
-    if (data.DateEnabled != null) this.dateEnabled = new Date(data.DateEnabled);
-    if (data.DateLastReset != null) this.dateLastReset = new Date(data.DateLastReset);
+    if (data.DateEnabled != null) this.dateEnabled = (data.DateEnabled != null ? new Date(data.DateEnabled) : data.DateEnabled);
+    if (data.DateLastReset != null) this.dateLastReset = (data.DateLastReset != null ? new Date(data.DateLastReset) : data.DateLastReset);
     if (data.MonthlyAllowance != null) this.monthlyAllowance = data.MonthlyAllowance;
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

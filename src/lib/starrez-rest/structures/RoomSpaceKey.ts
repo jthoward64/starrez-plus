@@ -36,11 +36,11 @@ export class RoomSpaceKey {
       throw new Error('Invalid XML');
     }
 
-    if (data.RoomSpaceKeyID != null) this.roomSpaceKeyID = parseInt(data.RoomSpaceKeyID, 10);
-    if (data.RoomSpaceID != null) this.roomSpaceID = parseInt(data.RoomSpaceID, 10);
-    if (data.RoomSpaceKeyTypeID != null) this.roomSpaceKeyTypeID = parseInt(data.RoomSpaceKeyTypeID, 10);
+    if (data.RoomSpaceKeyID != null) this.roomSpaceKeyID = (data.RoomSpaceKeyID != null ? parseInt(data.RoomSpaceKeyID, 10) : data.RoomSpaceKeyID);
+    if (data.RoomSpaceID != null) this.roomSpaceID = (data.RoomSpaceID != null ? parseInt(data.RoomSpaceID, 10) : data.RoomSpaceID);
+    if (data.RoomSpaceKeyTypeID != null) this.roomSpaceKeyTypeID = (data.RoomSpaceKeyTypeID != null ? parseInt(data.RoomSpaceKeyTypeID, 10) : data.RoomSpaceKeyTypeID);
     if (data.RoomSpaceKeyStatusEnum != null) this.roomSpaceKeyStatusEnum = data.RoomSpaceKeyStatusEnum;
-    if (data.RoomSpaceKeyBookingID != null) this.roomSpaceKeyBookingID = parseInt(data.RoomSpaceKeyBookingID, 10);
+    if (data.RoomSpaceKeyBookingID != null) this.roomSpaceKeyBookingID = (data.RoomSpaceKeyBookingID != null ? parseInt(data.RoomSpaceKeyBookingID, 10) : data.RoomSpaceKeyBookingID);
     if (data.SerialNumber != null) this.serialNumber = data.SerialNumber;
     if (data.Description != null) this.description = data.Description;
     if (data.Location != null) this.location = data.Location;
@@ -55,10 +55,10 @@ export class RoomSpaceKey {
     if (data.CustomString4 != null) this.customString4 = data.CustomString4;
     if (data.CustomString5 != null) this.customString5 = data.CustomString5;
     if (data.CustomString6 != null) this.customString6 = data.CustomString6;
-    if (data.CustomDate1 != null) this.customDate1 = new Date(data.CustomDate1);
-    if (data.CustomDate2 != null) this.customDate2 = new Date(data.CustomDate2);
+    if (data.CustomDate1 != null) this.customDate1 = (data.CustomDate1 != null ? new Date(data.CustomDate1) : data.CustomDate1);
+    if (data.CustomDate2 != null) this.customDate2 = (data.CustomDate2 != null ? new Date(data.CustomDate2) : data.CustomDate2);
     if (data.Comments != null) this.comments = data.Comments;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

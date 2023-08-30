@@ -66,15 +66,15 @@ export class Entry {
       throw new Error('Invalid XML');
     }
 
-    if (data.EntryID != null) this.entryID = parseInt(data.EntryID, 10);
-    if (data.CategoryID != null) this.categoryID = parseInt(data.CategoryID, 10);
-    if (data.EventID != null) this.eventID = parseInt(data.EventID, 10);
-    if (data.ContactID != null) this.contactID = parseInt(data.ContactID, 10);
+    if (data.EntryID != null) this.entryID = (data.EntryID != null ? parseInt(data.EntryID, 10) : data.EntryID);
+    if (data.CategoryID != null) this.categoryID = (data.CategoryID != null ? parseInt(data.CategoryID, 10) : data.CategoryID);
+    if (data.EventID != null) this.eventID = (data.EventID != null ? parseInt(data.EventID, 10) : data.EventID);
+    if (data.ContactID != null) this.contactID = (data.ContactID != null ? parseInt(data.ContactID, 10) : data.ContactID);
     if (data.EntryStatusEnum != null) this.entryStatusEnum = data.EntryStatusEnum;
-    if (data.AddressTypeID != null) this.addressTypeID = parseInt(data.AddressTypeID, 10);
-    if (data.BookingID != null) this.bookingID = parseInt(data.BookingID, 10);
-    if (data.EntryApplicationID != null) this.entryApplicationID = parseInt(data.EntryApplicationID, 10);
-    if (data.PinNumber != null) this.pinNumber = parseInt(data.PinNumber, 10);
+    if (data.AddressTypeID != null) this.addressTypeID = (data.AddressTypeID != null ? parseInt(data.AddressTypeID, 10) : data.AddressTypeID);
+    if (data.BookingID != null) this.bookingID = (data.BookingID != null ? parseInt(data.BookingID, 10) : data.BookingID);
+    if (data.EntryApplicationID != null) this.entryApplicationID = (data.EntryApplicationID != null ? parseInt(data.EntryApplicationID, 10) : data.EntryApplicationID);
+    if (data.PinNumber != null) this.pinNumber = (data.PinNumber != null ? parseInt(data.PinNumber, 10) : data.PinNumber);
     if (data.Password != null) this.password = data.Password;
     if (data.PortalEmail != null) this.portalEmail = data.PortalEmail;
     if (data.PortalAuthProviderUserID != null) this.portalAuthProviderUserID = data.PortalAuthProviderUserID;
@@ -84,7 +84,7 @@ export class Entry {
     if (data.ConferenceEmail != null) this.conferenceEmail = data.ConferenceEmail;
     if (data.AgentPassword != null) this.agentPassword = data.AgentPassword;
     if (data.AgentPasswordResetGuid != null) this.agentPasswordResetGuid = data.AgentPasswordResetGuid;
-    if (data.AgentPasswordResetExpiryDate != null) this.agentPasswordResetExpiryDate = new Date(data.AgentPasswordResetExpiryDate);
+    if (data.AgentPasswordResetExpiryDate != null) this.agentPasswordResetExpiryDate = (data.AgentPasswordResetExpiryDate != null ? new Date(data.AgentPasswordResetExpiryDate) : data.AgentPasswordResetExpiryDate);
     if (data.NameLast != null) this.nameLast = data.NameLast;
     if (data.NameFirst != null) this.nameFirst = data.NameFirst;
     if (data.NameTitle != null) this.nameTitle = data.NameTitle;
@@ -96,29 +96,29 @@ export class Entry {
     if (data.GenderEnum != null) this.genderEnum = data.GenderEnum;
     if (data.Birth_GenderEnum != null) this.birth_GenderEnum = data.Birth_GenderEnum;
     if (data.DirectoryFlagPrivacy != null) this.directoryFlagPrivacy = data.DirectoryFlagPrivacy === 'true';
-    if (data.DOB != null) this.dOB = new Date(data.DOB);
+    if (data.DOB != null) this.dOB = (data.DOB != null ? new Date(data.DOB) : data.DOB);
     if (data.Position != null) this.position = data.Position;
     if (data.ID1 != null) this.iD1 = data.ID1;
     if (data.ID2 != null) this.iD2 = data.ID2;
     if (data.ID3 != null) this.iD3 = data.ID3;
-    if (data.ID4 != null) this.iD4 = parseInt(data.ID4, 10);
-    if (data.ID5 != null) this.iD5 = parseInt(data.ID5, 10);
+    if (data.ID4 != null) this.iD4 = (data.ID4 != null ? parseInt(data.ID4, 10) : data.ID4);
+    if (data.ID5 != null) this.iD5 = (data.ID5 != null ? parseInt(data.ID5, 10) : data.ID5);
     if (data.PhoneProcessToAccount != null) this.phoneProcessToAccount = data.PhoneProcessToAccount === 'true';
-    if (data.PhoneChargeTypeID != null) this.phoneChargeTypeID = parseInt(data.PhoneChargeTypeID, 10);
+    if (data.PhoneChargeTypeID != null) this.phoneChargeTypeID = (data.PhoneChargeTypeID != null ? parseInt(data.PhoneChargeTypeID, 10) : data.PhoneChargeTypeID);
     if (data.PhoneDisableValue != null) this.phoneDisableValue = data.PhoneDisableValue;
     if (data.PhoneRestrictValue != null) this.phoneRestrictValue = data.PhoneRestrictValue;
     if (data.PhoneControlEnum != null) this.phoneControlEnum = data.PhoneControlEnum;
     if (data.TaxExemptionEnum != null) this.taxExemptionEnum = data.TaxExemptionEnum;
-    if (data.LastCheckInOutDate != null) this.lastCheckInOutDate = new Date(data.LastCheckInOutDate);
+    if (data.LastCheckInOutDate != null) this.lastCheckInOutDate = (data.LastCheckInOutDate != null ? new Date(data.LastCheckInOutDate) : data.LastCheckInOutDate);
     if (data.Previous_EntryStatusEnum != null) this.previous_EntryStatusEnum = data.Previous_EntryStatusEnum;
     if (data.Testing != null) this.testing = data.Testing === 'true';
-    if (data.User_SecurityUserID != null) this.user_SecurityUserID = parseInt(data.User_SecurityUserID, 10);
-    if (data.SecurityUserID != null) this.securityUserID = parseInt(data.SecurityUserID, 10);
-    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = parseInt(data.CreatedBy_SecurityUserID, 10);
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
+    if (data.User_SecurityUserID != null) this.user_SecurityUserID = (data.User_SecurityUserID != null ? parseInt(data.User_SecurityUserID, 10) : data.User_SecurityUserID);
+    if (data.SecurityUserID != null) this.securityUserID = (data.SecurityUserID != null ? parseInt(data.SecurityUserID, 10) : data.SecurityUserID);
+    if (data.CreatedBy_SecurityUserID != null) this.createdBy_SecurityUserID = (data.CreatedBy_SecurityUserID != null ? parseInt(data.CreatedBy_SecurityUserID, 10) : data.CreatedBy_SecurityUserID);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
     if (data.EntryGUID != null) this.entryGUID = data.EntryGUID;
-    if (data.timestamp != null) this.timestamp = new Date(data.timestamp);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.timestamp != null) this.timestamp = (data.timestamp != null ? new Date(data.timestamp) : data.timestamp);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

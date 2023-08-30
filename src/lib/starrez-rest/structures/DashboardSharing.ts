@@ -17,10 +17,10 @@ export class DashboardSharing {
       throw new Error('Invalid XML');
     }
 
-    if (data.DashboardSharingID != null) this.dashboardSharingID = parseInt(data.DashboardSharingID, 10);
-    if (data.SecurityGroupID != null) this.securityGroupID = parseInt(data.SecurityGroupID, 10);
-    if (data.DashboardID != null) this.dashboardID = parseInt(data.DashboardID, 10);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DashboardSharingID != null) this.dashboardSharingID = (data.DashboardSharingID != null ? parseInt(data.DashboardSharingID, 10) : data.DashboardSharingID);
+    if (data.SecurityGroupID != null) this.securityGroupID = (data.SecurityGroupID != null ? parseInt(data.SecurityGroupID, 10) : data.SecurityGroupID);
+    if (data.DashboardID != null) this.dashboardID = (data.DashboardID != null ? parseInt(data.DashboardID, 10) : data.DashboardID);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

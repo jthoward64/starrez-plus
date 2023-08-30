@@ -22,15 +22,15 @@ export class SurveyQuestionResponse {
       throw new Error('Invalid XML');
     }
 
-    if (data.SurveyQuestionResponseID != null) this.surveyQuestionResponseID = parseInt(data.SurveyQuestionResponseID, 10);
-    if (data.SurveyResponseID != null) this.surveyResponseID = parseInt(data.SurveyResponseID, 10);
-    if (data.SurveyQuestionID != null) this.surveyQuestionID = parseInt(data.SurveyQuestionID, 10);
+    if (data.SurveyQuestionResponseID != null) this.surveyQuestionResponseID = (data.SurveyQuestionResponseID != null ? parseInt(data.SurveyQuestionResponseID, 10) : data.SurveyQuestionResponseID);
+    if (data.SurveyResponseID != null) this.surveyResponseID = (data.SurveyResponseID != null ? parseInt(data.SurveyResponseID, 10) : data.SurveyResponseID);
+    if (data.SurveyQuestionID != null) this.surveyQuestionID = (data.SurveyQuestionID != null ? parseInt(data.SurveyQuestionID, 10) : data.SurveyQuestionID);
     if (data.ValueString != null) this.valueString = data.ValueString;
-    if (data.ValueDate != null) this.valueDate = new Date(data.ValueDate);
+    if (data.ValueDate != null) this.valueDate = (data.ValueDate != null ? new Date(data.ValueDate) : data.ValueDate);
     if (data.ValueBoolean != null) this.valueBoolean = data.ValueBoolean === 'true';
-    if (data.ValueInteger != null) this.valueInteger = parseInt(data.ValueInteger, 10);
+    if (data.ValueInteger != null) this.valueInteger = (data.ValueInteger != null ? parseInt(data.ValueInteger, 10) : data.ValueInteger);
     if (data.ValueMoney != null) this.valueMoney = data.ValueMoney;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

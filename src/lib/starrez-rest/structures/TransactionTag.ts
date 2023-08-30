@@ -19,12 +19,12 @@ export class TransactionTag {
       throw new Error('Invalid XML');
     }
 
-    if (data.TransactionTagID != null) this.transactionTagID = parseInt(data.TransactionTagID, 10);
-    if (data.TransactionID != null) this.transactionID = parseInt(data.TransactionID, 10);
+    if (data.TransactionTagID != null) this.transactionTagID = (data.TransactionTagID != null ? parseInt(data.TransactionTagID, 10) : data.TransactionTagID);
+    if (data.TransactionID != null) this.transactionID = (data.TransactionID != null ? parseInt(data.TransactionID, 10) : data.TransactionID);
     if (data.TagType != null) this.tagType = data.TagType;
     if (data.Tag != null) this.tag = data.Tag;
-    if (data.DateCreated != null) this.dateCreated = new Date(data.DateCreated);
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateCreated != null) this.dateCreated = (data.DateCreated != null ? new Date(data.DateCreated) : data.DateCreated);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {

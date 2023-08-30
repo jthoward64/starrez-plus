@@ -18,11 +18,11 @@ export class Title {
       throw new Error('Invalid XML');
     }
 
-    if (data.TitleID != null) this.titleID = parseInt(data.TitleID, 10);
+    if (data.TitleID != null) this.titleID = (data.TitleID != null ? parseInt(data.TitleID, 10) : data.TitleID);
     if (data.Description != null) this.description = data.Description;
     if (data.UpdateGender != null) this.updateGender = data.UpdateGender === 'true';
     if (data.GenderEnum != null) this.genderEnum = data.GenderEnum;
-    if (data.DateModified != null) this.dateModified = new Date(data.DateModified);
+    if (data.DateModified != null) this.dateModified = (data.DateModified != null ? new Date(data.DateModified) : data.DateModified);
 
     const customFields = Object.entries(data).filter(([key, value]) => key.startsWith('Custom') && Boolean(value));
     if (customFields.length > 0) {
