@@ -13,6 +13,13 @@ const manifest: ManifestTypeV2 = {
     "128": "public/icon-128.png",
   },
   web_accessible_resources: ["public/*", "assets/*"],
+  permissions: [
+    "storage",
+    "activeTab",
+    "tabs",
+    "http://*/",
+    "https://*/"
+  ]
 };
 
 function getManifestV2(pageDirMap: { [x: string]: any }): ManifestTypeV2 {
