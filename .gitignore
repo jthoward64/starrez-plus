@@ -386,3 +386,5 @@ $RECYCLE.BIN/
 tmp
 
 /scripts/structure-generator/data
+
+/secret.txt

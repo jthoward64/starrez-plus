@@ -149,7 +149,7 @@ async function buildJSPage(name: string, entry: string, outdir: string, dev = fa
     bundle: true,
     outdir: resolve(outdir, name),
     sourcemap: dev,
-    minify: true,
+    minify: false,
     target: ["chrome58", "firefox57", "safari11", "edge18"],
     loader: {
       ".png": "dataurl",

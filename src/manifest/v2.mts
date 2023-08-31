@@ -18,7 +18,8 @@ const manifest: ManifestTypeV2 = {
     "activeTab",
     "tabs",
     "http://*/",
-    "https://*/"
+    "https://*/",
+    "scripting"
   ]
 };
 

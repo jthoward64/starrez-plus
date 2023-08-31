@@ -10,6 +10,4 @@ async function init() {
   render(<Popup />, rootContainer);
 }
 
-init().catch((err) => {
-  console.error(err);
-});
+init().catch(console.error);
