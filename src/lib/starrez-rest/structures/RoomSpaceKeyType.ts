@@ -37,15 +37,39 @@ export class RoomSpaceKeyType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceKeyType | null> {
+  /**
+   * Fetches a RoomSpaceKeyType by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomSpaceKeyType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomSpaceKeyType object or null (if id) or an array of RoomSpaceKeyType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceKeyType | null>;
+  static async select(param: Partial<Record<keyof RoomSpaceKeyType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpaceKeyType[]>;
+  static async select(param: number | Partial<Record<keyof RoomSpaceKeyType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpaceKeyType | RoomSpaceKeyType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceKeyType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceKeyType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceKeyType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomSpaceKeyType with id ${id}`);
+      throw new Error(`Failed to fetch RoomSpaceKeyType with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomSpaceKeyType(await response.text());
+      if (typeof param === 'number') {
+        return new RoomSpaceKeyType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomSpaceKeyType(entry));
+      }
     }
   }
 }

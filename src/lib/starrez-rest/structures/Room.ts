@@ -89,15 +89,39 @@ export class Room {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Room | null> {
+  /**
+   * Fetches a Room by its ID or by exact match on other fields.
+   * @param param Either the ID of the Room to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Room object or null (if id) or an array of Room objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Room | null>;
+  static async select(param: Partial<Record<keyof Room, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Room[]>;
+  static async select(param: number | Partial<Record<keyof Room, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Room | Room[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Room/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Room/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Room`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Room with id ${id}`);
+      throw new Error(`Failed to fetch Room with param ${JSON.stringify(param)}`);
     } else {
-      return new Room(await response.text());
+      if (typeof param === 'number') {
+        return new Room(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Room(entry));
+      }
     }
   }
 }

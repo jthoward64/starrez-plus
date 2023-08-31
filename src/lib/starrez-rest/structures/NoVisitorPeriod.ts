@@ -37,15 +37,39 @@ export class NoVisitorPeriod {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<NoVisitorPeriod | null> {
+  /**
+   * Fetches a NoVisitorPeriod by its ID or by exact match on other fields.
+   * @param param Either the ID of the NoVisitorPeriod to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single NoVisitorPeriod object or null (if id) or an array of NoVisitorPeriod objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<NoVisitorPeriod | null>;
+  static async select(param: Partial<Record<keyof NoVisitorPeriod, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<NoVisitorPeriod[]>;
+  static async select(param: number | Partial<Record<keyof NoVisitorPeriod, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<NoVisitorPeriod | NoVisitorPeriod[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/NoVisitorPeriod/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/NoVisitorPeriod/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/NoVisitorPeriod`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch NoVisitorPeriod with id ${id}`);
+      throw new Error(`Failed to fetch NoVisitorPeriod with param ${JSON.stringify(param)}`);
     } else {
-      return new NoVisitorPeriod(await response.text());
+      if (typeof param === 'number') {
+        return new NoVisitorPeriod(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new NoVisitorPeriod(entry));
+      }
     }
   }
 }

@@ -49,15 +49,39 @@ export class FieldDefault {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<FieldDefault | null> {
+  /**
+   * Fetches a FieldDefault by its ID or by exact match on other fields.
+   * @param param Either the ID of the FieldDefault to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single FieldDefault object or null (if id) or an array of FieldDefault objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<FieldDefault | null>;
+  static async select(param: Partial<Record<keyof FieldDefault, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<FieldDefault[]>;
+  static async select(param: number | Partial<Record<keyof FieldDefault, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<FieldDefault | FieldDefault[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FieldDefault/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FieldDefault/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FieldDefault`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch FieldDefault with id ${id}`);
+      throw new Error(`Failed to fetch FieldDefault with param ${JSON.stringify(param)}`);
     } else {
-      return new FieldDefault(await response.text());
+      if (typeof param === 'number') {
+        return new FieldDefault(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new FieldDefault(entry));
+      }
     }
   }
 }

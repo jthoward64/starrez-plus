@@ -27,15 +27,39 @@ export class Calendar {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Calendar | null> {
+  /**
+   * Fetches a Calendar by its ID or by exact match on other fields.
+   * @param param Either the ID of the Calendar to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Calendar object or null (if id) or an array of Calendar objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Calendar | null>;
+  static async select(param: Partial<Record<keyof Calendar, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Calendar[]>;
+  static async select(param: number | Partial<Record<keyof Calendar, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Calendar | Calendar[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Calendar/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Calendar/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Calendar`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Calendar with id ${id}`);
+      throw new Error(`Failed to fetch Calendar with param ${JSON.stringify(param)}`);
     } else {
-      return new Calendar(await response.text());
+      if (typeof param === 'number') {
+        return new Calendar(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Calendar(entry));
+      }
     }
   }
 }

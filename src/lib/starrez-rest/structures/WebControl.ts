@@ -45,15 +45,39 @@ export class WebControl {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<WebControl | null> {
+  /**
+   * Fetches a WebControl by its ID or by exact match on other fields.
+   * @param param Either the ID of the WebControl to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single WebControl object or null (if id) or an array of WebControl objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<WebControl | null>;
+  static async select(param: Partial<Record<keyof WebControl, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WebControl[]>;
+  static async select(param: number | Partial<Record<keyof WebControl, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WebControl | WebControl[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebControl/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebControl/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebControl`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch WebControl with id ${id}`);
+      throw new Error(`Failed to fetch WebControl with param ${JSON.stringify(param)}`);
     } else {
-      return new WebControl(await response.text());
+      if (typeof param === 'number') {
+        return new WebControl(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new WebControl(entry));
+      }
     }
   }
 }

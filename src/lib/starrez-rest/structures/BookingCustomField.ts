@@ -41,15 +41,39 @@ export class BookingCustomField {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<BookingCustomField | null> {
+  /**
+   * Fetches a BookingCustomField by its ID or by exact match on other fields.
+   * @param param Either the ID of the BookingCustomField to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single BookingCustomField object or null (if id) or an array of BookingCustomField objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<BookingCustomField | null>;
+  static async select(param: Partial<Record<keyof BookingCustomField, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<BookingCustomField[]>;
+  static async select(param: number | Partial<Record<keyof BookingCustomField, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<BookingCustomField | BookingCustomField[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/BookingCustomField/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/BookingCustomField/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/BookingCustomField`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch BookingCustomField with id ${id}`);
+      throw new Error(`Failed to fetch BookingCustomField with param ${JSON.stringify(param)}`);
     } else {
-      return new BookingCustomField(await response.text());
+      if (typeof param === 'number') {
+        return new BookingCustomField(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new BookingCustomField(entry));
+      }
     }
   }
 }

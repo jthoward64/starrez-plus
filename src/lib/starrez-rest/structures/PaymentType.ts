@@ -45,15 +45,39 @@ export class PaymentType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PaymentType | null> {
+  /**
+   * Fetches a PaymentType by its ID or by exact match on other fields.
+   * @param param Either the ID of the PaymentType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single PaymentType object or null (if id) or an array of PaymentType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<PaymentType | null>;
+  static async select(param: Partial<Record<keyof PaymentType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PaymentType[]>;
+  static async select(param: number | Partial<Record<keyof PaymentType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PaymentType | PaymentType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PaymentType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PaymentType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PaymentType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch PaymentType with id ${id}`);
+      throw new Error(`Failed to fetch PaymentType with param ${JSON.stringify(param)}`);
     } else {
-      return new PaymentType(await response.text());
+      if (typeof param === 'number') {
+        return new PaymentType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new PaymentType(entry));
+      }
     }
   }
 }

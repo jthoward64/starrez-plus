@@ -37,15 +37,39 @@ export class ReportSubReportLink {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ReportSubReportLink | null> {
+  /**
+   * Fetches a ReportSubReportLink by its ID or by exact match on other fields.
+   * @param param Either the ID of the ReportSubReportLink to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ReportSubReportLink object or null (if id) or an array of ReportSubReportLink objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ReportSubReportLink | null>;
+  static async select(param: Partial<Record<keyof ReportSubReportLink, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ReportSubReportLink[]>;
+  static async select(param: number | Partial<Record<keyof ReportSubReportLink, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ReportSubReportLink | ReportSubReportLink[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSubReportLink/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSubReportLink/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSubReportLink`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ReportSubReportLink with id ${id}`);
+      throw new Error(`Failed to fetch ReportSubReportLink with param ${JSON.stringify(param)}`);
     } else {
-      return new ReportSubReportLink(await response.text());
+      if (typeof param === 'number') {
+        return new ReportSubReportLink(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ReportSubReportLink(entry));
+      }
     }
   }
 }

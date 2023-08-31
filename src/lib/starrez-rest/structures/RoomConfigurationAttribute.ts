@@ -35,15 +35,39 @@ export class RoomConfigurationAttribute {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationAttribute | null> {
+  /**
+   * Fetches a RoomConfigurationAttribute by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomConfigurationAttribute to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomConfigurationAttribute object or null (if id) or an array of RoomConfigurationAttribute objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationAttribute | null>;
+  static async select(param: Partial<Record<keyof RoomConfigurationAttribute, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationAttribute[]>;
+  static async select(param: number | Partial<Record<keyof RoomConfigurationAttribute, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationAttribute | RoomConfigurationAttribute[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationAttribute/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationAttribute/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationAttribute`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomConfigurationAttribute with id ${id}`);
+      throw new Error(`Failed to fetch RoomConfigurationAttribute with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomConfigurationAttribute(await response.text());
+      if (typeof param === 'number') {
+        return new RoomConfigurationAttribute(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomConfigurationAttribute(entry));
+      }
     }
   }
 }

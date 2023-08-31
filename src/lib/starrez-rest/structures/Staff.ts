@@ -31,15 +31,39 @@ export class Staff {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Staff | null> {
+  /**
+   * Fetches a Staff by its ID or by exact match on other fields.
+   * @param param Either the ID of the Staff to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Staff object or null (if id) or an array of Staff objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Staff | null>;
+  static async select(param: Partial<Record<keyof Staff, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Staff[]>;
+  static async select(param: number | Partial<Record<keyof Staff, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Staff | Staff[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Staff/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Staff/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Staff`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Staff with id ${id}`);
+      throw new Error(`Failed to fetch Staff with param ${JSON.stringify(param)}`);
     } else {
-      return new Staff(await response.text());
+      if (typeof param === 'number') {
+        return new Staff(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Staff(entry));
+      }
     }
   }
 }

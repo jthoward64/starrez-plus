@@ -45,15 +45,39 @@ export class Term {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Term | null> {
+  /**
+   * Fetches a Term by its ID or by exact match on other fields.
+   * @param param Either the ID of the Term to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Term object or null (if id) or an array of Term objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Term | null>;
+  static async select(param: Partial<Record<keyof Term, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Term[]>;
+  static async select(param: number | Partial<Record<keyof Term, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Term | Term[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Term/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Term/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Term`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Term with id ${id}`);
+      throw new Error(`Failed to fetch Term with param ${JSON.stringify(param)}`);
     } else {
-      return new Term(await response.text());
+      if (typeof param === 'number') {
+        return new Term(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Term(entry));
+      }
     }
   }
 }

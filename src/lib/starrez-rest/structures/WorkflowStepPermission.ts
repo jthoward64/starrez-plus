@@ -31,15 +31,39 @@ export class WorkflowStepPermission {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<WorkflowStepPermission | null> {
+  /**
+   * Fetches a WorkflowStepPermission by its ID or by exact match on other fields.
+   * @param param Either the ID of the WorkflowStepPermission to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single WorkflowStepPermission object or null (if id) or an array of WorkflowStepPermission objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<WorkflowStepPermission | null>;
+  static async select(param: Partial<Record<keyof WorkflowStepPermission, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WorkflowStepPermission[]>;
+  static async select(param: number | Partial<Record<keyof WorkflowStepPermission, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WorkflowStepPermission | WorkflowStepPermission[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WorkflowStepPermission/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WorkflowStepPermission/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WorkflowStepPermission`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch WorkflowStepPermission with id ${id}`);
+      throw new Error(`Failed to fetch WorkflowStepPermission with param ${JSON.stringify(param)}`);
     } else {
-      return new WorkflowStepPermission(await response.text());
+      if (typeof param === 'number') {
+        return new WorkflowStepPermission(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new WorkflowStepPermission(entry));
+      }
     }
   }
 }

@@ -39,15 +39,39 @@ export class Total {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Total | null> {
+  /**
+   * Fetches a Total by its ID or by exact match on other fields.
+   * @param param Either the ID of the Total to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Total object or null (if id) or an array of Total objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Total | null>;
+  static async select(param: Partial<Record<keyof Total, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Total[]>;
+  static async select(param: number | Partial<Record<keyof Total, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Total | Total[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Total/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Total/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Total`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Total with id ${id}`);
+      throw new Error(`Failed to fetch Total with param ${JSON.stringify(param)}`);
     } else {
-      return new Total(await response.text());
+      if (typeof param === 'number') {
+        return new Total(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Total(entry));
+      }
     }
   }
 }

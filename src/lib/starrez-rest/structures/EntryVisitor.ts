@@ -65,15 +65,39 @@ export class EntryVisitor {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryVisitor | null> {
+  /**
+   * Fetches a EntryVisitor by its ID or by exact match on other fields.
+   * @param param Either the ID of the EntryVisitor to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EntryVisitor object or null (if id) or an array of EntryVisitor objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EntryVisitor | null>;
+  static async select(param: Partial<Record<keyof EntryVisitor, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryVisitor[]>;
+  static async select(param: number | Partial<Record<keyof EntryVisitor, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryVisitor | EntryVisitor[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryVisitor/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryVisitor/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryVisitor`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EntryVisitor with id ${id}`);
+      throw new Error(`Failed to fetch EntryVisitor with param ${JSON.stringify(param)}`);
     } else {
-      return new EntryVisitor(await response.text());
+      if (typeof param === 'number') {
+        return new EntryVisitor(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EntryVisitor(entry));
+      }
     }
   }
 }

@@ -65,15 +65,39 @@ export class RoomSpaceClosed {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceClosed | null> {
+  /**
+   * Fetches a RoomSpaceClosed by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomSpaceClosed to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomSpaceClosed object or null (if id) or an array of RoomSpaceClosed objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceClosed | null>;
+  static async select(param: Partial<Record<keyof RoomSpaceClosed, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpaceClosed[]>;
+  static async select(param: number | Partial<Record<keyof RoomSpaceClosed, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpaceClosed | RoomSpaceClosed[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceClosed/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceClosed/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceClosed`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomSpaceClosed with id ${id}`);
+      throw new Error(`Failed to fetch RoomSpaceClosed with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomSpaceClosed(await response.text());
+      if (typeof param === 'number') {
+        return new RoomSpaceClosed(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomSpaceClosed(entry));
+      }
     }
   }
 }

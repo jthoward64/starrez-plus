@@ -31,15 +31,39 @@ export class ReportSetting {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ReportSetting | null> {
+  /**
+   * Fetches a ReportSetting by its ID or by exact match on other fields.
+   * @param param Either the ID of the ReportSetting to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ReportSetting object or null (if id) or an array of ReportSetting objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ReportSetting | null>;
+  static async select(param: Partial<Record<keyof ReportSetting, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ReportSetting[]>;
+  static async select(param: number | Partial<Record<keyof ReportSetting, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ReportSetting | ReportSetting[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSetting/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSetting/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSetting`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ReportSetting with id ${id}`);
+      throw new Error(`Failed to fetch ReportSetting with param ${JSON.stringify(param)}`);
     } else {
-      return new ReportSetting(await response.text());
+      if (typeof param === 'number') {
+        return new ReportSetting(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ReportSetting(entry));
+      }
     }
   }
 }

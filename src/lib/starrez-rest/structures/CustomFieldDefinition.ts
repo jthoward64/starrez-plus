@@ -41,15 +41,39 @@ export class CustomFieldDefinition {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<CustomFieldDefinition | null> {
+  /**
+   * Fetches a CustomFieldDefinition by its ID or by exact match on other fields.
+   * @param param Either the ID of the CustomFieldDefinition to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single CustomFieldDefinition object or null (if id) or an array of CustomFieldDefinition objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<CustomFieldDefinition | null>;
+  static async select(param: Partial<Record<keyof CustomFieldDefinition, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<CustomFieldDefinition[]>;
+  static async select(param: number | Partial<Record<keyof CustomFieldDefinition, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<CustomFieldDefinition | CustomFieldDefinition[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CustomFieldDefinition/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CustomFieldDefinition/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CustomFieldDefinition`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch CustomFieldDefinition with id ${id}`);
+      throw new Error(`Failed to fetch CustomFieldDefinition with param ${JSON.stringify(param)}`);
     } else {
-      return new CustomFieldDefinition(await response.text());
+      if (typeof param === 'number') {
+        return new CustomFieldDefinition(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new CustomFieldDefinition(entry));
+      }
     }
   }
 }

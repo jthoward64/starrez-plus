@@ -31,15 +31,39 @@ export class IncidentActionType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentActionType | null> {
+  /**
+   * Fetches a IncidentActionType by its ID or by exact match on other fields.
+   * @param param Either the ID of the IncidentActionType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single IncidentActionType object or null (if id) or an array of IncidentActionType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<IncidentActionType | null>;
+  static async select(param: Partial<Record<keyof IncidentActionType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentActionType[]>;
+  static async select(param: number | Partial<Record<keyof IncidentActionType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentActionType | IncidentActionType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentActionType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentActionType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentActionType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch IncidentActionType with id ${id}`);
+      throw new Error(`Failed to fetch IncidentActionType with param ${JSON.stringify(param)}`);
     } else {
-      return new IncidentActionType(await response.text());
+      if (typeof param === 'number') {
+        return new IncidentActionType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new IncidentActionType(entry));
+      }
     }
   }
 }

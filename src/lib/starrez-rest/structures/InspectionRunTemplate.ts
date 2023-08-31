@@ -49,15 +49,39 @@ export class InspectionRunTemplate {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<InspectionRunTemplate | null> {
+  /**
+   * Fetches a InspectionRunTemplate by its ID or by exact match on other fields.
+   * @param param Either the ID of the InspectionRunTemplate to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single InspectionRunTemplate object or null (if id) or an array of InspectionRunTemplate objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<InspectionRunTemplate | null>;
+  static async select(param: Partial<Record<keyof InspectionRunTemplate, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<InspectionRunTemplate[]>;
+  static async select(param: number | Partial<Record<keyof InspectionRunTemplate, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<InspectionRunTemplate | InspectionRunTemplate[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/InspectionRunTemplate/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/InspectionRunTemplate/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/InspectionRunTemplate`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch InspectionRunTemplate with id ${id}`);
+      throw new Error(`Failed to fetch InspectionRunTemplate with param ${JSON.stringify(param)}`);
     } else {
-      return new InspectionRunTemplate(await response.text());
+      if (typeof param === 'number') {
+        return new InspectionRunTemplate(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new InspectionRunTemplate(entry));
+      }
     }
   }
 }

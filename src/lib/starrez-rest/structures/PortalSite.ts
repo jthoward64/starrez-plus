@@ -41,15 +41,39 @@ export class PortalSite {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PortalSite | null> {
+  /**
+   * Fetches a PortalSite by its ID or by exact match on other fields.
+   * @param param Either the ID of the PortalSite to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single PortalSite object or null (if id) or an array of PortalSite objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<PortalSite | null>;
+  static async select(param: Partial<Record<keyof PortalSite, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PortalSite[]>;
+  static async select(param: number | Partial<Record<keyof PortalSite, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PortalSite | PortalSite[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalSite/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalSite/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalSite`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch PortalSite with id ${id}`);
+      throw new Error(`Failed to fetch PortalSite with param ${JSON.stringify(param)}`);
     } else {
-      return new PortalSite(await response.text());
+      if (typeof param === 'number') {
+        return new PortalSite(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new PortalSite(entry));
+      }
     }
   }
 }

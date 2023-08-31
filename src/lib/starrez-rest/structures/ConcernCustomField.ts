@@ -41,15 +41,39 @@ export class ConcernCustomField {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ConcernCustomField | null> {
+  /**
+   * Fetches a ConcernCustomField by its ID or by exact match on other fields.
+   * @param param Either the ID of the ConcernCustomField to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ConcernCustomField object or null (if id) or an array of ConcernCustomField objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ConcernCustomField | null>;
+  static async select(param: Partial<Record<keyof ConcernCustomField, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ConcernCustomField[]>;
+  static async select(param: number | Partial<Record<keyof ConcernCustomField, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ConcernCustomField | ConcernCustomField[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ConcernCustomField/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ConcernCustomField/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ConcernCustomField`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ConcernCustomField with id ${id}`);
+      throw new Error(`Failed to fetch ConcernCustomField with param ${JSON.stringify(param)}`);
     } else {
-      return new ConcernCustomField(await response.text());
+      if (typeof param === 'number') {
+        return new ConcernCustomField(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ConcernCustomField(entry));
+      }
     }
   }
 }

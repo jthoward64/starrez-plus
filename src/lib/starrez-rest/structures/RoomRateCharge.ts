@@ -45,15 +45,39 @@ export class RoomRateCharge {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomRateCharge | null> {
+  /**
+   * Fetches a RoomRateCharge by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomRateCharge to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomRateCharge object or null (if id) or an array of RoomRateCharge objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomRateCharge | null>;
+  static async select(param: Partial<Record<keyof RoomRateCharge, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomRateCharge[]>;
+  static async select(param: number | Partial<Record<keyof RoomRateCharge, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomRateCharge | RoomRateCharge[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomRateCharge/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomRateCharge/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomRateCharge`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomRateCharge with id ${id}`);
+      throw new Error(`Failed to fetch RoomRateCharge with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomRateCharge(await response.text());
+      if (typeof param === 'number') {
+        return new RoomRateCharge(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomRateCharge(entry));
+      }
     }
   }
 }

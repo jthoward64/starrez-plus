@@ -33,15 +33,39 @@ export class Classification {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Classification | null> {
+  /**
+   * Fetches a Classification by its ID or by exact match on other fields.
+   * @param param Either the ID of the Classification to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Classification object or null (if id) or an array of Classification objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Classification | null>;
+  static async select(param: Partial<Record<keyof Classification, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Classification[]>;
+  static async select(param: number | Partial<Record<keyof Classification, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Classification | Classification[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Classification/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Classification/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Classification`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Classification with id ${id}`);
+      throw new Error(`Failed to fetch Classification with param ${JSON.stringify(param)}`);
     } else {
-      return new Classification(await response.text());
+      if (typeof param === 'number') {
+        return new Classification(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Classification(entry));
+      }
     }
   }
 }

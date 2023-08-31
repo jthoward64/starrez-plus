@@ -31,15 +31,39 @@ export class IncidentCleryGeography {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentCleryGeography | null> {
+  /**
+   * Fetches a IncidentCleryGeography by its ID or by exact match on other fields.
+   * @param param Either the ID of the IncidentCleryGeography to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single IncidentCleryGeography object or null (if id) or an array of IncidentCleryGeography objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<IncidentCleryGeography | null>;
+  static async select(param: Partial<Record<keyof IncidentCleryGeography, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentCleryGeography[]>;
+  static async select(param: number | Partial<Record<keyof IncidentCleryGeography, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentCleryGeography | IncidentCleryGeography[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentCleryGeography/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentCleryGeography/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentCleryGeography`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch IncidentCleryGeography with id ${id}`);
+      throw new Error(`Failed to fetch IncidentCleryGeography with param ${JSON.stringify(param)}`);
     } else {
-      return new IncidentCleryGeography(await response.text());
+      if (typeof param === 'number') {
+        return new IncidentCleryGeography(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new IncidentCleryGeography(entry));
+      }
     }
   }
 }

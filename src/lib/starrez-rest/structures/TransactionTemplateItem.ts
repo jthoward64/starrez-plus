@@ -49,15 +49,39 @@ export class TransactionTemplateItem {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<TransactionTemplateItem | null> {
+  /**
+   * Fetches a TransactionTemplateItem by its ID or by exact match on other fields.
+   * @param param Either the ID of the TransactionTemplateItem to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single TransactionTemplateItem object or null (if id) or an array of TransactionTemplateItem objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<TransactionTemplateItem | null>;
+  static async select(param: Partial<Record<keyof TransactionTemplateItem, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<TransactionTemplateItem[]>;
+  static async select(param: number | Partial<Record<keyof TransactionTemplateItem, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<TransactionTemplateItem | TransactionTemplateItem[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionTemplateItem/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionTemplateItem/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionTemplateItem`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch TransactionTemplateItem with id ${id}`);
+      throw new Error(`Failed to fetch TransactionTemplateItem with param ${JSON.stringify(param)}`);
     } else {
-      return new TransactionTemplateItem(await response.text());
+      if (typeof param === 'number') {
+        return new TransactionTemplateItem(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new TransactionTemplateItem(entry));
+      }
     }
   }
 }

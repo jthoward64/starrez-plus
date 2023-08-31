@@ -41,15 +41,39 @@ export class WaitList {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<WaitList | null> {
+  /**
+   * Fetches a WaitList by its ID or by exact match on other fields.
+   * @param param Either the ID of the WaitList to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single WaitList object or null (if id) or an array of WaitList objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<WaitList | null>;
+  static async select(param: Partial<Record<keyof WaitList, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WaitList[]>;
+  static async select(param: number | Partial<Record<keyof WaitList, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WaitList | WaitList[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WaitList/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WaitList/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WaitList`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch WaitList with id ${id}`);
+      throw new Error(`Failed to fetch WaitList with param ${JSON.stringify(param)}`);
     } else {
-      return new WaitList(await response.text());
+      if (typeof param === 'number') {
+        return new WaitList(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new WaitList(entry));
+      }
     }
   }
 }

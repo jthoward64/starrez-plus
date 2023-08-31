@@ -55,15 +55,39 @@ export class EntryCorrespondence {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryCorrespondence | null> {
+  /**
+   * Fetches a EntryCorrespondence by its ID or by exact match on other fields.
+   * @param param Either the ID of the EntryCorrespondence to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EntryCorrespondence object or null (if id) or an array of EntryCorrespondence objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EntryCorrespondence | null>;
+  static async select(param: Partial<Record<keyof EntryCorrespondence, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryCorrespondence[]>;
+  static async select(param: number | Partial<Record<keyof EntryCorrespondence, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryCorrespondence | EntryCorrespondence[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryCorrespondence/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryCorrespondence/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryCorrespondence`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EntryCorrespondence with id ${id}`);
+      throw new Error(`Failed to fetch EntryCorrespondence with param ${JSON.stringify(param)}`);
     } else {
-      return new EntryCorrespondence(await response.text());
+      if (typeof param === 'number') {
+        return new EntryCorrespondence(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EntryCorrespondence(entry));
+      }
     }
   }
 }

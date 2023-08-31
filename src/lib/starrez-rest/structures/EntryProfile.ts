@@ -35,15 +35,39 @@ export class EntryProfile {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryProfile | null> {
+  /**
+   * Fetches a EntryProfile by its ID or by exact match on other fields.
+   * @param param Either the ID of the EntryProfile to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EntryProfile object or null (if id) or an array of EntryProfile objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EntryProfile | null>;
+  static async select(param: Partial<Record<keyof EntryProfile, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryProfile[]>;
+  static async select(param: number | Partial<Record<keyof EntryProfile, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryProfile | EntryProfile[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryProfile/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryProfile/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryProfile`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EntryProfile with id ${id}`);
+      throw new Error(`Failed to fetch EntryProfile with param ${JSON.stringify(param)}`);
     } else {
-      return new EntryProfile(await response.text());
+      if (typeof param === 'number') {
+        return new EntryProfile(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EntryProfile(entry));
+      }
     }
   }
 }

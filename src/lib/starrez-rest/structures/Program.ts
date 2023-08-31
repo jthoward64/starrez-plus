@@ -115,15 +115,39 @@ export class Program {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Program | null> {
+  /**
+   * Fetches a Program by its ID or by exact match on other fields.
+   * @param param Either the ID of the Program to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Program object or null (if id) or an array of Program objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Program | null>;
+  static async select(param: Partial<Record<keyof Program, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Program[]>;
+  static async select(param: number | Partial<Record<keyof Program, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Program | Program[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Program/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Program/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Program`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Program with id ${id}`);
+      throw new Error(`Failed to fetch Program with param ${JSON.stringify(param)}`);
     } else {
-      return new Program(await response.text());
+      if (typeof param === 'number') {
+        return new Program(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Program(entry));
+      }
     }
   }
 }

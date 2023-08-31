@@ -75,15 +75,39 @@ export class Visitor {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Visitor | null> {
+  /**
+   * Fetches a Visitor by its ID or by exact match on other fields.
+   * @param param Either the ID of the Visitor to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Visitor object or null (if id) or an array of Visitor objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Visitor | null>;
+  static async select(param: Partial<Record<keyof Visitor, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Visitor[]>;
+  static async select(param: number | Partial<Record<keyof Visitor, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Visitor | Visitor[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Visitor/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Visitor/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Visitor`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Visitor with id ${id}`);
+      throw new Error(`Failed to fetch Visitor with param ${JSON.stringify(param)}`);
     } else {
-      return new Visitor(await response.text());
+      if (typeof param === 'number') {
+        return new Visitor(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Visitor(entry));
+      }
     }
   }
 }

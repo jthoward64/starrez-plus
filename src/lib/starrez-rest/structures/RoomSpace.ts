@@ -63,15 +63,39 @@ export class RoomSpace {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSpace | null> {
+  /**
+   * Fetches a RoomSpace by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomSpace to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomSpace object or null (if id) or an array of RoomSpace objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomSpace | null>;
+  static async select(param: Partial<Record<keyof RoomSpace, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpace[]>;
+  static async select(param: number | Partial<Record<keyof RoomSpace, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpace | RoomSpace[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpace/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpace/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpace`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomSpace with id ${id}`);
+      throw new Error(`Failed to fetch RoomSpace with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomSpace(await response.text());
+      if (typeof param === 'number') {
+        return new RoomSpace(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomSpace(entry));
+      }
     }
   }
 }

@@ -29,15 +29,39 @@ export class VMGroupMailBox {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<VMGroupMailBox | null> {
+  /**
+   * Fetches a VMGroupMailBox by its ID or by exact match on other fields.
+   * @param param Either the ID of the VMGroupMailBox to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single VMGroupMailBox object or null (if id) or an array of VMGroupMailBox objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<VMGroupMailBox | null>;
+  static async select(param: Partial<Record<keyof VMGroupMailBox, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<VMGroupMailBox[]>;
+  static async select(param: number | Partial<Record<keyof VMGroupMailBox, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<VMGroupMailBox | VMGroupMailBox[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/VMGroupMailBox/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/VMGroupMailBox/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/VMGroupMailBox`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch VMGroupMailBox with id ${id}`);
+      throw new Error(`Failed to fetch VMGroupMailBox with param ${JSON.stringify(param)}`);
     } else {
-      return new VMGroupMailBox(await response.text());
+      if (typeof param === 'number') {
+        return new VMGroupMailBox(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new VMGroupMailBox(entry));
+      }
     }
   }
 }

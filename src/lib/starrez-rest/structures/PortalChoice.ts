@@ -33,15 +33,39 @@ export class PortalChoice {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PortalChoice | null> {
+  /**
+   * Fetches a PortalChoice by its ID or by exact match on other fields.
+   * @param param Either the ID of the PortalChoice to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single PortalChoice object or null (if id) or an array of PortalChoice objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<PortalChoice | null>;
+  static async select(param: Partial<Record<keyof PortalChoice, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PortalChoice[]>;
+  static async select(param: number | Partial<Record<keyof PortalChoice, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PortalChoice | PortalChoice[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalChoice/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalChoice/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalChoice`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch PortalChoice with id ${id}`);
+      throw new Error(`Failed to fetch PortalChoice with param ${JSON.stringify(param)}`);
     } else {
-      return new PortalChoice(await response.text());
+      if (typeof param === 'number') {
+        return new PortalChoice(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new PortalChoice(entry));
+      }
     }
   }
 }

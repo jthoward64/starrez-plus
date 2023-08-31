@@ -53,15 +53,39 @@ export class EventRegistrationFee {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EventRegistrationFee | null> {
+  /**
+   * Fetches a EventRegistrationFee by its ID or by exact match on other fields.
+   * @param param Either the ID of the EventRegistrationFee to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EventRegistrationFee object or null (if id) or an array of EventRegistrationFee objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EventRegistrationFee | null>;
+  static async select(param: Partial<Record<keyof EventRegistrationFee, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EventRegistrationFee[]>;
+  static async select(param: number | Partial<Record<keyof EventRegistrationFee, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EventRegistrationFee | EventRegistrationFee[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EventRegistrationFee/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EventRegistrationFee/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EventRegistrationFee`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EventRegistrationFee with id ${id}`);
+      throw new Error(`Failed to fetch EventRegistrationFee with param ${JSON.stringify(param)}`);
     } else {
-      return new EventRegistrationFee(await response.text());
+      if (typeof param === 'number') {
+        return new EventRegistrationFee(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EventRegistrationFee(entry));
+      }
     }
   }
 }

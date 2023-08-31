@@ -31,15 +31,39 @@ export class FunctionType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<FunctionType | null> {
+  /**
+   * Fetches a FunctionType by its ID or by exact match on other fields.
+   * @param param Either the ID of the FunctionType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single FunctionType object or null (if id) or an array of FunctionType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<FunctionType | null>;
+  static async select(param: Partial<Record<keyof FunctionType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<FunctionType[]>;
+  static async select(param: number | Partial<Record<keyof FunctionType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<FunctionType | FunctionType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FunctionType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FunctionType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FunctionType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch FunctionType with id ${id}`);
+      throw new Error(`Failed to fetch FunctionType with param ${JSON.stringify(param)}`);
     } else {
-      return new FunctionType(await response.text());
+      if (typeof param === 'number') {
+        return new FunctionType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new FunctionType(entry));
+      }
     }
   }
 }

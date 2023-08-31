@@ -35,15 +35,39 @@ export class IncidentType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentType | null> {
+  /**
+   * Fetches a IncidentType by its ID or by exact match on other fields.
+   * @param param Either the ID of the IncidentType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single IncidentType object or null (if id) or an array of IncidentType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<IncidentType | null>;
+  static async select(param: Partial<Record<keyof IncidentType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentType[]>;
+  static async select(param: number | Partial<Record<keyof IncidentType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentType | IncidentType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch IncidentType with id ${id}`);
+      throw new Error(`Failed to fetch IncidentType with param ${JSON.stringify(param)}`);
     } else {
-      return new IncidentType(await response.text());
+      if (typeof param === 'number') {
+        return new IncidentType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new IncidentType(entry));
+      }
     }
   }
 }

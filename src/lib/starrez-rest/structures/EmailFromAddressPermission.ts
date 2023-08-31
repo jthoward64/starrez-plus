@@ -31,15 +31,39 @@ export class EmailFromAddressPermission {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EmailFromAddressPermission | null> {
+  /**
+   * Fetches a EmailFromAddressPermission by its ID or by exact match on other fields.
+   * @param param Either the ID of the EmailFromAddressPermission to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EmailFromAddressPermission object or null (if id) or an array of EmailFromAddressPermission objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EmailFromAddressPermission | null>;
+  static async select(param: Partial<Record<keyof EmailFromAddressPermission, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EmailFromAddressPermission[]>;
+  static async select(param: number | Partial<Record<keyof EmailFromAddressPermission, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EmailFromAddressPermission | EmailFromAddressPermission[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EmailFromAddressPermission/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EmailFromAddressPermission/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EmailFromAddressPermission`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EmailFromAddressPermission with id ${id}`);
+      throw new Error(`Failed to fetch EmailFromAddressPermission with param ${JSON.stringify(param)}`);
     } else {
-      return new EmailFromAddressPermission(await response.text());
+      if (typeof param === 'number') {
+        return new EmailFromAddressPermission(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EmailFromAddressPermission(entry));
+      }
     }
   }
 }

@@ -33,15 +33,39 @@ export class PromoCodeRecord {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PromoCodeRecord | null> {
+  /**
+   * Fetches a PromoCodeRecord by its ID or by exact match on other fields.
+   * @param param Either the ID of the PromoCodeRecord to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single PromoCodeRecord object or null (if id) or an array of PromoCodeRecord objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<PromoCodeRecord | null>;
+  static async select(param: Partial<Record<keyof PromoCodeRecord, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PromoCodeRecord[]>;
+  static async select(param: number | Partial<Record<keyof PromoCodeRecord, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PromoCodeRecord | PromoCodeRecord[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PromoCodeRecord/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PromoCodeRecord/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PromoCodeRecord`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch PromoCodeRecord with id ${id}`);
+      throw new Error(`Failed to fetch PromoCodeRecord with param ${JSON.stringify(param)}`);
     } else {
-      return new PromoCodeRecord(await response.text());
+      if (typeof param === 'number') {
+        return new PromoCodeRecord(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new PromoCodeRecord(entry));
+      }
     }
   }
 }

@@ -31,15 +31,39 @@ export class IncidentSanctionType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentSanctionType | null> {
+  /**
+   * Fetches a IncidentSanctionType by its ID or by exact match on other fields.
+   * @param param Either the ID of the IncidentSanctionType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single IncidentSanctionType object or null (if id) or an array of IncidentSanctionType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<IncidentSanctionType | null>;
+  static async select(param: Partial<Record<keyof IncidentSanctionType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentSanctionType[]>;
+  static async select(param: number | Partial<Record<keyof IncidentSanctionType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentSanctionType | IncidentSanctionType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentSanctionType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentSanctionType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentSanctionType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch IncidentSanctionType with id ${id}`);
+      throw new Error(`Failed to fetch IncidentSanctionType with param ${JSON.stringify(param)}`);
     } else {
-      return new IncidentSanctionType(await response.text());
+      if (typeof param === 'number') {
+        return new IncidentSanctionType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new IncidentSanctionType(entry));
+      }
     }
   }
 }

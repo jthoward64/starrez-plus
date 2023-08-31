@@ -35,15 +35,39 @@ export class GLPosting {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<GLPosting | null> {
+  /**
+   * Fetches a GLPosting by its ID or by exact match on other fields.
+   * @param param Either the ID of the GLPosting to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single GLPosting object or null (if id) or an array of GLPosting objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<GLPosting | null>;
+  static async select(param: Partial<Record<keyof GLPosting, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<GLPosting[]>;
+  static async select(param: number | Partial<Record<keyof GLPosting, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<GLPosting | GLPosting[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GLPosting/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GLPosting/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GLPosting`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch GLPosting with id ${id}`);
+      throw new Error(`Failed to fetch GLPosting with param ${JSON.stringify(param)}`);
     } else {
-      return new GLPosting(await response.text());
+      if (typeof param === 'number') {
+        return new GLPosting(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new GLPosting(entry));
+      }
     }
   }
 }

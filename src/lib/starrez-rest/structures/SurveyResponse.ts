@@ -35,15 +35,39 @@ export class SurveyResponse {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<SurveyResponse | null> {
+  /**
+   * Fetches a SurveyResponse by its ID or by exact match on other fields.
+   * @param param Either the ID of the SurveyResponse to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single SurveyResponse object or null (if id) or an array of SurveyResponse objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<SurveyResponse | null>;
+  static async select(param: Partial<Record<keyof SurveyResponse, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<SurveyResponse[]>;
+  static async select(param: number | Partial<Record<keyof SurveyResponse, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<SurveyResponse | SurveyResponse[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SurveyResponse/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SurveyResponse/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SurveyResponse`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch SurveyResponse with id ${id}`);
+      throw new Error(`Failed to fetch SurveyResponse with param ${JSON.stringify(param)}`);
     } else {
-      return new SurveyResponse(await response.text());
+      if (typeof param === 'number') {
+        return new SurveyResponse(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new SurveyResponse(entry));
+      }
     }
   }
 }

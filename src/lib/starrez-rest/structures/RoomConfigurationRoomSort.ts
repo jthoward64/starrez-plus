@@ -31,15 +31,39 @@ export class RoomConfigurationRoomSort {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationRoomSort | null> {
+  /**
+   * Fetches a RoomConfigurationRoomSort by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomConfigurationRoomSort to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomConfigurationRoomSort object or null (if id) or an array of RoomConfigurationRoomSort objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationRoomSort | null>;
+  static async select(param: Partial<Record<keyof RoomConfigurationRoomSort, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationRoomSort[]>;
+  static async select(param: number | Partial<Record<keyof RoomConfigurationRoomSort, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationRoomSort | RoomConfigurationRoomSort[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationRoomSort/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationRoomSort/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationRoomSort`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomConfigurationRoomSort with id ${id}`);
+      throw new Error(`Failed to fetch RoomConfigurationRoomSort with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomConfigurationRoomSort(await response.text());
+      if (typeof param === 'number') {
+        return new RoomConfigurationRoomSort(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomConfigurationRoomSort(entry));
+      }
     }
   }
 }

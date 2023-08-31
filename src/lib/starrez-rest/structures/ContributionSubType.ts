@@ -31,15 +31,39 @@ export class ContributionSubType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ContributionSubType | null> {
+  /**
+   * Fetches a ContributionSubType by its ID or by exact match on other fields.
+   * @param param Either the ID of the ContributionSubType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ContributionSubType object or null (if id) or an array of ContributionSubType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ContributionSubType | null>;
+  static async select(param: Partial<Record<keyof ContributionSubType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ContributionSubType[]>;
+  static async select(param: number | Partial<Record<keyof ContributionSubType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ContributionSubType | ContributionSubType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ContributionSubType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ContributionSubType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ContributionSubType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ContributionSubType with id ${id}`);
+      throw new Error(`Failed to fetch ContributionSubType with param ${JSON.stringify(param)}`);
     } else {
-      return new ContributionSubType(await response.text());
+      if (typeof param === 'number') {
+        return new ContributionSubType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ContributionSubType(entry));
+      }
     }
   }
 }

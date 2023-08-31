@@ -29,15 +29,39 @@ export class RoomConfigurationProfile {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationProfile | null> {
+  /**
+   * Fetches a RoomConfigurationProfile by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomConfigurationProfile to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomConfigurationProfile object or null (if id) or an array of RoomConfigurationProfile objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationProfile | null>;
+  static async select(param: Partial<Record<keyof RoomConfigurationProfile, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationProfile[]>;
+  static async select(param: number | Partial<Record<keyof RoomConfigurationProfile, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationProfile | RoomConfigurationProfile[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationProfile/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationProfile/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationProfile`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomConfigurationProfile with id ${id}`);
+      throw new Error(`Failed to fetch RoomConfigurationProfile with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomConfigurationProfile(await response.text());
+      if (typeof param === 'number') {
+        return new RoomConfigurationProfile(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomConfigurationProfile(entry));
+      }
     }
   }
 }

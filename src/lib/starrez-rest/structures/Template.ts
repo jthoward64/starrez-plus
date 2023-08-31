@@ -51,15 +51,39 @@ export class Template {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Template | null> {
+  /**
+   * Fetches a Template by its ID or by exact match on other fields.
+   * @param param Either the ID of the Template to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Template object or null (if id) or an array of Template objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Template | null>;
+  static async select(param: Partial<Record<keyof Template, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Template[]>;
+  static async select(param: number | Partial<Record<keyof Template, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Template | Template[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Template/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Template/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Template`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Template with id ${id}`);
+      throw new Error(`Failed to fetch Template with param ${JSON.stringify(param)}`);
     } else {
-      return new Template(await response.text());
+      if (typeof param === 'number') {
+        return new Template(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Template(entry));
+      }
     }
   }
 }

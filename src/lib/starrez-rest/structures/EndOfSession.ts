@@ -37,15 +37,39 @@ export class EndOfSession {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EndOfSession | null> {
+  /**
+   * Fetches a EndOfSession by its ID or by exact match on other fields.
+   * @param param Either the ID of the EndOfSession to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EndOfSession object or null (if id) or an array of EndOfSession objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EndOfSession | null>;
+  static async select(param: Partial<Record<keyof EndOfSession, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EndOfSession[]>;
+  static async select(param: number | Partial<Record<keyof EndOfSession, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EndOfSession | EndOfSession[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EndOfSession/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EndOfSession/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EndOfSession`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EndOfSession with id ${id}`);
+      throw new Error(`Failed to fetch EndOfSession with param ${JSON.stringify(param)}`);
     } else {
-      return new EndOfSession(await response.text());
+      if (typeof param === 'number') {
+        return new EndOfSession(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EndOfSession(entry));
+      }
     }
   }
 }

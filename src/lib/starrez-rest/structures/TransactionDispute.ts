@@ -35,15 +35,39 @@ export class TransactionDispute {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<TransactionDispute | null> {
+  /**
+   * Fetches a TransactionDispute by its ID or by exact match on other fields.
+   * @param param Either the ID of the TransactionDispute to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single TransactionDispute object or null (if id) or an array of TransactionDispute objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<TransactionDispute | null>;
+  static async select(param: Partial<Record<keyof TransactionDispute, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<TransactionDispute[]>;
+  static async select(param: number | Partial<Record<keyof TransactionDispute, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<TransactionDispute | TransactionDispute[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionDispute/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionDispute/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionDispute`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch TransactionDispute with id ${id}`);
+      throw new Error(`Failed to fetch TransactionDispute with param ${JSON.stringify(param)}`);
     } else {
-      return new TransactionDispute(await response.text());
+      if (typeof param === 'number') {
+        return new TransactionDispute(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new TransactionDispute(entry));
+      }
     }
   }
 }

@@ -35,15 +35,39 @@ export class ElectronicIdentityType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ElectronicIdentityType | null> {
+  /**
+   * Fetches a ElectronicIdentityType by its ID or by exact match on other fields.
+   * @param param Either the ID of the ElectronicIdentityType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ElectronicIdentityType object or null (if id) or an array of ElectronicIdentityType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ElectronicIdentityType | null>;
+  static async select(param: Partial<Record<keyof ElectronicIdentityType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ElectronicIdentityType[]>;
+  static async select(param: number | Partial<Record<keyof ElectronicIdentityType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ElectronicIdentityType | ElectronicIdentityType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ElectronicIdentityType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ElectronicIdentityType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ElectronicIdentityType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ElectronicIdentityType with id ${id}`);
+      throw new Error(`Failed to fetch ElectronicIdentityType with param ${JSON.stringify(param)}`);
     } else {
-      return new ElectronicIdentityType(await response.text());
+      if (typeof param === 'number') {
+        return new ElectronicIdentityType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ElectronicIdentityType(entry));
+      }
     }
   }
 }

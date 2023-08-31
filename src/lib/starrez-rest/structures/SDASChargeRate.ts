@@ -49,15 +49,39 @@ export class SDASChargeRate {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<SDASChargeRate | null> {
+  /**
+   * Fetches a SDASChargeRate by its ID or by exact match on other fields.
+   * @param param Either the ID of the SDASChargeRate to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single SDASChargeRate object or null (if id) or an array of SDASChargeRate objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<SDASChargeRate | null>;
+  static async select(param: Partial<Record<keyof SDASChargeRate, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<SDASChargeRate[]>;
+  static async select(param: number | Partial<Record<keyof SDASChargeRate, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<SDASChargeRate | SDASChargeRate[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SDASChargeRate/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SDASChargeRate/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SDASChargeRate`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch SDASChargeRate with id ${id}`);
+      throw new Error(`Failed to fetch SDASChargeRate with param ${JSON.stringify(param)}`);
     } else {
-      return new SDASChargeRate(await response.text());
+      if (typeof param === 'number') {
+        return new SDASChargeRate(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new SDASChargeRate(entry));
+      }
     }
   }
 }

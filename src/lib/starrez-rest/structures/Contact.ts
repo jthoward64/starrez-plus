@@ -89,15 +89,39 @@ export class Contact {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Contact | null> {
+  /**
+   * Fetches a Contact by its ID or by exact match on other fields.
+   * @param param Either the ID of the Contact to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Contact object or null (if id) or an array of Contact objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Contact | null>;
+  static async select(param: Partial<Record<keyof Contact, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Contact[]>;
+  static async select(param: number | Partial<Record<keyof Contact, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Contact | Contact[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Contact/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Contact/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Contact`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Contact with id ${id}`);
+      throw new Error(`Failed to fetch Contact with param ${JSON.stringify(param)}`);
     } else {
-      return new Contact(await response.text());
+      if (typeof param === 'number') {
+        return new Contact(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Contact(entry));
+      }
     }
   }
 }

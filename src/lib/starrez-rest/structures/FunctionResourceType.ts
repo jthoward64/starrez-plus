@@ -39,15 +39,39 @@ export class FunctionResourceType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<FunctionResourceType | null> {
+  /**
+   * Fetches a FunctionResourceType by its ID or by exact match on other fields.
+   * @param param Either the ID of the FunctionResourceType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single FunctionResourceType object or null (if id) or an array of FunctionResourceType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<FunctionResourceType | null>;
+  static async select(param: Partial<Record<keyof FunctionResourceType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<FunctionResourceType[]>;
+  static async select(param: number | Partial<Record<keyof FunctionResourceType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<FunctionResourceType | FunctionResourceType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FunctionResourceType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FunctionResourceType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FunctionResourceType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch FunctionResourceType with id ${id}`);
+      throw new Error(`Failed to fetch FunctionResourceType with param ${JSON.stringify(param)}`);
     } else {
-      return new FunctionResourceType(await response.text());
+      if (typeof param === 'number') {
+        return new FunctionResourceType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new FunctionResourceType(entry));
+      }
     }
   }
 }

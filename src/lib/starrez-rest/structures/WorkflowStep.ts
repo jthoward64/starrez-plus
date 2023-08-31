@@ -47,15 +47,39 @@ export class WorkflowStep {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<WorkflowStep | null> {
+  /**
+   * Fetches a WorkflowStep by its ID or by exact match on other fields.
+   * @param param Either the ID of the WorkflowStep to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single WorkflowStep object or null (if id) or an array of WorkflowStep objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<WorkflowStep | null>;
+  static async select(param: Partial<Record<keyof WorkflowStep, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WorkflowStep[]>;
+  static async select(param: number | Partial<Record<keyof WorkflowStep, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WorkflowStep | WorkflowStep[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WorkflowStep/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WorkflowStep/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WorkflowStep`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch WorkflowStep with id ${id}`);
+      throw new Error(`Failed to fetch WorkflowStep with param ${JSON.stringify(param)}`);
     } else {
-      return new WorkflowStep(await response.text());
+      if (typeof param === 'number') {
+        return new WorkflowStep(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new WorkflowStep(entry));
+      }
     }
   }
 }

@@ -127,15 +127,39 @@ export class Entry {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Entry | null> {
+  /**
+   * Fetches a Entry by its ID or by exact match on other fields.
+   * @param param Either the ID of the Entry to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Entry object or null (if id) or an array of Entry objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Entry | null>;
+  static async select(param: Partial<Record<keyof Entry, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Entry[]>;
+  static async select(param: number | Partial<Record<keyof Entry, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Entry | Entry[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Entry/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Entry/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Entry`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Entry with id ${id}`);
+      throw new Error(`Failed to fetch Entry with param ${JSON.stringify(param)}`);
     } else {
-      return new Entry(await response.text());
+      if (typeof param === 'number') {
+        return new Entry(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Entry(entry));
+      }
     }
   }
 }

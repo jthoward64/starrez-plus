@@ -37,15 +37,39 @@ export class RefundRequestBreakUp {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RefundRequestBreakUp | null> {
+  /**
+   * Fetches a RefundRequestBreakUp by its ID or by exact match on other fields.
+   * @param param Either the ID of the RefundRequestBreakUp to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RefundRequestBreakUp object or null (if id) or an array of RefundRequestBreakUp objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RefundRequestBreakUp | null>;
+  static async select(param: Partial<Record<keyof RefundRequestBreakUp, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RefundRequestBreakUp[]>;
+  static async select(param: number | Partial<Record<keyof RefundRequestBreakUp, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RefundRequestBreakUp | RefundRequestBreakUp[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RefundRequestBreakUp/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RefundRequestBreakUp/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RefundRequestBreakUp`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RefundRequestBreakUp with id ${id}`);
+      throw new Error(`Failed to fetch RefundRequestBreakUp with param ${JSON.stringify(param)}`);
     } else {
-      return new RefundRequestBreakUp(await response.text());
+      if (typeof param === 'number') {
+        return new RefundRequestBreakUp(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RefundRequestBreakUp(entry));
+      }
     }
   }
 }

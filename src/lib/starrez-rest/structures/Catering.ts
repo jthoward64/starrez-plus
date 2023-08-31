@@ -47,15 +47,39 @@ export class Catering {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Catering | null> {
+  /**
+   * Fetches a Catering by its ID or by exact match on other fields.
+   * @param param Either the ID of the Catering to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Catering object or null (if id) or an array of Catering objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Catering | null>;
+  static async select(param: Partial<Record<keyof Catering, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Catering[]>;
+  static async select(param: number | Partial<Record<keyof Catering, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Catering | Catering[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Catering/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Catering/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Catering`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Catering with id ${id}`);
+      throw new Error(`Failed to fetch Catering with param ${JSON.stringify(param)}`);
     } else {
-      return new Catering(await response.text());
+      if (typeof param === 'number') {
+        return new Catering(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Catering(entry));
+      }
     }
   }
 }

@@ -35,15 +35,39 @@ export class GroupRoomSpace {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<GroupRoomSpace | null> {
+  /**
+   * Fetches a GroupRoomSpace by its ID or by exact match on other fields.
+   * @param param Either the ID of the GroupRoomSpace to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single GroupRoomSpace object or null (if id) or an array of GroupRoomSpace objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<GroupRoomSpace | null>;
+  static async select(param: Partial<Record<keyof GroupRoomSpace, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<GroupRoomSpace[]>;
+  static async select(param: number | Partial<Record<keyof GroupRoomSpace, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<GroupRoomSpace | GroupRoomSpace[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupRoomSpace/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupRoomSpace/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupRoomSpace`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch GroupRoomSpace with id ${id}`);
+      throw new Error(`Failed to fetch GroupRoomSpace with param ${JSON.stringify(param)}`);
     } else {
-      return new GroupRoomSpace(await response.text());
+      if (typeof param === 'number') {
+        return new GroupRoomSpace(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new GroupRoomSpace(entry));
+      }
     }
   }
 }

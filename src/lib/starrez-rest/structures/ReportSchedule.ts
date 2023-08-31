@@ -65,15 +65,39 @@ export class ReportSchedule {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ReportSchedule | null> {
+  /**
+   * Fetches a ReportSchedule by its ID or by exact match on other fields.
+   * @param param Either the ID of the ReportSchedule to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ReportSchedule object or null (if id) or an array of ReportSchedule objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ReportSchedule | null>;
+  static async select(param: Partial<Record<keyof ReportSchedule, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ReportSchedule[]>;
+  static async select(param: number | Partial<Record<keyof ReportSchedule, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ReportSchedule | ReportSchedule[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSchedule/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSchedule/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportSchedule`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ReportSchedule with id ${id}`);
+      throw new Error(`Failed to fetch ReportSchedule with param ${JSON.stringify(param)}`);
     } else {
-      return new ReportSchedule(await response.text());
+      if (typeof param === 'number') {
+        return new ReportSchedule(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ReportSchedule(entry));
+      }
     }
   }
 }

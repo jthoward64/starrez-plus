@@ -37,15 +37,39 @@ export class WebSectionTextBlock {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<WebSectionTextBlock | null> {
+  /**
+   * Fetches a WebSectionTextBlock by its ID or by exact match on other fields.
+   * @param param Either the ID of the WebSectionTextBlock to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single WebSectionTextBlock object or null (if id) or an array of WebSectionTextBlock objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<WebSectionTextBlock | null>;
+  static async select(param: Partial<Record<keyof WebSectionTextBlock, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WebSectionTextBlock[]>;
+  static async select(param: number | Partial<Record<keyof WebSectionTextBlock, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WebSectionTextBlock | WebSectionTextBlock[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebSectionTextBlock/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebSectionTextBlock/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebSectionTextBlock`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch WebSectionTextBlock with id ${id}`);
+      throw new Error(`Failed to fetch WebSectionTextBlock with param ${JSON.stringify(param)}`);
     } else {
-      return new WebSectionTextBlock(await response.text());
+      if (typeof param === 'number') {
+        return new WebSectionTextBlock(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new WebSectionTextBlock(entry));
+      }
     }
   }
 }

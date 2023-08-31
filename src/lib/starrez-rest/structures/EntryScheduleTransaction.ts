@@ -59,15 +59,39 @@ export class EntryScheduleTransaction {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryScheduleTransaction | null> {
+  /**
+   * Fetches a EntryScheduleTransaction by its ID or by exact match on other fields.
+   * @param param Either the ID of the EntryScheduleTransaction to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EntryScheduleTransaction object or null (if id) or an array of EntryScheduleTransaction objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EntryScheduleTransaction | null>;
+  static async select(param: Partial<Record<keyof EntryScheduleTransaction, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryScheduleTransaction[]>;
+  static async select(param: number | Partial<Record<keyof EntryScheduleTransaction, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntryScheduleTransaction | EntryScheduleTransaction[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryScheduleTransaction/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryScheduleTransaction/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryScheduleTransaction`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EntryScheduleTransaction with id ${id}`);
+      throw new Error(`Failed to fetch EntryScheduleTransaction with param ${JSON.stringify(param)}`);
     } else {
-      return new EntryScheduleTransaction(await response.text());
+      if (typeof param === 'number') {
+        return new EntryScheduleTransaction(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EntryScheduleTransaction(entry));
+      }
     }
   }
 }

@@ -47,15 +47,39 @@ ${tableName} satisfies StarRezStructureStatic<${tableName}>
 }
 
 function generateIdFetchText(tableName) {
-  return `static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<${tableName} | null> {
+  return `/**
+   * Fetches a ${tableName} by its ID or by exact match on other fields.
+   * @param param Either the ID of the ${tableName} to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ${tableName} object or null (if id) or an array of ${tableName} objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<${tableName} | null>;
+  static async select(param: Partial<Record<keyof ${tableName}, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<${tableName}[]>;
+  static async select(param: number | Partial<Record<keyof ${tableName}, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<${tableName} | ${tableName}[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = \`\${fetchUrl.pathname}/services/select/${tableName}/\${id}\`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = \`\${fetchUrl.pathname}/services/select/${tableName}/\${param}\`;
+    } else {
+      fetchUrl.pathname = \`\${fetchUrl.pathname}/services/select/${tableName}\`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(\`Failed to fetch ${tableName} with id \${id}\`);
+      throw new Error(\`Failed to fetch ${tableName} with param \${JSON.stringify(param)}\`);
     } else {
-      return new ${tableName}(await response.text());
+      if (typeof param === 'number') {
+        return new ${tableName}(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ${tableName}(entry));
+      }
     }
   }`
 }

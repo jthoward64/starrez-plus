@@ -49,15 +49,39 @@ export class EventMealPlan {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EventMealPlan | null> {
+  /**
+   * Fetches a EventMealPlan by its ID or by exact match on other fields.
+   * @param param Either the ID of the EventMealPlan to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EventMealPlan object or null (if id) or an array of EventMealPlan objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EventMealPlan | null>;
+  static async select(param: Partial<Record<keyof EventMealPlan, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EventMealPlan[]>;
+  static async select(param: number | Partial<Record<keyof EventMealPlan, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EventMealPlan | EventMealPlan[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EventMealPlan/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EventMealPlan/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EventMealPlan`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EventMealPlan with id ${id}`);
+      throw new Error(`Failed to fetch EventMealPlan with param ${JSON.stringify(param)}`);
     } else {
-      return new EventMealPlan(await response.text());
+      if (typeof param === 'number') {
+        return new EventMealPlan(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EventMealPlan(entry));
+      }
     }
   }
 }

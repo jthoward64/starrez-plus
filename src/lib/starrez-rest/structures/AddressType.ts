@@ -33,15 +33,39 @@ export class AddressType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<AddressType | null> {
+  /**
+   * Fetches a AddressType by its ID or by exact match on other fields.
+   * @param param Either the ID of the AddressType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single AddressType object or null (if id) or an array of AddressType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<AddressType | null>;
+  static async select(param: Partial<Record<keyof AddressType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<AddressType[]>;
+  static async select(param: number | Partial<Record<keyof AddressType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<AddressType | AddressType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/AddressType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/AddressType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/AddressType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch AddressType with id ${id}`);
+      throw new Error(`Failed to fetch AddressType with param ${JSON.stringify(param)}`);
     } else {
-      return new AddressType(await response.text());
+      if (typeof param === 'number') {
+        return new AddressType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new AddressType(entry));
+      }
     }
   }
 }

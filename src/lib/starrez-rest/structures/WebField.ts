@@ -83,15 +83,39 @@ export class WebField {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<WebField | null> {
+  /**
+   * Fetches a WebField by its ID or by exact match on other fields.
+   * @param param Either the ID of the WebField to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single WebField object or null (if id) or an array of WebField objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<WebField | null>;
+  static async select(param: Partial<Record<keyof WebField, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WebField[]>;
+  static async select(param: number | Partial<Record<keyof WebField, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<WebField | WebField[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebField/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebField/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/WebField`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch WebField with id ${id}`);
+      throw new Error(`Failed to fetch WebField with param ${JSON.stringify(param)}`);
     } else {
-      return new WebField(await response.text());
+      if (typeof param === 'number') {
+        return new WebField(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new WebField(entry));
+      }
     }
   }
 }

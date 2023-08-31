@@ -31,15 +31,39 @@ export class TransactionLink {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<TransactionLink | null> {
+  /**
+   * Fetches a TransactionLink by its ID or by exact match on other fields.
+   * @param param Either the ID of the TransactionLink to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single TransactionLink object or null (if id) or an array of TransactionLink objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<TransactionLink | null>;
+  static async select(param: Partial<Record<keyof TransactionLink, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<TransactionLink[]>;
+  static async select(param: number | Partial<Record<keyof TransactionLink, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<TransactionLink | TransactionLink[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionLink/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionLink/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TransactionLink`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch TransactionLink with id ${id}`);
+      throw new Error(`Failed to fetch TransactionLink with param ${JSON.stringify(param)}`);
     } else {
-      return new TransactionLink(await response.text());
+      if (typeof param === 'number') {
+        return new TransactionLink(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new TransactionLink(entry));
+      }
     }
   }
 }

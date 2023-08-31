@@ -33,15 +33,39 @@ export class PromoCodeUsage {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PromoCodeUsage | null> {
+  /**
+   * Fetches a PromoCodeUsage by its ID or by exact match on other fields.
+   * @param param Either the ID of the PromoCodeUsage to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single PromoCodeUsage object or null (if id) or an array of PromoCodeUsage objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<PromoCodeUsage | null>;
+  static async select(param: Partial<Record<keyof PromoCodeUsage, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PromoCodeUsage[]>;
+  static async select(param: number | Partial<Record<keyof PromoCodeUsage, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PromoCodeUsage | PromoCodeUsage[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PromoCodeUsage/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PromoCodeUsage/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PromoCodeUsage`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch PromoCodeUsage with id ${id}`);
+      throw new Error(`Failed to fetch PromoCodeUsage with param ${JSON.stringify(param)}`);
     } else {
-      return new PromoCodeUsage(await response.text());
+      if (typeof param === 'number') {
+        return new PromoCodeUsage(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new PromoCodeUsage(entry));
+      }
     }
   }
 }

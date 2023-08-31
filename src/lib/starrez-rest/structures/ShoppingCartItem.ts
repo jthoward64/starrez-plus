@@ -83,15 +83,39 @@ export class ShoppingCartItem {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ShoppingCartItem | null> {
+  /**
+   * Fetches a ShoppingCartItem by its ID or by exact match on other fields.
+   * @param param Either the ID of the ShoppingCartItem to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ShoppingCartItem object or null (if id) or an array of ShoppingCartItem objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ShoppingCartItem | null>;
+  static async select(param: Partial<Record<keyof ShoppingCartItem, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ShoppingCartItem[]>;
+  static async select(param: number | Partial<Record<keyof ShoppingCartItem, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ShoppingCartItem | ShoppingCartItem[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ShoppingCartItem/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ShoppingCartItem/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ShoppingCartItem`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ShoppingCartItem with id ${id}`);
+      throw new Error(`Failed to fetch ShoppingCartItem with param ${JSON.stringify(param)}`);
     } else {
-      return new ShoppingCartItem(await response.text());
+      if (typeof param === 'number') {
+        return new ShoppingCartItem(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ShoppingCartItem(entry));
+      }
     }
   }
 }

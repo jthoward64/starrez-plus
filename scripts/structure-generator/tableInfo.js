@@ -1,5 +1,5 @@
 import { parseStringPromise } from "xml2js";
-import fs from "fs/promises";
+import fs, { readFile } from "fs/promises";
 
 // Dirname
 import { dirname, join } from "path";
@@ -8,7 +8,7 @@ export const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const fetchOpts = {
   headers: {
-    Authorization: "Basic " + btoa("jtho264:Eduroam 5uck5"),
+    Authorization: "Bearer " + await readFile(join(__dirname, "..","..", "secret.txt")),
   },
 };
 

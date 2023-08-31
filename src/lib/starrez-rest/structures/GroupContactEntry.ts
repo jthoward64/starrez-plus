@@ -33,15 +33,39 @@ export class GroupContactEntry {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<GroupContactEntry | null> {
+  /**
+   * Fetches a GroupContactEntry by its ID or by exact match on other fields.
+   * @param param Either the ID of the GroupContactEntry to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single GroupContactEntry object or null (if id) or an array of GroupContactEntry objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<GroupContactEntry | null>;
+  static async select(param: Partial<Record<keyof GroupContactEntry, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<GroupContactEntry[]>;
+  static async select(param: number | Partial<Record<keyof GroupContactEntry, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<GroupContactEntry | GroupContactEntry[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupContactEntry/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupContactEntry/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupContactEntry`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch GroupContactEntry with id ${id}`);
+      throw new Error(`Failed to fetch GroupContactEntry with param ${JSON.stringify(param)}`);
     } else {
-      return new GroupContactEntry(await response.text());
+      if (typeof param === 'number') {
+        return new GroupContactEntry(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new GroupContactEntry(entry));
+      }
     }
   }
 }

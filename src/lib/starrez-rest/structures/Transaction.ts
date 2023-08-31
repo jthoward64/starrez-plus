@@ -89,15 +89,39 @@ export class Transaction {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Transaction | null> {
+  /**
+   * Fetches a Transaction by its ID or by exact match on other fields.
+   * @param param Either the ID of the Transaction to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single Transaction object or null (if id) or an array of Transaction objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<Transaction | null>;
+  static async select(param: Partial<Record<keyof Transaction, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Transaction[]>;
+  static async select(param: number | Partial<Record<keyof Transaction, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<Transaction | Transaction[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Transaction/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Transaction/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Transaction`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch Transaction with id ${id}`);
+      throw new Error(`Failed to fetch Transaction with param ${JSON.stringify(param)}`);
     } else {
-      return new Transaction(await response.text());
+      if (typeof param === 'number') {
+        return new Transaction(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new Transaction(entry));
+      }
     }
   }
 }

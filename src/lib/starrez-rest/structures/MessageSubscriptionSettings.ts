@@ -35,15 +35,39 @@ export class MessageSubscriptionSettings {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<MessageSubscriptionSettings | null> {
+  /**
+   * Fetches a MessageSubscriptionSettings by its ID or by exact match on other fields.
+   * @param param Either the ID of the MessageSubscriptionSettings to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single MessageSubscriptionSettings object or null (if id) or an array of MessageSubscriptionSettings objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<MessageSubscriptionSettings | null>;
+  static async select(param: Partial<Record<keyof MessageSubscriptionSettings, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<MessageSubscriptionSettings[]>;
+  static async select(param: number | Partial<Record<keyof MessageSubscriptionSettings, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<MessageSubscriptionSettings | MessageSubscriptionSettings[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageSubscriptionSettings/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageSubscriptionSettings/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageSubscriptionSettings`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch MessageSubscriptionSettings with id ${id}`);
+      throw new Error(`Failed to fetch MessageSubscriptionSettings with param ${JSON.stringify(param)}`);
     } else {
-      return new MessageSubscriptionSettings(await response.text());
+      if (typeof param === 'number') {
+        return new MessageSubscriptionSettings(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new MessageSubscriptionSettings(entry));
+      }
     }
   }
 }

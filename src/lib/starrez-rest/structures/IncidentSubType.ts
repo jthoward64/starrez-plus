@@ -41,15 +41,39 @@ export class IncidentSubType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentSubType | null> {
+  /**
+   * Fetches a IncidentSubType by its ID or by exact match on other fields.
+   * @param param Either the ID of the IncidentSubType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single IncidentSubType object or null (if id) or an array of IncidentSubType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<IncidentSubType | null>;
+  static async select(param: Partial<Record<keyof IncidentSubType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentSubType[]>;
+  static async select(param: number | Partial<Record<keyof IncidentSubType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<IncidentSubType | IncidentSubType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentSubType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentSubType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentSubType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch IncidentSubType with id ${id}`);
+      throw new Error(`Failed to fetch IncidentSubType with param ${JSON.stringify(param)}`);
     } else {
-      return new IncidentSubType(await response.text());
+      if (typeof param === 'number') {
+        return new IncidentSubType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new IncidentSubType(entry));
+      }
     }
   }
 }

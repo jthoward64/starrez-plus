@@ -33,15 +33,39 @@ export class RoomSpaceMaintenanceMaterials {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceMaintenanceMaterials | null> {
+  /**
+   * Fetches a RoomSpaceMaintenanceMaterials by its ID or by exact match on other fields.
+   * @param param Either the ID of the RoomSpaceMaintenanceMaterials to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single RoomSpaceMaintenanceMaterials object or null (if id) or an array of RoomSpaceMaintenanceMaterials objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceMaintenanceMaterials | null>;
+  static async select(param: Partial<Record<keyof RoomSpaceMaintenanceMaterials, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpaceMaintenanceMaterials[]>;
+  static async select(param: number | Partial<Record<keyof RoomSpaceMaintenanceMaterials, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<RoomSpaceMaintenanceMaterials | RoomSpaceMaintenanceMaterials[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceMaintenanceMaterials/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceMaintenanceMaterials/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceMaintenanceMaterials`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch RoomSpaceMaintenanceMaterials with id ${id}`);
+      throw new Error(`Failed to fetch RoomSpaceMaintenanceMaterials with param ${JSON.stringify(param)}`);
     } else {
-      return new RoomSpaceMaintenanceMaterials(await response.text());
+      if (typeof param === 'number') {
+        return new RoomSpaceMaintenanceMaterials(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new RoomSpaceMaintenanceMaterials(entry));
+      }
     }
   }
 }

@@ -39,15 +39,39 @@ export class CustomMethodTag {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<CustomMethodTag | null> {
+  /**
+   * Fetches a CustomMethodTag by its ID or by exact match on other fields.
+   * @param param Either the ID of the CustomMethodTag to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single CustomMethodTag object or null (if id) or an array of CustomMethodTag objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<CustomMethodTag | null>;
+  static async select(param: Partial<Record<keyof CustomMethodTag, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<CustomMethodTag[]>;
+  static async select(param: number | Partial<Record<keyof CustomMethodTag, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<CustomMethodTag | CustomMethodTag[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CustomMethodTag/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CustomMethodTag/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CustomMethodTag`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch CustomMethodTag with id ${id}`);
+      throw new Error(`Failed to fetch CustomMethodTag with param ${JSON.stringify(param)}`);
     } else {
-      return new CustomMethodTag(await response.text());
+      if (typeof param === 'number') {
+        return new CustomMethodTag(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new CustomMethodTag(entry));
+      }
     }
   }
 }

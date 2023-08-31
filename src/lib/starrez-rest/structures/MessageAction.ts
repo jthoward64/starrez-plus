@@ -27,15 +27,39 @@ export class MessageAction {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<MessageAction | null> {
+  /**
+   * Fetches a MessageAction by its ID or by exact match on other fields.
+   * @param param Either the ID of the MessageAction to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single MessageAction object or null (if id) or an array of MessageAction objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<MessageAction | null>;
+  static async select(param: Partial<Record<keyof MessageAction, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<MessageAction[]>;
+  static async select(param: number | Partial<Record<keyof MessageAction, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<MessageAction | MessageAction[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageAction/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageAction/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageAction`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch MessageAction with id ${id}`);
+      throw new Error(`Failed to fetch MessageAction with param ${JSON.stringify(param)}`);
     } else {
-      return new MessageAction(await response.text());
+      if (typeof param === 'number') {
+        return new MessageAction(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new MessageAction(entry));
+      }
     }
   }
 }

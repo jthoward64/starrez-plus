@@ -31,15 +31,39 @@ export class ConcernSubType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ConcernSubType | null> {
+  /**
+   * Fetches a ConcernSubType by its ID or by exact match on other fields.
+   * @param param Either the ID of the ConcernSubType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ConcernSubType object or null (if id) or an array of ConcernSubType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ConcernSubType | null>;
+  static async select(param: Partial<Record<keyof ConcernSubType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ConcernSubType[]>;
+  static async select(param: number | Partial<Record<keyof ConcernSubType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ConcernSubType | ConcernSubType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ConcernSubType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ConcernSubType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ConcernSubType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ConcernSubType with id ${id}`);
+      throw new Error(`Failed to fetch ConcernSubType with param ${JSON.stringify(param)}`);
     } else {
-      return new ConcernSubType(await response.text());
+      if (typeof param === 'number') {
+        return new ConcernSubType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ConcernSubType(entry));
+      }
     }
   }
 }

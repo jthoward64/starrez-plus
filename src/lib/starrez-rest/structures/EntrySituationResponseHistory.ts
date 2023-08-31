@@ -39,15 +39,39 @@ export class EntrySituationResponseHistory {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntrySituationResponseHistory | null> {
+  /**
+   * Fetches a EntrySituationResponseHistory by its ID or by exact match on other fields.
+   * @param param Either the ID of the EntrySituationResponseHistory to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EntrySituationResponseHistory object or null (if id) or an array of EntrySituationResponseHistory objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EntrySituationResponseHistory | null>;
+  static async select(param: Partial<Record<keyof EntrySituationResponseHistory, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntrySituationResponseHistory[]>;
+  static async select(param: number | Partial<Record<keyof EntrySituationResponseHistory, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EntrySituationResponseHistory | EntrySituationResponseHistory[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntrySituationResponseHistory/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntrySituationResponseHistory/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntrySituationResponseHistory`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EntrySituationResponseHistory with id ${id}`);
+      throw new Error(`Failed to fetch EntrySituationResponseHistory with param ${JSON.stringify(param)}`);
     } else {
-      return new EntrySituationResponseHistory(await response.text());
+      if (typeof param === 'number') {
+        return new EntrySituationResponseHistory(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EntrySituationResponseHistory(entry));
+      }
     }
   }
 }

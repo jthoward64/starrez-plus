@@ -29,15 +29,39 @@ export class EndOfSessionChargeGroup {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EndOfSessionChargeGroup | null> {
+  /**
+   * Fetches a EndOfSessionChargeGroup by its ID or by exact match on other fields.
+   * @param param Either the ID of the EndOfSessionChargeGroup to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single EndOfSessionChargeGroup object or null (if id) or an array of EndOfSessionChargeGroup objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<EndOfSessionChargeGroup | null>;
+  static async select(param: Partial<Record<keyof EndOfSessionChargeGroup, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EndOfSessionChargeGroup[]>;
+  static async select(param: number | Partial<Record<keyof EndOfSessionChargeGroup, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<EndOfSessionChargeGroup | EndOfSessionChargeGroup[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EndOfSessionChargeGroup/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EndOfSessionChargeGroup/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EndOfSessionChargeGroup`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch EndOfSessionChargeGroup with id ${id}`);
+      throw new Error(`Failed to fetch EndOfSessionChargeGroup with param ${JSON.stringify(param)}`);
     } else {
-      return new EndOfSessionChargeGroup(await response.text());
+      if (typeof param === 'number') {
+        return new EndOfSessionChargeGroup(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new EndOfSessionChargeGroup(entry));
+      }
     }
   }
 }

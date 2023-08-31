@@ -41,15 +41,39 @@ export class PortalRuleLink {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PortalRuleLink | null> {
+  /**
+   * Fetches a PortalRuleLink by its ID or by exact match on other fields.
+   * @param param Either the ID of the PortalRuleLink to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single PortalRuleLink object or null (if id) or an array of PortalRuleLink objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<PortalRuleLink | null>;
+  static async select(param: Partial<Record<keyof PortalRuleLink, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PortalRuleLink[]>;
+  static async select(param: number | Partial<Record<keyof PortalRuleLink, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<PortalRuleLink | PortalRuleLink[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalRuleLink/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalRuleLink/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalRuleLink`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch PortalRuleLink with id ${id}`);
+      throw new Error(`Failed to fetch PortalRuleLink with param ${JSON.stringify(param)}`);
     } else {
-      return new PortalRuleLink(await response.text());
+      if (typeof param === 'number') {
+        return new PortalRuleLink(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new PortalRuleLink(entry));
+      }
     }
   }
 }

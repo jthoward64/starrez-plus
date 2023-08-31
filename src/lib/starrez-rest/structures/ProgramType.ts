@@ -31,15 +31,39 @@ export class ProgramType {
     }
   }
 
-  static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ProgramType | null> {
+  /**
+   * Fetches a ProgramType by its ID or by exact match on other fields.
+   * @param param Either the ID of the ProgramType to fetch, or an object of key-value pairs to match against.
+   * @param starRezConfig The configuration to use for the request.
+   * @returns A promise that resolves to a single ProgramType object or null (if id) or an array of ProgramType objects (if other fields).
+   */
+  // overrides
+  static async select(param: number, starRezConfig: StarRezRestConfig): Promise<ProgramType | null>;
+  static async select(param: Partial<Record<keyof ProgramType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ProgramType[]>;
+  static async select(param: number | Partial<Record<keyof ProgramType, {toString: () => string}>>, starRezConfig: StarRezRestConfig): Promise<ProgramType | ProgramType[] | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
-    fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ProgramType/${id}`;
+    if (typeof param === 'number') {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ProgramType/${param}`;
+    } else {
+      fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ProgramType`;
+      Object.entries(param).forEach(([key, value]) => {
+        fetchUrl.searchParams.append(key, value.toString());
+      });
+    }
     const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ProgramType with id ${id}`);
+      throw new Error(`Failed to fetch ProgramType with param ${JSON.stringify(param)}`);
     } else {
-      return new ProgramType(await response.text());
+      if (typeof param === 'number') {
+        return new ProgramType(await response.text());
+      } else {
+        const xml = await response.text();
+        const xmlParser = new DOMParser();
+        const xmlDoc = xmlParser.parseFromString(xml, 'text/xml');
+        const entries = Array.from(xmlDoc.getElementsByTagName('entry'));
+        return entries.map(entry => new ProgramType(entry));
+      }
     }
   }
 }
