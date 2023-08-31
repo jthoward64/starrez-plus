@@ -43,11 +43,7 @@ export class RoommateGroupRequest {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoommateGroupRequest | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoommateGroupRequest/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoommateGroupRequest with id ${id}`);

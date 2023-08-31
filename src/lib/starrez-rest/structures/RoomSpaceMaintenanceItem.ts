@@ -41,11 +41,7 @@ export class RoomSpaceMaintenanceItem {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceMaintenanceItem | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceMaintenanceItem/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoomSpaceMaintenanceItem with id ${id}`);

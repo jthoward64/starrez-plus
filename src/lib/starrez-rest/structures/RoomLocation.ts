@@ -83,11 +83,7 @@ export class RoomLocation {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomLocation | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomLocation/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoomLocation with id ${id}`);

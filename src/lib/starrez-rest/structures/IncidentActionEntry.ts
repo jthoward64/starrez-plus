@@ -31,11 +31,7 @@ export class IncidentActionEntry {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentActionEntry | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentActionEntry/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch IncidentActionEntry with id ${id}`);

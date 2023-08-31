@@ -151,11 +151,7 @@ export class Booking {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Booking | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Booking/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch Booking with id ${id}`);

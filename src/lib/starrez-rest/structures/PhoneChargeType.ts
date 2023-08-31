@@ -33,11 +33,7 @@ export class PhoneChargeType {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PhoneChargeType | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PhoneChargeType/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch PhoneChargeType with id ${id}`);

@@ -31,11 +31,7 @@ export class VMGroupExtension {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<VMGroupExtension | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/VMGroupExtension/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch VMGroupExtension with id ${id}`);

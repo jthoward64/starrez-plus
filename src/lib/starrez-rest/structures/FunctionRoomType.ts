@@ -37,11 +37,7 @@ export class FunctionRoomType {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<FunctionRoomType | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/FunctionRoomType/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch FunctionRoomType with id ${id}`);

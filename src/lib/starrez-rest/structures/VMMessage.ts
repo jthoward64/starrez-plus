@@ -47,11 +47,7 @@ export class VMMessage {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<VMMessage | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/VMMessage/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch VMMessage with id ${id}`);

@@ -33,11 +33,7 @@ export class ReportPermission {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ReportPermission | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ReportPermission/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch ReportPermission with id ${id}`);

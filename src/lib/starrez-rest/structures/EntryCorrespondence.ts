@@ -57,11 +57,7 @@ export class EntryCorrespondence {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryCorrespondence | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryCorrespondence/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EntryCorrespondence with id ${id}`);

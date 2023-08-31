@@ -31,11 +31,7 @@ export class ProgramEvaluationType {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ProgramEvaluationType | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ProgramEvaluationType/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch ProgramEvaluationType with id ${id}`);

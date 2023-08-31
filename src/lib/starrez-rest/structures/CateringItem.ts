@@ -49,11 +49,7 @@ export class CateringItem {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<CateringItem | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CateringItem/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch CateringItem with id ${id}`);

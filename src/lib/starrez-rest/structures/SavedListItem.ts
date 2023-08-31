@@ -31,11 +31,7 @@ export class SavedListItem {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<SavedListItem | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SavedListItem/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch SavedListItem with id ${id}`);

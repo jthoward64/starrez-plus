@@ -43,11 +43,7 @@ export class EntryPosition {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryPosition | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryPosition/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EntryPosition with id ${id}`);

@@ -47,11 +47,7 @@ export class RoomRateCharge {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomRateCharge | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomRateCharge/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoomRateCharge with id ${id}`);

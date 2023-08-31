@@ -57,11 +57,7 @@ export class RefundRequestConfiguration {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RefundRequestConfiguration | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RefundRequestConfiguration/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RefundRequestConfiguration with id ${id}`);

@@ -63,11 +63,7 @@ export class EntryApplicationProxy {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryApplicationProxy | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryApplicationProxy/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EntryApplicationProxy with id ${id}`);

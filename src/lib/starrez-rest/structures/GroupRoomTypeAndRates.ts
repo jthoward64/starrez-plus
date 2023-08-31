@@ -61,11 +61,7 @@ export class GroupRoomTypeAndRates {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<GroupRoomTypeAndRates | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/GroupRoomTypeAndRates/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch GroupRoomTypeAndRates with id ${id}`);

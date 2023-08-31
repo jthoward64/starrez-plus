@@ -39,11 +39,7 @@ export class RoomSortProfileItem {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSortProfileItem | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSortProfileItem/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoomSortProfileItem with id ${id}`);

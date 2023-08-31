@@ -39,11 +39,7 @@ export class RoomSpaceKeyType {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceKeyType | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceKeyType/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoomSpaceKeyType with id ${id}`);

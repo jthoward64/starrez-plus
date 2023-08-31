@@ -45,11 +45,7 @@ export class DynamicList {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<DynamicList | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/DynamicList/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch DynamicList with id ${id}`);

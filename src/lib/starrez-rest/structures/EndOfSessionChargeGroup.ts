@@ -31,11 +31,7 @@ export class EndOfSessionChargeGroup {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EndOfSessionChargeGroup | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EndOfSessionChargeGroup/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EndOfSessionChargeGroup with id ${id}`);

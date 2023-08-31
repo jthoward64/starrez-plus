@@ -77,11 +77,7 @@ export class EntryParcel {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryParcel | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryParcel/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EntryParcel with id ${id}`);

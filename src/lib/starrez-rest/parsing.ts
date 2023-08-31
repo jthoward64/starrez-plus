@@ -31,13 +31,14 @@ export function starRezXmlToJson(xml: string | Node, tagName: string): Record<st
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data: Record<string, any> = {};
-  const properties = dataNode.children;
 
-  for (const property of properties) {
+  for (const property of dataNode.children) {
     const propertyName = property.tagName;
     const propertyValue = property.textContent;
 
     if (propertyName && propertyName in data) {
+      throw new Error(`Property ${propertyName} already exists in data`);
+    } else {
       if (typeof propertyValue === 'string') {
         data[propertyName] = propertyValue;
       } else {

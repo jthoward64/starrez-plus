@@ -41,11 +41,7 @@ export class EntryScholarship {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryScholarship | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryScholarship/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EntryScholarship with id ${id}`);

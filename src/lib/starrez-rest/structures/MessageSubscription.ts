@@ -45,11 +45,7 @@ export class MessageSubscription {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<MessageSubscription | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageSubscription/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch MessageSubscription with id ${id}`);

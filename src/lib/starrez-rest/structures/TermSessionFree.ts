@@ -35,11 +35,7 @@ export class TermSessionFree {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<TermSessionFree | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/TermSessionFree/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch TermSessionFree with id ${id}`);

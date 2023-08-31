@@ -41,11 +41,7 @@ export class Dashboard {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<Dashboard | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/Dashboard/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch Dashboard with id ${id}`);

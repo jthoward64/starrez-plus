@@ -39,11 +39,7 @@ export class PortalActivity {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<PortalActivity | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/PortalActivity/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch PortalActivity with id ${id}`);

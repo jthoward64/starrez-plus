@@ -35,11 +35,7 @@ export class EntryApplicationRoomPreference {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryApplicationRoomPreference | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryApplicationRoomPreference/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EntryApplicationRoomPreference with id ${id}`);

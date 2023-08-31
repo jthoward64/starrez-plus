@@ -59,11 +59,7 @@ export class EventQuote {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EventQuote | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EventQuote/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EventQuote with id ${id}`);

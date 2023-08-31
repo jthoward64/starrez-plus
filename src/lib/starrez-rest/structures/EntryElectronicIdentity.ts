@@ -33,11 +33,7 @@ export class EntryElectronicIdentity {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<EntryElectronicIdentity | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/EntryElectronicIdentity/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch EntryElectronicIdentity with id ${id}`);

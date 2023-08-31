@@ -33,11 +33,7 @@ export class RoomSpaceSwapPreference {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomSpaceSwapPreference | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomSpaceSwapPreference/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoomSpaceSwapPreference with id ${id}`);

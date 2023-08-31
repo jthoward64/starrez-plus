@@ -43,11 +43,7 @@ export class IncidentNote {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<IncidentNote | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/IncidentNote/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch IncidentNote with id ${id}`);

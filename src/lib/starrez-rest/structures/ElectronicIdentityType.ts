@@ -37,11 +37,7 @@ export class ElectronicIdentityType {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ElectronicIdentityType | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ElectronicIdentityType/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch ElectronicIdentityType with id ${id}`);

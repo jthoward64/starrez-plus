@@ -35,11 +35,7 @@ export class MealPlanFree {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<MealPlanFree | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MealPlanFree/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch MealPlanFree with id ${id}`);

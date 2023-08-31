@@ -51,11 +51,7 @@ export class SDASChargeRate {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<SDASChargeRate | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/SDASChargeRate/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch SDASChargeRate with id ${id}`);

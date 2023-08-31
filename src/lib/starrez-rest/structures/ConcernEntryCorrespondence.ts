@@ -55,11 +55,7 @@ export class ConcernEntryCorrespondence {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<ConcernEntryCorrespondence | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/ConcernEntryCorrespondence/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch ConcernEntryCorrespondence with id ${id}`);

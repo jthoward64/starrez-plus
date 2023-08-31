@@ -33,11 +33,7 @@ export class CorrespondenceSource {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<CorrespondenceSource | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/CorrespondenceSource/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch CorrespondenceSource with id ${id}`);

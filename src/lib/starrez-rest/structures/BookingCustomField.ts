@@ -43,11 +43,7 @@ export class BookingCustomField {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<BookingCustomField | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/BookingCustomField/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch BookingCustomField with id ${id}`);

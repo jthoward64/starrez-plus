@@ -31,11 +31,7 @@ export class RoomConfigurationTermType {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<RoomConfigurationTermType | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/RoomConfigurationTermType/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch RoomConfigurationTermType with id ${id}`);

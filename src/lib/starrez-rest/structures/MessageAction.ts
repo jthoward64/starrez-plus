@@ -29,11 +29,7 @@ export class MessageAction {
   static async fetchById(id: number, starRezConfig: StarRezRestConfig): Promise<MessageAction | null> {
     const fetchUrl = new URL(starRezConfig.baseUrl);
     fetchUrl.pathname = `${fetchUrl.pathname}/services/select/MessageAction/${id}`;
-    const response = await fetch(fetchUrl.toString(), {
-      headers: {
-        ...starRezConfig.fetchHeaders,
-      },
-    });
+    const response = await doStarRezRequest(fetchUrl, starRezConfig);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch MessageAction with id ${id}`);
