@@ -15,6 +15,7 @@ export function generateClassText(tableName, parsedTableInfo) {
   return `// Generated from XML description of ${tableName}
 
 import { starRezXmlToJson } from "../parsing.js";
+import { doStarRezRequest } from "../StarRezRequest.js";
 import type { StarRezRestConfig } from "../StarRezRestConfig.js";
 import type { StarRezStructureStatic } from "../StructureStatic.js";
 

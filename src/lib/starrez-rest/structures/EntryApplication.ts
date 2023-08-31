@@ -1,6 +1,7 @@
 // Generated from XML description of EntryApplication
 
 import { starRezXmlToJson } from "../parsing.js";
+import { doStarRezRequest } from "../StarRezRequest.js";
 import type { StarRezRestConfig } from "../StarRezRestConfig.js";
 import type { StarRezStructureStatic } from "../StructureStatic.js";
 
