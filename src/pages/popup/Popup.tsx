@@ -1,11 +1,17 @@
 import logo from "@assets/img/logo.svg";
 import { STARREZ_AUTH_TOKEN_STORAGE_KEY } from "@src/lib/constants";
 
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import browser from "webextension-polyfill";
 
 export default function Popup() {
   const [tokenInput, setTokenInput] = useState("");
+
+  useEffect(() => {
+    browser.storage.local.get(STARREZ_AUTH_TOKEN_STORAGE_KEY).then((res) => {
+      setTokenInput(res[STARREZ_AUTH_TOKEN_STORAGE_KEY] || "");
+    });
+  }, []);
 
   const onSubmit = () => {
     browser.storage.local

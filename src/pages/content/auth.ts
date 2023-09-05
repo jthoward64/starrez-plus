@@ -2,10 +2,11 @@ import { StarRezRestConfig } from '@src/lib/starrez-rest/StarRezRestConfig';
 import browser from 'webextension-polyfill';
 import $ from 'jquery';
 import { STARREZ_AUTH_TOKEN_STORAGE_KEY } from '@src/lib/constants';
+import { waitFor } from '@src/lib/waitPromise';
 
 export async function getToken(config: StarRezRestConfig) {
   const result = await browser.storage.local.get(STARREZ_AUTH_TOKEN_STORAGE_KEY);
-  const token = result[STARREZ_AUTH_TOKEN_STORAGE_KEY] || undefined;
+  let token = result[STARREZ_AUTH_TOKEN_STORAGE_KEY] || undefined;
 
   if (!token && document.getElementById('user-account-control')) {
     const createApplicationTokenRes = await fetch(config.baseUrl + '/services/createApplicationToken/StarRez%20Plus');
@@ -17,23 +18,51 @@ export async function getToken(config: StarRezRestConfig) {
     const claimTokenPopup = $('div.ui-popup-parent.popup-parent.claimapplicationtoken-account');
     claimTokenPopup.find('input[name="AccessCode"]').val(code);
     const tokenSaveButton = claimTokenPopup.find('div.ui-btn-ok[title="OK"]');
-    // tokenSaveButton.trigger("click");
+    tokenSaveButton.trigger("click");
 
-    // // Let the user confirm the creation of the token
-    // const tokenConfirmButton = claimTokenPopup.find('div.ui-btn-ok[title="OK"]');
-    // const tokenCancelButton = claimTokenPopup.find('button.ui-btn-cancelpopup[title="Cancel"]');
-    // const confirmedPromise = new Promise<void>((resolve, reject) => {
-    //   tokenConfirmButton.on('click', () => {
-    //     resolve();
-    //   });
-    //   tokenCancelButton.on('click', () => {
-    //     reject(new Error(`User cancelled token creation`));
-    //   });
-    // });
-    // await confirmedPromise;
+    // Let the user confirm the creation of the token
+    let tokenConfirmButton = document.querySelector('div.popup-parent.claimapplicationtoken-account div.popup-wrapper section.popup-container footer div.right div.ui-btn-ok');
+    while (!tokenConfirmButton || tokenConfirmButton.classList.contains('loading')) {
+      console.log(`Waiting for token confirmation button`);
+      await waitFor(100);
+      tokenConfirmButton = document.querySelector('div.popup-parent.claimapplicationtoken-account div.popup-wrapper section.popup-container footer div.right div.ui-btn-ok');
+    }
+    const tokenCancelButton = document.querySelector('div.popup-parent.claimapplicationtoken-account div.popup-wrapper section.popup-container footer div.right button.ui-btn-cancelpopup');
 
-    // await browser.storage.local.set({ STARREZ_AUTH_TOKEN_STORAGE_KEY: createdToken });
-    // token = createdToken;
+    if (!tokenConfirmButton || !tokenCancelButton) {
+      throw new Error(`Failed to find token confirmation buttons`);
+    }
+
+    const confirmedPromise = new Promise<void>((resolve, reject) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      tokenConfirmButton!.addEventListener('click', () => {
+        resolve();
+      });
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      tokenConfirmButton!.setAttribute("style", "background-color: #00a651; border-color: #00a651; color: #fff;");
+      tokenCancelButton.addEventListener('click', () => {
+        reject(new Error(`User cancelled token creation`));
+      });
+    });
+    await confirmedPromise;
+
+    browser.storage.onChanged.addListener((changes, namespace) => {
+      for (const [key, { oldValue, newValue }] of Object.entries(changes)) {
+        console.log(
+          `Storage key "${key}" in namespace "${namespace}" changed.`,
+          `Old value was "${oldValue}", new value is "${newValue}".`
+        );
+      }
+    });
+
+    console.log(`Created application token: ${createdToken}`);
+    await browser.storage.local.set({ STARREZ_AUTH_TOKEN_STORAGE_KEY: createdToken });
+    console.log(`Saved application token to storage`);
+    token = await browser.storage.local.get([STARREZ_AUTH_TOKEN_STORAGE_KEY]);
+    if (!token[STARREZ_AUTH_TOKEN_STORAGE_KEY]) {
+      throw new Error(`Failed to get application token from storage`);
+    }
+    token = token[STARREZ_AUTH_TOKEN_STORAGE_KEY];
   }
 
   if (!token) {
@@ -54,14 +83,15 @@ async function showClaimApplicationTokenPopup() {
       resolve();
     });
   });
-  script.textContent = `{
-    window.starrez.sm.ShowPopup('StarRezWeb', 'Account', 'ClaimApplicationToken', void 0)
+  script.textContent = `(() =>  {
+    window.starrez.sm.ShowPopup('StarRezWeb', 'Account', 'UserAccount', void 0)
+    .then(() => window.starrez.sm.ShowPopup('StarRezWeb', 'Account', 'ClaimApplicationToken', void 0))
     .then(
       () => {
         const event = new Event('submit');
         document.getElementById('${scriptId}').dispatchEvent(event);
       });
-    }`;
+    })();`;
   document.body.appendChild(script);
   await promise;
 }

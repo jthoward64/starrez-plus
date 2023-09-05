@@ -5,6 +5,6 @@ export interface StarRezRestConfig {
    */
   baseUrl: string;
   portalUrl: string;
-  useBrowserAuth?: boolean;
+  // useBrowserAuth?: boolean;
   authorizationHeader?: `Basic ${string}` | `Bearer ${string}`;
 }

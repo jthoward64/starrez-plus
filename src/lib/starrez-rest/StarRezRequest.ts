@@ -12,16 +12,16 @@ import type { BaseBuilder } from "squel"
  * @returns 
  */
 export async function doStarRezRequest(request: URL | RequestInfo, config: StarRezRestConfig, requestOptions: RequestInit = {}): Promise<Response> {
-  if (config.useBrowserAuth) {
-    requestOptions.credentials = 'same-origin';
-  } else {
-    requestOptions.credentials = 'omit';
-  }
+  // if (config.useBrowserAuth) {
+  //   requestOptions.credentials = 'same-origin';
+  // } else {
+  requestOptions.credentials = 'omit';
+  // }
   if (typeof request === 'string') {
     request = new URL(request, config.baseUrl);
   }
   const requestObject = new Request(request, requestOptions);
-  if (config.authorizationHeader && !config.useBrowserAuth) {
+  if (config.authorizationHeader) {// && !config.useBrowserAuth) {
     requestObject.headers.set('Authorization', config.authorizationHeader);
   }
   return await fetch(requestObject);

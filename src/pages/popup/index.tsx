@@ -5,7 +5,7 @@ import "@assets/styles/tailwind.css";
 import Popup from "@pages/popup/Popup";
 
 async function init() {
-  const rootContainer = document.querySelector("#__root");
+  const rootContainer = document.getElementById("__root");
   if (!rootContainer) throw new Error("Can't find Popup root element");
   render(<Popup />, rootContainer);
 }
